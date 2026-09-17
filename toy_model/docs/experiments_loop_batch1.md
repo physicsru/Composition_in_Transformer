@@ -64,6 +64,20 @@ L 最可能稳定成功；L-w2 ≈ L；L-history 不确定；R 最不确定（�
 | 3385018 loop-Lhist | L-history × 3（d=128 评估无 KV cache，最慢） | 12 h | 排队 |
 | 3385019 loop-R | R × 3 | 8 h | 排队 |
 | 3385020 loop-RC | RC × 3（方案外补充；最终矩阵限 d ≤ 32） | 12 h | 排队 |
-| 3385035 loop-O | C_k1 三个 seed 的 final / best 在扩展测试集上的重评估（首次提交 3385021 六个评估共用一卡、rollout batch 1000，在 d=128 的自由 rollout 处 CUDA OOM；已改为 `--rollout_batch 250` 重提） | 3 h | 排队 |
+| 3385035 loop-O | C_k1 三个 seed 的 final / best 在扩展测试集上的重评估（首次提交 3385021 六个评估共用一卡、rollout batch 1000，在 d=128 的自由 rollout 处 CUDA OOM；已改为 `--rollout_batch 250` 重提） | 3 h | 完成 09-17 23:00（§6） |
 
 结果读法：`final_eval_final.json`（主）、`final_eval_ckpt_240000/245000.json`、`final_eval_best.json`；L 系列另有 `table_*.json`、`predictions_*.jsonl`（每次调用的原始 token）、`exposure.json`；R 另有 `loop_matrix_*.json`。
+
+## 6. 结果
+
+### 6.1 O：外部控制循环（作业 3385035，完成 09-17 23:00）
+
+C_k1 的三个 seed，final（250k）与 best_by_val 两个检查点，扩展测试集全量（8 个深度 × 3 类别 × 5,000 题，共 120,000 题/检查点）：
+
+| 读数 | all_seen / one_new / random，d = 2 … 128 |
+|---|---|
+| 外部逐步调用（程序每步喂 `Q s_t r_(t+1) ANS`，串接模型自己的实体） | **1.0000 在全部 24 格、3 seed、两个检查点**（144 格 × 5,000 题无一错） |
+| 原子单步（10,000 个 `(x, r)`） | 1.0000（全部） |
+| 自由 rollout 完整轨迹 | d2 = 1.000（三类别），**d ≥ 3 全部 0.000，含 d64 / d128** |
+
+解读：C 的规范单步接口在训练覆盖域上全表正确，因此外部循环到 d=128 也不出错——这正是方案表里 O 的"外部控制正对照"；它同时把第三批"d ≥ 3 为 0"的结论延伸到 d=64 / 128。O 不训练任何新东西，它的 1.0 说明瓶颈只在"谁来选下一个关系、谁来决定停止"，而不在更新本身。L 系列要回答的是：把这两件事也交给模型学（STEP/HALT 动作），但每次调用仍是局部观察时，模型能否学准并在重复调用下保持不变。每个评估耗时 1,640 s（六个进程共用一卡，rollout batch 250）。
