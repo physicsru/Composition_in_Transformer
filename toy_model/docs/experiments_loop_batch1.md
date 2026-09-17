@@ -1,6 +1,6 @@
 # 第四批：局部执行器与内部循环（`experiments_loop_next.md` 的可行性审查与落地记录）
 
-日期：2026-09-17。方案：[experiments_loop_next.md](experiments_loop_next.md)。作业：3385016–3385021（见 §5）。
+日期：2026-09-17。方案：[experiments_loop_next.md](experiments_loop_next.md)。作业：3385016–3385020、3385035（见 §5）。
 
 ## 0. 结论先行：方案可行，已按原样实现并提交；两处需要提前说明
 
@@ -64,6 +64,6 @@ L 最可能稳定成功；L-w2 ≈ L；L-history 不确定；R 最不确定（�
 | 3385018 loop-Lhist | L-history × 3（d=128 评估无 KV cache，最慢） | 12 h | 排队 |
 | 3385019 loop-R | R × 3 | 8 h | 排队 |
 | 3385020 loop-RC | RC × 3（方案外补充；最终矩阵限 d ≤ 32） | 12 h | 排队 |
-| 3385021 loop-O | C_k1 三个 seed 的 final / best 在扩展测试集上的重评估 | 3 h | 排队 |
+| 3385035 loop-O | C_k1 三个 seed 的 final / best 在扩展测试集上的重评估（首次提交 3385021 六个评估共用一卡、rollout batch 1000，在 d=128 的自由 rollout 处 CUDA OOM；已改为 `--rollout_batch 250` 重提） | 3 h | 排队 |
 
 结果读法：`final_eval_final.json`（主）、`final_eval_ckpt_240000/245000.json`、`final_eval_best.json`；L 系列另有 `table_*.json`、`predictions_*.jsonl`（每次调用的原始 token）、`exposure.json`；R 另有 `loop_matrix_*.json`。

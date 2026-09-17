@@ -47,12 +47,15 @@ pids=(); names=()
 if [ "$MODE" = "O" ]; then
   # arm O (plan table row O, §12 P0.4): the trained C_k1 models, no new training, free rollouts + external step-wise calling
   # on the extended test matrix (d up to 128) for the final and the best_by_val checkpoints of every seed.
+  # six evaluations share the GPU: protocol C free rollouts at d = 128 need --rollout_batch 250 (1000 -> CUDA OOM, job 3385021)
+  O_TAGS=${O_TAGS:-final+best}
   for seed in ${SEEDS//+/ }; do
     run=../runs/chain_chainC_k1_s${seed}
-    for tag in final best; do
+    for tag in ${O_TAGS//+/ }; do
       ck=$run/ckpt_250000.pt; [ "$tag" = best ] && ck=$run/best_by_val.pt
       echo "--- O eval $run $tag"
-      python -u train_chain.py --data_dir "$data_dir" --save_dir "$run" --protocol C --seed "$seed" --eval_only "$ck" --eval_tag "O_${tag}" > "$run/eval_O_${tag}.log" 2>&1 &
+      python -u train_chain.py --data_dir "$data_dir" --save_dir "$run" --protocol C --seed "$seed" --eval_only "$ck" --eval_tag "O_${tag}" \
+          --rollout_batch "${ROLLOUT_BATCH:-250}" > "$run/eval_O_${tag}.log" 2>&1 &
       pids+=($!); names+=("$run:$tag")
     done
   done
