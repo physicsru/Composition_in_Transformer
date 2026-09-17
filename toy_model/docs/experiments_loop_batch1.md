@@ -64,6 +64,7 @@ L 最可能稳定成功；L-w2 ≈ L；L-history 不确定；R 最不确定（�
 | 3385018 loop-Lhist | L-history × 3（d=128 评估无 KV cache，最慢） | 12 h | 排队 |
 | 3385019 loop-R | R × 3 | 8 h | 排队 |
 | 3385020 loop-RC | RC × 3（方案外补充；最终矩阵限 d ≤ 32） | 12 h | 排队 |
+| 3385478 loop-early | L_early / Lhist_early × 3：主臂前 5k updates 的 200-update 分辨率重跑（§10 的 t_d；不是新臂） | 2 h | 排队 09-18 00:30 |
 | 3385035 loop-O | C_k1 三个 seed 的 final / best 在扩展测试集上的重评估（首次提交 3385021 六个评估共用一卡、rollout batch 1000，在 d=128 的自由 rollout 处 CUDA OOM；已改为 `--rollout_batch 250` 重提） | 3 h | 完成 09-17 23:00（§6） |
 
 结果读法：`final_eval_final.json`（主）、`final_eval_ckpt_240000/245000.json`、`final_eval_best.json`；L 系列另有 `table_*.json`、`predictions_*.jsonl`（每次调用的原始 token）、`exposure.json`；R 另有 `loop_matrix_*.json`。

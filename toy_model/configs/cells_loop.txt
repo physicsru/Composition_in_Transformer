@@ -12,3 +12,9 @@ R      | train_chain.py | --protocol A --vocab_ext --loop_T 2,4,8 --zero_init_ou
 # EXTRA (not in the plan; added because the plain answer-only model A already fails d2 new pairs, which would make R uninformative
 # about depth): the same looped model with protocol C (relation + entity CoT) outputs. Final eval limited to d <= 32 for cost.
 RC     | train_chain.py | --protocol C --vocab_ext --loop_T 2,4,8 --zero_init_out --select_by w2 --small_test_depths 2,3,4,8,16,32 --final_depths 2,3,4,8,16,32 --final_extra_ckpts auto
+# Early-resolution diagnostic for plan §10 (t_d and the training-steps x depth heat map): the main L arms already show a complete
+# table and 1.0 at every depth at their FIRST evaluation (5k updates), so the emergence order is invisible at 5k spacing. These
+# cells re-run the identical phase-1 recipe (same seed -> same streams / HALT draws / init) for the first 5k updates only, evaluating
+# every 200 updates; no training change, no final matrix. Not a new arm.
+L_early     | train_local.py | --max_len 64 --phase1_updates 5000 --phase2_updates 0 --eval_every 200 --save_every 1000 --no_final_eval
+Lhist_early | train_local.py | --max_len 4096 --history --phase1_updates 5000 --phase2_updates 0 --eval_every 200 --save_every 1000 --no_final_eval
