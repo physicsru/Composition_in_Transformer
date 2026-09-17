@@ -1,0 +1,31 @@
+# Chain task, first batch (docs/shallow_training_deep_composition_plan_2026-09-16.md §4): three NTP output protocols on the
+# same strict w2/d2 dataset L (E=500, R=20, world 42, k=4). All cells generate identical data (deterministic; hashes in meta.json),
+# so question ids / streams coincide across arms for a given seed. 50k updates w2-only, then 200k updates 128 w2 + 128 d2.
+# name   | generate_chain.py args | train_chain.py args
+chainA   |                        | --protocol A
+chainB   |                        | --protocol B
+chainC   |                        | --protocol C
+# 4-layer versions of the three protocols (same data L, same schedule).
+chainA_4L |                        | --protocol A --n_layer 4
+chainB_4L |                        | --protocol B --n_layer 4
+chainC_4L |                        | --protocol C --n_layer 4
+# Partner-count dose for the CoT protocols (plan §6.2), run ahead of the k=4 result to use idle GPUs: k = 1 / 2 / 8 out-/in-neighbours
+# per relation (d2 rows 10k / 20k / 80k; 128 d2 rows per update as before, so every fact keeps the same total d2 exposure).
+chainB_k1 | --k 1 | --protocol B
+chainB_k2 | --k 2 | --protocol B
+chainB_k8 | --k 8 | --protocol B
+chainC_k1 | --k 1 | --protocol C
+chainC_k2 | --k 2 | --protocol C
+chainC_k8 | --k 8 | --protocol C
+# Second-batch arms chosen from the mid-training diagnosis of A/B/C (relation selection is positional: at d=3 the model applies
+# r1 then the LAST relation and stops after two updates). D = "queue CoT": after every state the model re-copies the remaining
+# relation list, so next-relation and stop are local rules; NoPE = no positional encoding (plan §6.1 diagnostic control).
+chainD      |                        | --protocol D --max_len 1024
+chainC_nope |                        | --protocol C --no_rope
+chainD_nope |                        | --protocol D --no_rope --max_len 1024
+# CONTROL that leaves the strict w2/d2 constraint (my addition, labelled as such): add depth-3 training questions (all 2-edge walks on
+# the training graph x all starts = 160k rows) as 16 of the 128 composition rows per phase-2 update. Asks whether ONE longer
+# demonstration depth is enough to break the positional relation-selection rule and give d -> 32, or whether the 2-layer model
+# fails to loop even when shown the rule. Note: all_seen|d3 becomes a training-fit cell for these arms.
+chainC_d3 | --train_d3 1 | --protocol C --d3_per_update 16
+chainD_d3 | --train_d3 1 | --protocol D --d3_per_update 16 --max_len 1024

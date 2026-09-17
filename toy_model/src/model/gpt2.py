@@ -74,10 +74,12 @@ class CausalSelfAttentionRoPE(nn.Module):
         n_head: int,
         dropout: float,
         max_len: int,
-        rope_base: float = 10000.0
+        rope_base: float = 10000.0,
+        use_rope: bool = True,
     ):
         super().__init__()
         assert d_model % n_head == 0, "d_model must be divisible by n_head"
+        self.use_rope = use_rope
         self.d_model = d_model
         self.n_head = n_head
         self.head_dim = d_model // n_head
@@ -108,9 +110,10 @@ class CausalSelfAttentionRoPE(nn.Module):
         k = k.view(B, L, self.n_head, self.head_dim).transpose(1, 2)
         v = v.view(B, L, self.n_head, self.head_dim).transpose(1, 2)
 
-        cos, sin = self.rope(seq_len=L, device=x.device, dtype=x.dtype)
-        q = apply_rope(q, cos, sin)
-        k = apply_rope(k, cos, sin)
+        if self.use_rope:
+            cos, sin = self.rope(seq_len=L, device=x.device, dtype=x.dtype)
+            q = apply_rope(q, cos, sin)
+            k = apply_rope(k, cos, sin)
 
         att = (q @ k.transpose(-2, -1)) / math.sqrt(self.head_dim)
         att = att.masked_fill(self.causal_mask[:, :, :L, :L], float("-inf"))
@@ -136,11 +139,12 @@ class GPT2BlockRoPE(nn.Module):
         n_head: int,
         dropout: float,
         max_len: int,
-        rope_base: float = 10000.0
+        rope_base: float = 10000.0,
+        use_rope: bool = True,
     ):
         super().__init__()
         self.ln_1 = nn.LayerNorm(d_model)
-        self.attn = CausalSelfAttentionRoPE(d_model, n_head, dropout, max_len, rope_base=rope_base)
+        self.attn = CausalSelfAttentionRoPE(d_model, n_head, dropout, max_len, rope_base=rope_base, use_rope=use_rope)
         self.ln_2 = nn.LayerNorm(d_model)
 
         self.mlp = nn.Sequential(
@@ -170,7 +174,8 @@ class GPT2LikeEncoder(nn.Module):
         n_head: int = 12,
         dropout: float = 0.0,
         max_len: int = 1024,
-        rope_base: float = 100.0
+        rope_base: float = 100.0,
+        use_rope: bool = True,
     ):
         """
         Args:
@@ -187,7 +192,7 @@ class GPT2LikeEncoder(nn.Module):
         self.drop = nn.Dropout(dropout)
 
         self.blocks = nn.ModuleList([
-            GPT2BlockRoPE(d_model, n_head, dropout, max_len, rope_base=rope_base)
+            GPT2BlockRoPE(d_model, n_head, dropout, max_len, rope_base=rope_base, use_rope=use_rope)
             for _ in range(n_layer)
         ])
 

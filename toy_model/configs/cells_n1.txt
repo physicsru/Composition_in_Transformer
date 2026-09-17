@@ -1,0 +1,8 @@
+# N1 (docs/findings_and_next_experiments.md §5): replicate the P1 endpoints k=1 / k=8 under two NEW partner splits.
+# World, U/S sets (role_seed 7) unchanged; only the per-H partner order + reserved partners are redrawn (--partner_seed).
+# Same recipe as P1: continue from F_long_s{seed}/epoch3000.pt, fresh AdamW, 525 epochs = 200,550 updates, epoch-shuffled.
+# Extra checkpoints at the pre-registered endpoint epochs 471/484/497/510/524 (= 179,922 / 184,888 / 189,854 / 194,820 / 200,168 updates).
+RC_p101_k1 | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 1 --partner_seed 101 | --lr 0.0003 --d_model 256 --save_every 25 --save_epochs 471,484,497,510,524 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_p101_k8 | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 8 --partner_seed 101 | --lr 0.0003 --d_model 256 --save_every 25 --save_epochs 471,484,497,510,524 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_p202_k1 | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 1 --partner_seed 202 | --lr 0.0003 --d_model 256 --save_every 25 --save_epochs 471,484,497,510,524 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_p202_k8 | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 8 --partner_seed 202 | --lr 0.0003 --d_model 256 --save_every 25 --save_epochs 471,484,497,510,524 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525

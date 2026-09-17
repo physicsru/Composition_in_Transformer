@@ -1,0 +1,29 @@
+# Round 3: the grokking regime. Use CONFIG=../configs/skills_round3.yaml (AdamW, batch 512, warmup 2000,
+# wd 0.1, eval batch 4096, tensor data path). Informed by the pilot: variable-width co-occurrence rows
+# (width 1-4, 8 partner draws per fact) give slot-invariant atomics (w2/w3 held-out = 1.0), and
+# d_model 256 is what makes unseen-instance composition rise (F: 0.22 at epoch 140; D at d_model 128: 0.01).
+# Two worlds, 500 entities, data seed 42:
+#   dense  : 20 permutation relations (12 train / 8 held-out); 52,000 of 57,500 train-pair instances
+#            in training (90%), 20% of pairs held out; ratio comps/atomics 5.2 (8.7 vs train-relation atomics).
+#   sparse : 200 relations, out-degree 20 (Wang et al. geometry; 160 train / 40 held-out); 10,000 atomics,
+#            115,000 of 127,000 composable instances (~4.5 per relation pair), 5% of pairs held out; ratio 11.5.
+# Epochs give ~5e5 optimisation steps at batch 512 (dense eco: 84k rows = 164 steps/epoch; sparse eco: 147k rows = 287).
+# name | generate_data.py args | train.py args
+dense_2L_lr3e4   | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 52000                                                                                   | --epochs 3050 --n_layer 2 --d_model 256 --lr 0.0003
+dense_2L_lr1e4   | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 52000                                                                                   | --epochs 3050 --n_layer 2 --d_model 256 --lr 0.0001
+dense_4L_lr1e4   | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 52000                                                                                   | --epochs 3050 --n_layer 4 --d_model 256 --lr 0.0001
+sparse_2L_lr1e4  | --group_size 1 --group_size_max 4 --group_passes 8 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001
+sparse_4L_lr1e4  | --group_size 1 --group_size_max 4 --group_passes 8 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 | --epochs 1750 --n_layer 4 --d_model 256 --lr 0.0001
+sparse_2L_wd03   | --group_size 1 --group_size_max 4 --group_passes 8 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3
+# Follow-up (12:35): in sparse_2L the held-out-as-second-hop score rises slowly (lr1e4 0.04 -> 0.16, wd 0.3 -> 0.21 at 1750
+# epochs, still climbing). Longer + stronger weight decay to see whether held-out entry keeps growing.
+sparse_2L_wd03_long | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 | --epochs 3500 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3
+sparse_2L_wd06      | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 | --epochs 3500 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.6
+# Sparse-world dose test (13:55): exactly k (train, held-out) pairs per held-out relation leaked at 90%; a sparse pair has
+# only ~5 instances, so k=8 / 32 pairs is ~40 / 160 instances per relation. Readout: never-composed pairs in d2_mixed_second.
+sparse_2L_perrel8  | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 --heldout_leak_per_rel 8  | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3
+sparse_2L_perrel32 | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 --heldout_leak_per_rel 32 | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3
+sparse_2L_perrel1  | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 --heldout_leak_per_rel 1  | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3
+sparse_2L_perrel2  | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 --heldout_leak_per_rel 2  | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3
+sparse_2L_perrel8_any  | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 --heldout_leak_per_rel 8 --heldout_leak_slot any  | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3
+sparse_2L_perrel32_any | --grouped_frac 0 --num_relations 200 --num_heldout_relations 40 --out_degree 20 --n_comp 115000 --comp_pair_holdout_frac 0.05 --heldout_leak_per_rel 32 --heldout_leak_slot any | --epochs 1750 --n_layer 2 --d_model 256 --lr 0.0001 --weight_decay 0.3

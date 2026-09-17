@@ -1,0 +1,66 @@
+# Skills task, W2D2 cell: atomic facts + width-2 co-occurrence over ALL relations
+# + depth-2 compositions over TRAIN relations only. Held-out relations are never composed.
+# Paths are relative to toy_model/src (run the scripts from there).
+#
+# Single-knob ablation cells (override on the command line, use a different output_dir/data_dir/save_dir):
+#   --grouped_frac 0            "v1": single-task atomics only, no co-occurrence
+#   --n_comp 0                  "C1": co-occurrence but no compositions
+#   --heldout_grouped_frac 0.25 dose: only this fraction of held-out facts practised under load
+#   --comp_relations 4          diversity: compositions use only 4 of the train relations
+#   --comp_depths 2,3           depth diversity (C4 -> C4b)
+#   --heldout_slot first|last   position of the held-out task in mixed pairs
+#   --partner train|heldout     partner of the held-out task
+
+data:
+  task: skills
+  num_entities: 500
+  num_relations: 20
+  num_heldout_relations: 8
+  seed: 42
+  # width (co-occurrence) rows
+  group_size: 2
+  grouped_frac: 1.0
+  heldout_grouped_frac: null   # null = same as grouped_frac
+  heldout_slot: any            # any | first | last
+  partner: any                 # any | train | heldout
+  group_passes: 1
+  # composition rows (train relations only)
+  comp_depths: [2]
+  n_comp: 20000
+  comp_relations: null         # null = all train relations
+  comp_pair_holdout_frac: 0.2  # -> test type d2_train_unseen_pair
+  # test sets (one file per type under by_type/)
+  n_test_per_type: 500
+  test_depths: [2, 3]
+  test_widths: [2, 3, 4]
+  output_dir: "../data/skills_w2d2"
+
+# Training settings
+data_dir: "../data/skills_w2d2"
+save_dir: "../runs/skills_w2d2"
+
+# Model architecture (two layers: one to resolve the intermediate entity, one to apply the second relation)
+d_model: 128
+n_layer: 2
+n_head: 2
+dropout: 0.0
+max_len: 64
+
+# Training hyperparameters (grokking regime: decoupled weight decay, long training)
+optimizer: adamw
+batch_size: 256
+epochs: 2000
+lr: 0.001
+weight_decay: 0.1
+warmup_steps: 100
+use_amp: false   # tiny model: fp32 is exact and no slower
+
+# Logging and checkpointing
+use_wandb: false
+project: "skills_w2d2"
+run_name: null
+log_every: 50
+eval_every: 20
+save_every: 200
+num_workers: 0
+seed: 1

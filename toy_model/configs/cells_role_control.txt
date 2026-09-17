@@ -1,0 +1,20 @@
+# Role-controlled leak cells (P1 / P2 of docs/propose_experiment.md; builder src/data/builder_role_control.py).
+# Base data = F_long (E-co atomics width 1-4 x 8 passes + 40k T->T depth-2 comps, world seed 42) plus role rows for
+# every held-out relation H: fixed 400/500 covered facts per active slot (100 role-unseen), 4 reserved test partners,
+# nested partner order shared by all arms, 8 supervised answers per covered fact (k partners x 8/k repeats), zero H->H.
+# Training continues from F_long_s{seed}/epoch3000.pt with a fresh AdamW (lr 3e-4, wd 0.1, warmup 100).
+# Epochs are chosen so every arm gets ~200k optimizer updates at batch 256 (rows/epoch: none 72,061; single slot 97,661; both 123,261).
+# name    | generate_data.py args                                                                                                              | train.py args
+RC_none   | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots none            | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 710
+RC_k1     | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 1 | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_k2     | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 2 | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_k4     | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 4 | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_k8     | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 8 | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_first4 | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots first --role_k 4  | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 525
+RC_both4  | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots both --role_k 4   | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_F_long_s{seed}/epoch3000.pt --epochs 415
+# 2026-09-16 follow-ups on the open questions.
+# RC_k8_cont: continue RC_k8 for another 525 epochs (fresh AdamW again) -> does application to uncovered bridges keep rising past 0.83?
+RC_k8_cont | --task role_control --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 8 | --lr 0.0003 --d_model 256 --save_every 25 --init_from ../runs/skills_RC_k8_s{seed}/epoch525.pt --epochs 525
+# New world (data seed 43): P1 endpoints k1 / k8 continued from F_long_w43_s{seed}/epoch3000.pt (submit after flong-w43 finishes).
+RC_w43_k1 | --task role_control --seed 43 --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 1 | --lr 0.0003 --d_model 256 --save_every 25 --save_epochs 471,484,497,510,524 --init_from ../runs/skills_F_long_w43_s{seed}/epoch3000.pt --epochs 525
+RC_w43_k8 | --task role_control --seed 43 --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 --role_slots second --role_k 8 | --lr 0.0003 --d_model 256 --save_every 25 --save_epochs 471,484,497,510,524 --init_from ../runs/skills_F_long_w43_s{seed}/epoch3000.pt --epochs 525

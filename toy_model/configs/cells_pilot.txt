@@ -1,0 +1,13 @@
+# Round-2 pilot: find a regime where the model composes instead of memorising.
+# Round 1 (lr 1e-3, 20k comps, fixed width-2 pairs, one appearance per fact) memorised everything:
+# d2_train_unseen_instance at chance in every cell, and facts seen only in slot 2 of a pair were not
+# recalled in single-task form. Levers here: composition coverage (40k of 57.5k train-pair instances,
+# ratio comps/atomics 4 instead of 2), learning rate, E-co style atomics (width 1-4, 8 partner draws
+# per fact), and capacity. All cells share the world (data seed 42). Suggested EPOCHS=1000.
+# name | generate_data.py args | train.py args
+A_single_c40k       | --grouped_frac 0 --n_comp 40000 --n_test_per_type 300                                   | --lr 0.0003
+B_single_c40k_lr1e3 | --grouped_frac 0 --n_comp 40000 --n_test_per_type 300                                   | --lr 0.001
+C_single_c20k       | --grouped_frac 0 --n_comp 20000 --n_test_per_type 300                                   | --lr 0.0003
+D_eco_c40k          | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 | --lr 0.0003
+E_eco_c0            | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 0 --n_test_per_type 300     | --lr 0.0003
+F_eco_c40k_d256     | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 | --lr 0.0003 --d_model 256

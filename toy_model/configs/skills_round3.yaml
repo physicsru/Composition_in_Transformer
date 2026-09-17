@@ -1,0 +1,55 @@
+# Round 3: the regime in which Wang et al. 2024 (arXiv:2405.15071) observe grokking of two-hop
+# composition (see docs/paper_2405.15071_grokked_implicit_reasoners.md): AdamW lr 1e-4 with 2000
+# warmup steps, weight decay 0.1, batch 512, >= 5e5 optimisation steps, and a composition/atomic
+# ratio >= 9 (set per cell in configs/cells_round3.txt). Evaluation uses one 4096 batch.
+# Run from toy_model/src; cells override data knobs and model size on the command line.
+data:
+  task: skills
+  num_entities: 500
+  num_relations: 20
+  num_heldout_relations: 8
+  seed: 42
+  group_size: 2
+  grouped_frac: 1.0
+  heldout_grouped_frac: null
+  heldout_slot: any
+  partner: any
+  group_passes: 1
+  comp_depths:
+  - 2
+  n_comp: 20000
+  comp_relations: null
+  comp_pair_holdout_frac: 0.2
+  n_test_per_type: 300
+  test_depths:
+  - 2
+  - 3
+  test_widths:
+  - 2
+  - 3
+  - 4
+  output_dir: ../data/skills_w2d2
+data_dir: ../data/skills_round3
+save_dir: ../runs/skills_round3
+d_model: 128
+n_layer: 2
+n_head: 2
+dropout: 0.0
+max_len: 64
+optimizer: adamw
+batch_size: 512
+epochs: 4000
+lr: 0.0001
+weight_decay: 0.1
+warmup_steps: 2000
+use_amp: false
+use_wandb: false
+project: skills_w2d2
+run_name: null
+log_every: 200
+eval_every: 100
+save_every: 500
+num_workers: 0
+seed: 1
+eval_batch_size: 4096
+data_loader: tensor

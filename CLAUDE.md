@@ -1,0 +1,136 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repo is
+
+Official code for the paper "Emergent Analogical Reasoning in Transformers". Two independent sub-projects that share no code:
+
+- `toy_model/` — trains a small GPT-2-style model on a synthetic knowledge graph with atomic / compositional / analogical (functor) facts (paper Sections 2–4), plus a second "skills" data mode for compositional generalization over held-out relations (not in the paper).
+- `pretrained_llm/` — layer-wise mechanistic analysis (Dirichlet energy, functor similarity, logit lens) of a pretrained HF model on an in-context analogy prompt, via TransformerLens (paper Section 5).
+
+Each has its own `requirements.txt`, `Dockerfile`, `docker-compose.yml`, and README. There is no test suite, linter config, or packaging (`setup.py`/`pyproject.toml`); everything is run as scripts. Python ≥ 3.10 is required (the code uses `X | None` and `dict[str, ...]` annotations). The notebooks additionally need `scikit-learn`, `scipy`, and `pandas`, which are not listed in either `requirements.txt`.
+
+## Commands
+
+### toy_model
+
+Scripts import `data` and `model` as top-level packages, so run them from `toy_model/src` (the Docker image sets `PYTHONPATH=/app/src` and `working_dir: /app/src` for the same reason). Even `generate_data.py` needs torch installed, because `data/__init__.py` imports `data/dataset.py`, which imports torch.
+
+`configs/default.yaml` hardcodes container paths (`/app/data/...`, `/app/runs/...`) for `data.output_dir`, `data_dir`, and `save_dir`. For a local (non-Docker) run, override them on the command line:
+
+```bash
+cd toy_model && pip install -r requirements.txt
+cd src
+python generate_data.py --config ../configs/default.yaml --output_dir ../data/composition_functor.10.10000.5
+python train.py --config ../configs/default.yaml \
+    --data_dir ../data/composition_functor.10.10000.5 --save_dir ../runs/functor_experiment --no_wandb
+```
+
+Smoke test: add `--epochs 2` to `train.py`. On a many-core CPU host set `OMP_NUM_THREADS=1` (or a few): with the default thread count the tiny model spends its time in thread overhead (3 tiny epochs: 5 s at 1 thread vs > 5 min at 144). Other CLI overrides: `--batch_size`, `--lr`, `--wandb_project`, `--wandb_run`; `generate_data.py` accepts `--num_entities --num_relations --sub_size --seed`.
+
+`sweep.py` defaults to `--data_dir /app/data/sweep --runs_dir /app/runs/sweep`; override locally. `--dry_run` prints the plan without training:
+
+```bash
+python sweep.py --config ../configs/sweep_config.yaml --sweep_optimizer --dry_run \
+    --data_dir ../data/sweep --runs_dir ../runs/sweep
+```
+
+**Skills task (W2D2 cell).** `configs/skills_w2d2.yaml` sets `data.task: skills` and uses paths relative to `toy_model/src`, so it runs locally without overrides:
+
+```bash
+cd toy_model/src
+python generate_data.py --config ../configs/skills_w2d2.yaml     # -> ../data/skills_w2d2 (about 3 s)
+python train.py --config ../configs/skills_w2d2.yaml --no_wandb   # -> ../runs/skills_w2d2
+```
+
+Ablation cells are single-knob overrides of that config, each with its own `--output_dir` / `--data_dir` / `--save_dir`: `--grouped_frac 0` (no co-occurrence, the "v1" cell), `--n_comp 0` (no compositions, "C1"), `--heldout_grouped_frac 0.25` (dose), `--comp_relations 4` (diversity), `--comp_depths 2,3` (depth diversity), `--heldout_slot first|last`, `--partner train|heldout`. `train.py` also takes `--optimizer adam|adamw` and `--weight_decay`.
+
+Cluster runs (Miyabi PBS): `scripts/pbs_skills.sh` submitted from `toy_model/` runs every (cell, seed) pair concurrently on one GPU node, generating each cell's data once into `data/skills_<cell>` and writing runs to `runs/skills_<cell>_s<seed>`. Cells are defined in a text file (`name | generate_data.py args | train.py args`), default `configs/cells_default.txt` (round 1: w2d2 + ablations); `configs/cells_pilot.txt` is the round-2 regime search. Lists are `+`-separated because `qsub -v` splits on commas. A cell's own `--epochs` (third column of the cells file) is appended after `EPOCHS`, so it wins; to shorten a run, edit the cell or use a cell without `--epochs`:
+
+```bash
+cd toy_model
+qsub -N skills-s1 -o runs/pbs/s1.out -v CELLS=w2d2+v1+c1+dose25+div4+d23,SEEDS=1 scripts/pbs_skills.sh
+qsub -N skills-pilot -l walltime=02:30:00 -o runs/pbs/pilot.out -v CELLS_FILE=configs/cells_pilot.txt,CELLS=A_single_c40k+D_eco_c40k,SEEDS=1,EPOCHS=1000 scripts/pbs_skills.sh
+qsub -N skills-smoke -q debug-g -l walltime=00:25:00 -o runs/pbs/smoke.out -v CELLS=w2d2,SEEDS=1,EPOCHS=20,RUN_TAG=_smoke scripts/pbs_skills.sh
+python scripts/summarize_skills.py runs/skills_*_s1            # final / best accuracy per test type
+python scripts/summarize_skills.py runs/skills_w2d2_s1 --curve d2_heldout,d2_train_unseen_instance --every 100
+python scripts/summarize_skills.py runs/skills_F_long_s* --window 30   # trailing mean; single epochs can sit on an lr spike
+python scripts/split_heldout.py runs/skills_F_perrel4_s1                # leaked vs never-composed pairs, per held-out relation
+```
+
+`configs/skills_round3.yaml` + `configs/cells_round3.txt` is the grokking regime matched to Wang et al. 2024 (AdamW lr 1e-4, 2000 warmup steps, wd 0.1, batch 512, ~5e5 steps, d_model 256, variable-width atomics; `docs/paper_2405.15071_grokked_implicit_reasoners.md` has the comparison). `configs/cells_pilot2.txt` (F_long, F_ctrl) extends the pilot's F cell to 3000 epochs and adds the frequency-matched control in which held-out facts never enter co-occurrence rows (`--heldout_grouped_frac 0 --single_passes 8`; `single_passes` repeats every single-task row). `--n_mixed N` adds rows pairing one held-out atomic task with one training composition (held-out relations still never composed); `--heldout_comp_frac f` leaks a fraction of held-out-involving compositions into training (the d2_heldout / d2_mixed tests exclude leaked instances); `--heldout_leak_pairs K [--heldout_leak_within 0.9 --heldout_leak_slot second]` concentrates the leak on K relation pairs and adds the test type `d2_leakpair_unseen`. `--out_degree K` switches the world to Wang-style sparse relations (each entity has K random relations with random tails; relations become partial many-to-one functions, so composition/atomic ratios above 10 are reachable).
+
+**Role-control task (P1/P2 of `docs/propose_experiment.md`; implementation log `docs/experiments_P0_P3.md`).** `generate_data.py --task role_control` builds the ordinary skills dataset and adds *role rows* exposing every held-out relation H in the first and/or second hop with fixed fact coverage (`src/data/builder_role_control.py`): `--role_slots none|first|second|both`, `--role_k` training partners per slot (nested order shared across arms), `--role_exposure` answers per covered fact (rows are literally repeated `exposure/k` times), `--role_unseen` bridges/inputs per H never used in that role, `--role_reserved` train relations never paired with H (the new-pair test partners), `--role_seed`. H->H compositions are never generated (asserted). New test types: `rc{1,2}_newpair_role_{seen,unseen}`, `rc2_trainpartner_unseen`, `hh_cov_{both,other}` (exhaustive H->H split by the predefined coverage sets); the base `d2_mixed_*`/`d2_heldout` types are dropped. `scripts/audit_role_control.py data/skills_RC_k4` re-derives coverage, exposures, reserved-partner and H->H counts from the actual rows and writes `audit.json` with file hashes. `train.py --init_from <ckpt.pt>` loads model weights only (fresh optimizer); the PBS driver replaces `{seed}` in cell train args, so `configs/cells_role_control.txt` continues each seed from `runs/skills_F_long_s{seed}/epoch3000.pt`. Diagnostics: `scripts/role_tags.py <run>` (P0: tags every two-hop test item by what the training rows actually contained, four-cell tables, atomic probes, ignore-head baseline) and `scripts/patch_bridge.py <run>` (P3: patches the block-0 residual at the r1/r2 position from same-bridge / wrong-bridge / random sources). `scripts/readout_role_control.py --arms RC_k1,RC_k8 --ref RC_k1 --cmp RC_k8` is the pre-registered readout (mean over the last five saved checkpoints per type, plus a paired bootstrap by held-out relation and bridge block on `--main`; it runs `role_tags.py` on demand). `summarize_skills.py` shows the rc/hh columns automatically when a run reports them. `--partner_seed N` redraws only the per-H partner order and reserved partners (U/S sets stay those of `role_seed`; N1 replication). `train.py --save_epochs 471,484,497,510,524` saves extra checkpoints at listed epochs. **Stream mode** (`train.py --stream tt:128,atomic:64,first:32,second:32 --max_updates 200000 --eval_every_updates 5000 --save_every_updates 5000 [--stream_denominator 256]`, `src/data/streams.py`) replaces epoch training by update-based training with a fixed number of single-answer rows per stream per update (tt = train-relation compositions, atomic = all 10,000 facts synthesised from rel_map, first/second = role rows grouped by fact with partners rotated so every 100 updates cover each fact once), loss = sum of answer CEs / fixed denominator, and writes `manifest.json` (stream spec, row hashes, exposure counts) and `train_log.jsonl`; `metrics.jsonl` rows then carry `epoch` = eval index and `global_step` = update, checkpoints are `epoch{k:03d}.pt` with k = update / save_every (use `readout_role_control.py --stride 1`). `scripts/patch_bridge_balanced.py <run>` is the stratified patching (N0): fixed target/source manifest over all held-out relations and H pairs (seed 20260916), conditions no_patch / same_bridge / wrong_bridge_S2 / wrong_bridge_U2 / uniform_bridge, bootstrap by H. Note: a width-1 row `<e_x><r_T><e_ans>` has the same position-1 block-0 state as `<e_x><r_T><r2>` (causal model), so the old `random_src` condition is just a uniform-random bridge; it now records its bridge and reports following. `scripts/error_types.py <run>` classifies every depth-2 prediction (bridge / r2-only / swap / wrong relation on the bridge / memorised pair answer / ...) with probability-mass readouts, and `scripts/logit_lens.py <run>` decodes the residual after every block at the r1 / r2 positions to show where the bridge becomes readable (in a 2-layer model the second hop can only read block-0 outputs, so the first hop must be finished in block 0).
+
+**Chain task (third batch; `docs/shallow_training_deep_composition_plan_2026-09-16.md`, log `docs/experiments_chain_batch1.md`).** A separate pipeline that trains ONLY on width-2 and depth-2 questions and evaluates autonomous multi-step generation: `src/generate_chain.py --output_dir ../data/chain_L` builds dataset L (`src/data/builder_chain.py`: same world as the skills task for the same `--world_seed`; w2 rows with 8 distinct partners per fact; d2 rows on a k-regular strongly connected relation graph; 1-regular validation pairs; a 300-pair test pool; test chains for d = 2..32 in three categories) and writes `audit.json` (fails the run if a design guarantee is violated). `src/data/chain_format.py` renders protocols A (answer only), B (entity CoT), C (relation + entity CoT), D (queue CoT: the remaining relation list is re-copied after every state; O(d^2) completion, use `--max_len 1024`) with per-token loss weights and roles and parses/scores free generations. `src/train_chain.py --protocol A|B|C|D [--no_rope] [--d3_per_update N] [--rollout_batch 250]` runs phase 1 (w2 only) + phase 2 (128 w2 + 128 d2 per update), evaluates every 5k updates with greedy free rollouts (`val_d2` selects `best_by_val.pt`; `test_small`, `atomic`, `val_w2` with the model's own first answer as history), saves `ckpt_UUUUUU.pt` + `last.pt` (full state; `--resume` continues exactly), and at the end rolls out the full 90k-chain test matrix (`final_eval_{final,best}.json` incl. the external step-wise calling diagnostic `stepwise_external`, `predictions_*.jsonl`; `--eval_only <ckpt>` for any checkpoint). `generate_chain.py --train_d3 1` adds depth-3 training rows (a control that leaves the strict w2/d2 constraint; the model then needs `--d3_per_update`). `--no_rope` gives a NoPE model (`use_rope=False` on `GPT2LikeEncoder`). Finding (2026-09-17, 3 seeds): every CoT protocol reaches 1.0 on new relation pairs at depth 2 (A, answer-only, stays at chance), but depth >= 3 is 0 for all protocols, partner counts, 2 vs 4 layers and RoPE vs NoPE; adding depth-3 rows gives depth 3 = 1.0 but depth 4 = 0 (each demonstrated depth becomes its own positional rule), while an external program calling the model one step at a time reaches depth 32 at 1.0. Driver: `scripts/pbs_chain.sh` with `configs/cells_chain.txt` (`name | generate_chain.py args | train_chain.py args`), data in `data/chain_<cell>`, runs in `runs/chain_<cell>_s<seed>`.
+
+Data path: `train.py` encodes the dataset once into padded tensors on the device and slices index permutations (`src/data/tensor_batches.py`, `data_loader: tensor`, the default; `data_loader: torch` restores the DataLoader). Both give identical evaluation numbers; on a GH200 the tensor path takes 0.8 s per 25k-row epoch at batch 256 versus 1.9 s, 0.33 s at batch 1024, and six concurrent processes on one GPU still get 1.8 s each, so pack several runs per node. Evaluation batch size is `eval_batch_size` (default = batch_size). Deprecated `torch.cuda.amp` calls print one FutureWarning per process.
+
+`train.py` writes `metrics.jsonl` (one JSON object per epoch with every per-type metric) and `config.json` into `save_dir`, so results never depend on W&B. `--always_singles 1` keeps one single-task row per atomic fact in addition to any groups (matched-volume ablations); `train.py --save_every N` overrides the checkpoint interval. `train.py --seed N` overrides the training seed; the data seed stays in the config so all cells share one world. `--d_model/--n_layer/--n_head` override the model size. `best.pt` is selected by macro CE over *all* test types, including out-of-distribution ones that get more confidently wrong over training, so it is usually an early checkpoint; use `epochNNNN.pt` for analysis of the trained model.
+
+Round-1 finding (2026-09-15, 3 seeds, all six cells): the 2-layer model memorises sequences. Seen compositions reach 1.0 while unseen heads of the same relation pair stay at chance (no composition circuit even within train relations); atomic facts seen only in slot 2 of a fixed width-2 pair are not recalled in single-task form (recall 1.0 for slot-1 facts, 0.02-0.10 for slot-2 facts), and width-2 rows with new pairings score 0.27 per position. Fixed-width pairs with one appearance per fact are therefore not "practice under load" here. `group_size 1 --group_size_max 4 --group_passes 8` gives E-co-style variable-width rows with 8 partner draws per fact; the round-2 pilot showed this makes atomic recall slot-invariant (w2/w3 held-out rows 1.0), and that with d_model 256 unseen-instance composition over train relations starts rising within ~150 epochs at ratio 4 (d_model 128 does not). arXiv:2602.01992 is this repo's own paper; its composition task is a lookup (each relation labels one edge per category), so its ~100-step numbers do not transfer (`docs/paper_2602.01992_compositional_grokking.md`).
+
+YAML gotcha: PyYAML reads `lr: 1e-4` as a string (no dot). `train.py` casts `lr` and `weight_decay` to float, so both spellings work; other numeric keys must be written as plain decimals.
+
+Docker wrappers (run from `toy_model/`): `scripts/setup_docker.sh` (build + create `.env`), `scripts/run_docker.sh --mode data|train|all [--no-wandb] [--gpu -1] [--epochs N ...]`, `scripts/run_sweep.sh [--sweep_data] [--sweep_optimizer] [--dry-run]`. `run_sweep.sh` also has `DO_SWEEP_DATA` / `DO_SWEEP_OPTIMIZER` toggles hardcoded at the top of the file; `scripts/run.sh` is the non-Docker equivalent driven by `MODE=data|train|all`.
+
+### pretrained_llm
+
+`main.py` imports `src.*`, so run from `pretrained_llm/`:
+
+```bash
+cd pretrained_llm && pip install -r requirements.txt
+python main.py --sample samples/sample_1.json --device cpu --plot
+python main.py --sample samples/sample_2.json --proxy_method mean --no_rmsnorm --device cuda --dtype bfloat16
+```
+
+Default model is `google/gemma-2-2b` (gated on HF; set `HF_TOKEN`). `--model` accepts any TransformerLens-supported name. Docker: `./run_docker.sh [--build] --sample ...` (`USE_GPU=0` for CPU; it appends `--device` and `--plot` itself). `src/extract_embeddings.py` is a standalone debugging script with the model and prompt hardcoded.
+
+Known gap: `run_entity_experiments.sh` references `samples/sample_4entities.json`, `sample_5entities.json`, and `sample_7entities.json`, none of which exist (only `sample_4_entities.json` does), so it fails after the first sample unless those files are created.
+
+## Architecture
+
+### toy_model: builder → dataset → model → train
+
+**Data generation** (`src/data/builder.py`, `build_dataset_with_functor`). Entities are permuted into three disjoint groups: `E1` and `E2` (each of size `sub_size`) and `OTHER` (noise). A random bijection `f: E1 → E2` is the functor. E1 gets random relation edges between its members; E2 then receives a *mirrored copy* of every in-distribution E1 edge with the same relation, `(f(h), r, f(t))`, so the two categories are structurally isomorphic. From these atomics:
+
+- compositional facts are all 2-hop paths `(h, r1, r2) → t` over every entity; a path is `far_ood` if either hop is an OOD atomic, otherwise it is assigned `id` / `near_ood` at random by `compositional_ood_ratio`;
+- analogical facts are `(e1, <f>, f(e1))` for `e1 ∈ E1` (plus `(f(e1), <f_inv>, e1)` when `include_f_inverse`), split ID/OOD by `analogical_ood_ratio`.
+
+`save_dataset` writes `train.json` (ID atomic + ID compositional + ID analogical only), `test.json` (every fact tagged with a `type` in `id_atomic, ood_atomic, id_compositional, near_ood_compositional, far_ood_compositional, id_analogical, ood_analogical`), `vocab.json` (`entities + relations`), and one JSON per fact type. Each record is `{"input_text", "target_text"}` where the texts are tokens concatenated with no separators, e.g. `<e_3><r_17><r_4>` → `<e_3><r_17><r_4><e_8>`.
+
+**Dataset** (`src/data/dataset.py`). `tokenize_strict` splits text with the regex `<e_\d+>|<r_\d+>|<f>|<f_inv>` and raises on any residue, so a new token kind must be added to `TOKEN_PATTERN`. `CompDataset` yields `input_ids = target[:-1]`, `target_ids = target[1:]`, and `loss_mask` is True at every entity token that directly follows a relation token (`answer_positions`). For functor rows that is exactly the last token, as in the original code; for skills width-k rows it is the k answer tokens. There is no dedicated PAD token; padding uses id 0 (which is `<e_0>` in the vocab) and is excluded via `pad_mask`.
+
+**Model** (`src/model/gpt2.py`). `GPT2LikeEncoder` is a pre-LN causal decoder with RoPE, no learned positional table, and an untied output head (weight tying is commented out). `rope_base` defaults to `100.0` at the encoder level (the inner attention/block classes default to 10000) and `train.py` does not override it.
+
+**Training** (`src/train.py`). Adam (default, coupled L2) or AdamW via `optimizer: adamw`, `WarmupThenConstant`, optional AMP. Every epoch the full `test.json` is evaluated and metrics are split by `type` (`evaluate_split_by_type`): CE, PPL, ACC (per supervised position), SEQ_ACC (every position of a row correct), PROB, N (positions), N_SEQ (rows) per type plus macro averages. `eval_every` only controls printing; evaluation and W&B logging happen every epoch. W&B keys are `val_{CE,PPL,ACC,PROB,N}/{type}` and `val/macro/{CE,ACC}`. W&B runs in `disabled` mode when `WANDB_API_KEY` is unset even if `use_wandb: true`. Project/run-name priority is env (`WANDB_PROJECT`, `WANDB_RUN_NAME`) > CLI > yaml. Checkpoints (`epochNNN.pt`, and `best.pt` by macro CE) are written only when `save_every > 0`; both shipped configs set it to 0, so nothing is saved by default. The checkpoint dict is `{model, config, vocab, epoch}`.
+
+**Sweeps** (`src/sweep.py`) build grid/random combinations from the `data_sweep` / `optimizer_sweep` / `model_sweep` / `seed_sweep` sections of `configs/sweep_config.yaml`, generate one dataset per data combination (cached by directory name under `--data_dir`), and call `train()` in-process. In sweeps `sub_size` is always `num_entities // 2`, and the data seed comes from `fixed.data_seed` (falling back to `fixed.seed`).
+
+**Notebooks** (`toy_model/notebooks/`) are self-contained: they re-define the builder, model, and training loop inline rather than importing from `src/`, so edits to `src/` do not propagate to them. They contain the mechanistic analyses that `train.py` does not (Dirichlet energy over the `f_map` graph on `tok_emb`, parallelogram/cosine analogy scores, PCA of entity embeddings).
+
+### toy_model: skills task (`src/data/builder_skills.py`)
+
+`toy_model/docs/WALKTHROUGH.md` is the canonical log of this experiment line (design, every round's settings and numbers, pre-registered readouts, job table); read it before touching the skills task.
+
+A second data mode for compositional generalization over *relations as skills*, selected by `data.task: skills`. `SkillsWorld` draws every relation as a random permutation of the entity set (total function, no collisions, not closed under composition) and splits relations into TRAIN and HELD-OUT. Three row kinds share the functor tokenizer:
+
+- atomic `<e_h><r_j><e_t>`; width-k `<e_h1><r_j1><e_t1><e_h2><r_j2><e_t2>…` (k independent atomic tasks, k supervised positions); depth-k `<e_h><r_j1>…<r_jk><e_t>`.
+- Every atomic fact appears in training exactly once, either as a single row or inside a width-k group (`grouped_frac`, `heldout_grouped_frac`, `heldout_slot`, `partner`, `group_passes` control the grouping; slot/partner constraints require `group_size: 2`).
+- Compositions use only `comp_relations` of the train relations; `comp_pair_holdout_frac` of the composable relation pairs is excluded from training entirely. Held-out relations never appear inside a composition.
+
+Test types (one file each under `by_type/`): `atomic_{train,heldout}`, `d2_train_{seen,unseen_instance,unseen_pair,uncomposed}`, `d2_mixed_{first,second}`, `d2_heldout`, `d{3..}_{train,heldout,mixed}`, `w{k}_{train,heldout,mixed}`. `meta.json` stores the relation split, `rel_map`, and the train/held-out pairs for analysis. Generation of the default 500-entity / 20-relation set takes about 3 s.
+
+### pretrained_llm: sample JSON → embeddings → per-layer metrics
+
+`main.py::run_analysis` is the whole pipeline:
+
+1. `EmbeddingExtractor` (`src/embeddings.py`) loads a `HookedTransformer`, runs the prompt once with `run_with_cache`, and stacks `hook_embed` plus every `blocks.{i}.hook_resid_post` into a tensor of shape `(n_layers + 1, seq_len, d_model)`. **Index 0 is the embedding output; index i is the residual after block i-1** (printed as "Embedding" / "Layer i-1"). With RMSNorm on (default), layer i's residual is passed through block i+1's `ln1` (or `ln_final` for the last layer); this is what makes Dirichlet energies comparable across layers. `--no_rmsnorm` uses the raw residual stream, which the README notes flips the sign of the correlation.
+2. Entities like `<e1>` tokenize into several tokens (`<`, `e`, `1`, `>`). The sample's `node_positions` picks, per entity, a `proxy_token` (the digit) and an `occurrence` index (`-1` = last occurrence in the prompt). `--proxy_method position` uses that single token; `mean` averages all sub-tokens of that occurrence. A sample without `node_positions` falls back to the mean over the *first* occurrence.
+3. Dirichlet energy (`src/dirichlet_energy.py`) sums `||x_src − x_tgt||²` over `graph.edges` per layer; `normalize_dirichlet_energy` divides by the mean squared token norm at that layer. Only *complete* functor edges belong in `graph.edges`; the edge whose target is being predicted must be left out.
+4. Functor similarity (`src/functor_similarity.py`) takes the residual at every `~` token and computes mean pairwise cosine and the spectrum ratio `λ_max(C) / tr(C)`. It needs ≥ 2 `~` occurrences; otherwise it and the correlation step are skipped.
+5. Logit lens (`src/logit_lens.py`) applies `ln_final` + `W_U` to the last position at every layer; a multi-token `target_token` uses its first token.
+6. Results go to `results/<sample name>/<rmsnorm|no_rmsnorm>/<num_proxy|mean_proxy>/` as `analysis_results.json`, plus two PDFs when `--plot` is given.
+
+`notebooks/analysis.ipynb` imports the modules by bare name (`from embeddings import ...`), so `src/` must be on `sys.path`; `pca_visualization.ipynb` inlines its own copy of the extractor.

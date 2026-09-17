@@ -1,0 +1,8334 @@
+{
+  "audit_date": "2026-09-16",
+  "remote_base": "/work/go39/b20033/code/toy_model/Analogy_in_Transformer/toy_model",
+  "method": "Read existing predictions only; no model execution or remote writes. pos=1 is the first relation token. Numerators are intervention draws, not independent targets.",
+  "source_files": {
+    "scripts/patch_bridge.py": "40ec5955767a55bd62ea7c6f0fb3d73d632e71ebea9716f759db30ceda3f8302",
+    "src/model/gpt2.py": "b110c3ee5049dba11137909a8bf6956de4423d6f146ffec3cdcda04eecb8802d",
+    "scripts/role_tags.py": "068f0fa29703b8f030e6e848d2d60913b8cab35af55e14812c9a58a913fb6a71"
+  },
+  "runs": {
+    "F_long": {
+      "training_seed": 1,
+      "predictions_sha256": "c2c34a2010abe3fb92fd043450d06faebc5c41f08f26b0a48b08b00e53eece79",
+      "meta_sha256": "f9ec13eda674918ba0dea31a787667dcdffedb59784816e96327e02fd0643abe",
+      "vocab_sha256": "aa04f3af94b3a46914bcf37c95e11dd371e2ab575879b46805064f435332b897",
+      "total_prediction_rows": 12000,
+      "all_relations_permutations": true,
+      "target_selection_pos1": [
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "n": 300,
+          "correct": 3,
+          "accuracy": 0.01,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 8,
+          "r2_ids": [
+            6,
+            7,
+            9,
+            10,
+            12,
+            14,
+            15,
+            19
+          ],
+          "unique_pairs": 91,
+          "pairs": [
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              0,
+              14
+            ],
+            [
+              0,
+              15
+            ],
+            [
+              0,
+              19
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              10
+            ],
+            [
+              1,
+              12
+            ],
+            [
+              1,
+              14
+            ],
+            [
+              1,
+              15
+            ],
+            [
+              1,
+              19
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              10
+            ],
+            [
+              2,
+              12
+            ],
+            [
+              2,
+              14
+            ],
+            [
+              2,
+              15
+            ],
+            [
+              2,
+              19
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              3,
+              14
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              3,
+              19
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              4,
+              12
+            ],
+            [
+              4,
+              14
+            ],
+            [
+              4,
+              15
+            ],
+            [
+              4,
+              19
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              5,
+              12
+            ],
+            [
+              5,
+              14
+            ],
+            [
+              5,
+              15
+            ],
+            [
+              5,
+              19
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              8,
+              14
+            ],
+            [
+              8,
+              15
+            ],
+            [
+              8,
+              19
+            ],
+            [
+              11,
+              6
+            ],
+            [
+              11,
+              7
+            ],
+            [
+              11,
+              9
+            ],
+            [
+              11,
+              10
+            ],
+            [
+              11,
+              12
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              11,
+              15
+            ],
+            [
+              11,
+              19
+            ],
+            [
+              13,
+              6
+            ],
+            [
+              13,
+              7
+            ],
+            [
+              13,
+              9
+            ],
+            [
+              13,
+              10
+            ],
+            [
+              13,
+              12
+            ],
+            [
+              13,
+              14
+            ],
+            [
+              13,
+              15
+            ],
+            [
+              13,
+              19
+            ],
+            [
+              16,
+              6
+            ],
+            [
+              16,
+              7
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              16,
+              10
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              16,
+              15
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              17,
+              6
+            ],
+            [
+              17,
+              9
+            ],
+            [
+              17,
+              10
+            ],
+            [
+              17,
+              12
+            ],
+            [
+              17,
+              14
+            ],
+            [
+              17,
+              15
+            ],
+            [
+              17,
+              19
+            ],
+            [
+              18,
+              6
+            ],
+            [
+              18,
+              7
+            ],
+            [
+              18,
+              9
+            ],
+            [
+              18,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              18,
+              15
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 232,
+          "unique_bridges": 227
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "n": 300,
+          "correct": 300,
+          "accuracy": 1,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 12,
+          "r2_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_pairs": 29,
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              18
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              18
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              18
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              11,
+              18
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              13,
+              18
+            ],
+            [
+              16,
+              2
+            ],
+            [
+              16,
+              4
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              4
+            ],
+            [
+              18,
+              16
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 227,
+          "unique_bridges": 227
+        }
+      ],
+      "condition_counts_pos1": [
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 3,
+          "accuracy": 0.01,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.006945696873157171,
+          "mean_margin": -8.065597884654998,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0019010769633711804,
+          "mean_margin": -9.172374784946442,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 7,
+          "accuracy": 0.0077777777777777776,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.005271636996226588,
+          "mean_margin": -8.085729262828828,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 900,
+          "follows": 4,
+          "follow_rate": 0.0044444444444444444,
+          "mean_p_target": 0.002060043173653764,
+          "mean_margin": -9.192017930083805,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 300,
+          "accuracy": 1,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9718539363145828,
+          "mean_margin": 6.040957846641541,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0011264766590821063,
+          "mean_margin": -15.054806418948703,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 898,
+          "accuracy": 0.9977777777777778,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9789996154109637,
+          "mean_margin": 6.871551586257087,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 897,
+          "follow_rate": 0.9966666666666667,
+          "mean_p_target": 0.0002028365330091132,
+          "mean_margin": -14.940820891062419,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ],
+      "random_source_follow_recomputed_pos1": [
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 4,
+          "follow_rate_recomputed": 0.0044444444444444444,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 4,
+          "follow_rate_recomputed": 0.0044444444444444444,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 897,
+          "follow_rate_recomputed": 0.9966666666666667,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 897,
+          "follow_rate_recomputed": 0.9966666666666667,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ]
+    },
+    "F_perrel1": {
+      "training_seed": 1,
+      "predictions_sha256": "f43f83ede4cbd66ca5f04fdda5fe90df88d60cbc1d02c49ab4c46e380b1e82ac",
+      "meta_sha256": "8814fc9d0ccfa70765bbf1865091899233e40cc4d860882395ee768664a7b5eb",
+      "vocab_sha256": "aa04f3af94b3a46914bcf37c95e11dd371e2ab575879b46805064f435332b897",
+      "total_prediction_rows": 21600,
+      "all_relations_permutations": true,
+      "target_selection_pos1": [
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "n": 300,
+          "correct": 114,
+          "accuracy": 0.38,
+          "unique_r1": 5,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            4,
+            8
+          ],
+          "unique_r2": 8,
+          "r2_ids": [
+            6,
+            7,
+            9,
+            10,
+            12,
+            14,
+            15,
+            19
+          ],
+          "unique_pairs": 8,
+          "pairs": [
+            [
+              0,
+              10
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              14
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              12
+            ],
+            [
+              2,
+              19
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              8,
+              15
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 224,
+          "unique_bridges": 234
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "n": 300,
+          "correct": 188,
+          "accuracy": 0.6266666666666667,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 8,
+          "r2_ids": [
+            6,
+            7,
+            9,
+            10,
+            12,
+            14,
+            15,
+            19
+          ],
+          "unique_pairs": 90,
+          "pairs": [
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              0,
+              14
+            ],
+            [
+              0,
+              19
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              10
+            ],
+            [
+              1,
+              12
+            ],
+            [
+              1,
+              14
+            ],
+            [
+              1,
+              15
+            ],
+            [
+              1,
+              19
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              10
+            ],
+            [
+              2,
+              12
+            ],
+            [
+              2,
+              14
+            ],
+            [
+              2,
+              15
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              3,
+              14
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              3,
+              19
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              4,
+              12
+            ],
+            [
+              4,
+              14
+            ],
+            [
+              4,
+              15
+            ],
+            [
+              4,
+              19
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              5,
+              12
+            ],
+            [
+              5,
+              14
+            ],
+            [
+              5,
+              15
+            ],
+            [
+              5,
+              19
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              8,
+              14
+            ],
+            [
+              8,
+              19
+            ],
+            [
+              11,
+              6
+            ],
+            [
+              11,
+              7
+            ],
+            [
+              11,
+              9
+            ],
+            [
+              11,
+              10
+            ],
+            [
+              11,
+              12
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              11,
+              15
+            ],
+            [
+              11,
+              19
+            ],
+            [
+              13,
+              6
+            ],
+            [
+              13,
+              7
+            ],
+            [
+              13,
+              10
+            ],
+            [
+              13,
+              12
+            ],
+            [
+              13,
+              14
+            ],
+            [
+              13,
+              15
+            ],
+            [
+              13,
+              19
+            ],
+            [
+              16,
+              6
+            ],
+            [
+              16,
+              7
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              16,
+              10
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              16,
+              14
+            ],
+            [
+              16,
+              15
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              17,
+              6
+            ],
+            [
+              17,
+              7
+            ],
+            [
+              17,
+              9
+            ],
+            [
+              17,
+              10
+            ],
+            [
+              17,
+              12
+            ],
+            [
+              17,
+              14
+            ],
+            [
+              17,
+              15
+            ],
+            [
+              17,
+              19
+            ],
+            [
+              18,
+              6
+            ],
+            [
+              18,
+              7
+            ],
+            [
+              18,
+              9
+            ],
+            [
+              18,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              18,
+              15
+            ],
+            [
+              18,
+              19
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 219,
+          "unique_bridges": 217
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "n": 300,
+          "correct": 295,
+          "accuracy": 0.9833333333333333,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 12,
+          "r2_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_pairs": 29,
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              18
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              18
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              18
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              11,
+              18
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              13,
+              18
+            ],
+            [
+              16,
+              2
+            ],
+            [
+              16,
+              4
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              4
+            ],
+            [
+              18,
+              16
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 230,
+          "unique_bridges": 226
+        }
+      ],
+      "condition_counts_pos1": [
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 114,
+          "accuracy": 0.38,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.22510259171996344,
+          "mean_margin": -0.9507021188735962,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0013835530874865432,
+          "mean_margin": -10.69204476038615,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 298,
+          "accuracy": 0.33111111111111113,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.20006566781084176,
+          "mean_margin": -1.286384793917338,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 631,
+          "follow_rate": 0.7011111111111111,
+          "mean_p_target": 0.0005474056845539373,
+          "mean_margin": -10.896055716673533,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 900,
+          "follows": 272,
+          "follow_rate": 0.3022222222222222,
+          "mean_p_target": 0.001517417364569053,
+          "mean_margin": -9.73762229177687,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 29,
+          "correct": 6,
+          "accuracy": 0.20689655172413793,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.1544535291614011,
+          "mean_margin": -1.5407760061066726,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 87,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0002902432478745897,
+          "mean_margin": -10.8064988015712,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 87,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 87,
+          "correct": 24,
+          "accuracy": 0.27586206896551724,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.13658001907832182,
+          "mean_margin": -1.679052330981726,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 87,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 87,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 87,
+          "follows": 57,
+          "follow_rate": 0.6551724137931034,
+          "mean_p_target": 0.002185750283973304,
+          "mean_margin": -10.431062281816855,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 87,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 87,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 87,
+          "follows": 33,
+          "follow_rate": 0.3793103448275862,
+          "mean_p_target": 0.0005450543867038045,
+          "mean_margin": -9.901293880638034,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 87,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 271,
+          "correct": 182,
+          "accuracy": 0.6715867158671587,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.4871574014870319,
+          "mean_margin": 1.1453382608195513,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 813,
+          "correct": 1,
+          "accuracy": 0.0012300123001230013,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0021092229169494704,
+          "mean_margin": -10.82681141040422,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 813,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 813,
+          "correct": 583,
+          "accuracy": 0.7170971709717097,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.517806956053727,
+          "mean_margin": 1.4425448796552631,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 813,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 813,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 813,
+          "follows": 567,
+          "follow_rate": 0.6974169741697417,
+          "mean_p_target": 0.0005706030630082927,
+          "mean_margin": -10.855661560541883,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 813,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 813,
+          "correct": 1,
+          "accuracy": 0.0012300123001230013,
+          "follow_n": 813,
+          "follows": 245,
+          "follow_rate": 0.3013530135301353,
+          "mean_p_target": 0.0019306317883900342,
+          "mean_margin": -9.57884740418907,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 813,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 295,
+          "accuracy": 0.9833333333333333,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9154856071310739,
+          "mean_margin": 4.996669549942016,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0022809690715240886,
+          "mean_margin": -14.69154364320967,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 881,
+          "accuracy": 0.9788888888888889,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9380212684565534,
+          "mean_margin": 5.8558795653449165,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 900,
+          "follows": 881,
+          "follow_rate": 0.9788888888888889,
+          "mean_p_target": 0.00032500228060685087,
+          "mean_margin": -14.909296163982816,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ],
+      "random_source_follow_recomputed_pos1": [
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 624,
+          "follow_rate_recomputed": 0.6933333333333334,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 797,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 589,
+          "follow_rate_recomputed": 0.739021329987453,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 797,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 103,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.019417475728155338,
+          "follows_recomputed": 35,
+          "follow_rate_recomputed": 0.33980582524271846,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 103,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 87,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 57,
+          "follow_rate_recomputed": 0.6551724137931034,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 87,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 82,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 55,
+          "follow_rate_recomputed": 0.6707317073170732,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 82,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 5,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 2,
+          "follow_rate_recomputed": 0.4,
+          "source_r1_ids": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "source_r1_T": 5,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 813,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0012300123001230013,
+          "follows_recomputed": 552,
+          "follow_rate_recomputed": 0.6789667896678967,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 813,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 744,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0013440860215053765,
+          "follows_recomputed": 533,
+          "follow_rate_recomputed": 0.7163978494623656,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 744,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 69,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 19,
+          "follow_rate_recomputed": 0.2753623188405797,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 69,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 879,
+          "follow_rate_recomputed": 0.9766666666666667,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch2000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 879,
+          "follow_rate_recomputed": 0.9766666666666667,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ]
+    },
+    "F_pairleak8": {
+      "training_seed": 1,
+      "predictions_sha256": "ffdc9511637aa8d19323ada5d0b0c6ca87db7eeff154307a04440d0e5051d462",
+      "meta_sha256": "580a453492419a8dbd7ce76f6e2d6cdda892c3745c377d55fe574579f5449d7a",
+      "vocab_sha256": "aa04f3af94b3a46914bcf37c95e11dd371e2ab575879b46805064f435332b897",
+      "total_prediction_rows": 21150,
+      "all_relations_permutations": true,
+      "target_selection_pos1": [
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "n": 300,
+          "correct": 207,
+          "accuracy": 0.69,
+          "unique_r1": 5,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            4,
+            16
+          ],
+          "unique_r2": 6,
+          "r2_ids": [
+            6,
+            7,
+            10,
+            12,
+            14,
+            19
+          ],
+          "unique_pairs": 8,
+          "pairs": [
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              1,
+              14
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              12
+            ],
+            [
+              2,
+              19
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              16,
+              7
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 228,
+          "unique_bridges": 234
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "n": 300,
+          "correct": 204,
+          "accuracy": 0.68,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 8,
+          "r2_ids": [
+            6,
+            7,
+            9,
+            10,
+            12,
+            14,
+            15,
+            19
+          ],
+          "unique_pairs": 89,
+          "pairs": [
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              0,
+              14
+            ],
+            [
+              0,
+              19
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              10
+            ],
+            [
+              1,
+              12
+            ],
+            [
+              1,
+              15
+            ],
+            [
+              1,
+              19
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              10
+            ],
+            [
+              2,
+              12
+            ],
+            [
+              2,
+              14
+            ],
+            [
+              2,
+              15
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              3,
+              14
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              3,
+              19
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              4,
+              12
+            ],
+            [
+              4,
+              14
+            ],
+            [
+              4,
+              15
+            ],
+            [
+              4,
+              19
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              5,
+              12
+            ],
+            [
+              5,
+              14
+            ],
+            [
+              5,
+              15
+            ],
+            [
+              5,
+              19
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              8,
+              14
+            ],
+            [
+              8,
+              15
+            ],
+            [
+              8,
+              19
+            ],
+            [
+              11,
+              6
+            ],
+            [
+              11,
+              7
+            ],
+            [
+              11,
+              9
+            ],
+            [
+              11,
+              10
+            ],
+            [
+              11,
+              12
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              11,
+              15
+            ],
+            [
+              11,
+              19
+            ],
+            [
+              13,
+              6
+            ],
+            [
+              13,
+              7
+            ],
+            [
+              13,
+              10
+            ],
+            [
+              13,
+              12
+            ],
+            [
+              13,
+              14
+            ],
+            [
+              13,
+              15
+            ],
+            [
+              13,
+              19
+            ],
+            [
+              16,
+              6
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              16,
+              10
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              16,
+              14
+            ],
+            [
+              16,
+              15
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              17,
+              6
+            ],
+            [
+              17,
+              7
+            ],
+            [
+              17,
+              9
+            ],
+            [
+              17,
+              10
+            ],
+            [
+              17,
+              12
+            ],
+            [
+              17,
+              14
+            ],
+            [
+              17,
+              15
+            ],
+            [
+              17,
+              19
+            ],
+            [
+              18,
+              6
+            ],
+            [
+              18,
+              7
+            ],
+            [
+              18,
+              9
+            ],
+            [
+              18,
+              10
+            ],
+            [
+              18,
+              12
+            ],
+            [
+              18,
+              14
+            ],
+            [
+              18,
+              15
+            ],
+            [
+              18,
+              19
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 222,
+          "unique_bridges": 217
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "n": 300,
+          "correct": 295,
+          "accuracy": 0.9833333333333333,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 12,
+          "r2_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_pairs": 29,
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              18
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              18
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              18
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              11,
+              18
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              13,
+              18
+            ],
+            [
+              16,
+              2
+            ],
+            [
+              16,
+              4
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              4
+            ],
+            [
+              18,
+              16
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 230,
+          "unique_bridges": 226
+        }
+      ],
+      "condition_counts_pos1": [
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 173,
+          "correct": 101,
+          "accuracy": 0.5838150289017341,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.34081632046384275,
+          "mean_margin": 0.25772649842190604,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 519,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0003387790909475487,
+          "mean_margin": -11.170518269658318,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 519,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 519,
+          "correct": 278,
+          "accuracy": 0.535645472061657,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.3092621734729791,
+          "mean_margin": 0.020074525550151375,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 519,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 519,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 519,
+          "follows": 452,
+          "follow_rate": 0.8709055876685935,
+          "mean_p_target": 0.00045603650737462706,
+          "mean_margin": -11.375076037610887,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 519,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 519,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 519,
+          "follows": 278,
+          "follow_rate": 0.535645472061657,
+          "mean_p_target": 0.0008035377570310806,
+          "mean_margin": -9.776558441004083,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 519,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 127,
+          "correct": 106,
+          "accuracy": 0.8346456692913385,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.6525745226700944,
+          "mean_margin": 2.4834405080539974,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 381,
+          "correct": 1,
+          "accuracy": 0.0026246719160104987,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.002622347509942122,
+          "mean_margin": -12.7010849229307,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 381,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 381,
+          "correct": 338,
+          "accuracy": 0.8871391076115486,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.7144394363203328,
+          "mean_margin": 2.9107745188114835,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 381,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 381,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 381,
+          "follows": 360,
+          "follow_rate": 0.9448818897637795,
+          "mean_p_target": 0.0002139213598048779,
+          "mean_margin": -12.587637216713173,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 381,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 381,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 381,
+          "follows": 294,
+          "follow_rate": 0.7716535433070866,
+          "mean_p_target": 0.0005098488879942183,
+          "mean_margin": -10.813691328829668,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 381,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 94,
+          "correct": 17,
+          "accuracy": 0.18085106382978725,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.12001637553895945,
+          "mean_margin": -2.6489856090951474,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 282,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0013085617906578536,
+          "mean_margin": -9.90766752358024,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 282,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 282,
+          "correct": 44,
+          "accuracy": 0.15602836879432624,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.10492551965598677,
+          "mean_margin": -2.8784913610904774,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 282,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 57,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 57,
+          "follows": 40,
+          "follow_rate": 0.7017543859649122,
+          "mean_p_target": 0.00017948005176701942,
+          "mean_margin": -10.723606933627213,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 57,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 282,
+          "correct": 1,
+          "accuracy": 0.0035460992907801418,
+          "follow_n": 282,
+          "follows": 47,
+          "follow_rate": 0.16666666666666666,
+          "mean_p_target": 0.0016932446293271102,
+          "mean_margin": -9.59248939304487,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 282,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 206,
+          "correct": 187,
+          "accuracy": 0.9077669902912622,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.7004250117794619,
+          "mean_margin": 2.742175298987083,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 618,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0013125249011300684,
+          "mean_margin": -11.552972078323364,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 618,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 618,
+          "correct": 534,
+          "accuracy": 0.8640776699029126,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.6933869761944629,
+          "mean_margin": 2.7758155440049648,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 618,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 618,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 618,
+          "follows": 532,
+          "follow_rate": 0.86084142394822,
+          "mean_p_target": 0.000439017084929261,
+          "mean_margin": -11.493144772585156,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 618,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 618,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 618,
+          "follows": 349,
+          "follow_rate": 0.5647249190938511,
+          "mean_p_target": 0.0013635943714505913,
+          "mean_margin": -9.959701747184432,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 618,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 295,
+          "accuracy": 0.9833333333333333,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9195814619958401,
+          "mean_margin": 5.129318669637044,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.002379492582665011,
+          "mean_margin": -14.758355458577475,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 894,
+          "accuracy": 0.9933333333333333,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9597958381846547,
+          "mean_margin": 6.210670447879368,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 895,
+          "follow_rate": 0.9944444444444445,
+          "mean_p_target": 0.000023791871640019605,
+          "mean_margin": -14.93201170179579,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ],
+      "random_source_follow_recomputed_pos1": [
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 519,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 411,
+          "follow_rate_recomputed": 0.791907514450867,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 519,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 470,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 393,
+          "follow_rate_recomputed": 0.8361702127659575,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 470,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 49,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 18,
+          "follow_rate_recomputed": 0.3673469387755102,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 49,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 381,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0026246719160104987,
+          "follows_recomputed": 359,
+          "follow_rate_recomputed": 0.9422572178477691,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 381,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 377,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.002652519893899204,
+          "follows_recomputed": 356,
+          "follow_rate_recomputed": 0.9442970822281167,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 377,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_leakpair_unseen",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 4,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 3,
+          "follow_rate_recomputed": 0.75,
+          "source_r1_ids": [
+            3,
+            4,
+            8
+          ],
+          "source_r1_T": 4,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 282,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 75,
+          "follow_rate_recomputed": 0.26595744680851063,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 282,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 54,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 47,
+          "follow_rate_recomputed": 0.8703703703703703,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 54,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 228,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 28,
+          "follow_rate_recomputed": 0.12280701754385964,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 228,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 618,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 515,
+          "follow_rate_recomputed": 0.8333333333333334,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 618,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 575,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 495,
+          "follow_rate_recomputed": 0.8608695652173913,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 575,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_mixed_second",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 43,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 20,
+          "follow_rate_recomputed": 0.46511627906976744,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 43,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 894,
+          "follow_rate_recomputed": 0.9933333333333333,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch3000.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 894,
+          "follow_rate_recomputed": 0.9933333333333333,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ]
+    },
+    "RC_k1": {
+      "training_seed": 1,
+      "predictions_sha256": "d831baf26c62f5bb4372742c3554899824486bc94d2b9fd6982ef3bc8015be3b",
+      "meta_sha256": "dd052756ab16cd94246115097283bd51d7a68ea3611e5f9b3b7ac17a079cfa2a",
+      "vocab_sha256": "aa04f3af94b3a46914bcf37c95e11dd371e2ab575879b46805064f435332b897",
+      "total_prediction_rows": 10800,
+      "all_relations_permutations": true,
+      "target_selection_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "n": 300,
+          "correct": 300,
+          "accuracy": 1,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 12,
+          "r2_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_pairs": 29,
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              18
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              18
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              18
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              11,
+              18
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              13,
+              18
+            ],
+            [
+              16,
+              2
+            ],
+            [
+              16,
+              4
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              4
+            ],
+            [
+              18,
+              16
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 227,
+          "unique_bridges": 227
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "n": 300,
+          "correct": 75,
+          "accuracy": 0.25,
+          "unique_r1": 1,
+          "r1_ids": [
+            1
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            6
+          ],
+          "unique_pairs": 1,
+          "pairs": [
+            [
+              1,
+              6
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 300,
+          "unique_bridges": 300
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "n": 300,
+          "correct": 4,
+          "accuracy": 0.013333333333333334,
+          "unique_r1": 3,
+          "r1_ids": [
+            1,
+            4,
+            11
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            6
+          ],
+          "unique_pairs": 3,
+          "pairs": [
+            [
+              1,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              11,
+              6
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 243,
+          "unique_bridges": 100
+        }
+      ],
+      "condition_counts_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 300,
+          "accuracy": 1,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.973050750096639,
+          "mean_margin": 6.201895389556885,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0011694064344809623,
+          "mean_margin": -15.381508924166361,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 898,
+          "accuracy": 0.9977777777777778,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9800066505703661,
+          "mean_margin": 6.992798639933269,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 898,
+          "follow_rate": 0.9977777777777778,
+          "mean_p_target": 0.00002733193265743884,
+          "mean_margin": -15.36303088347117,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 75,
+          "accuracy": 0.25,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.15427282748436938,
+          "mean_margin": -2.0686278176307678,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 4,
+          "accuracy": 0.0044444444444444444,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.003101285929896966,
+          "mean_margin": -9.302687611050075,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 242,
+          "accuracy": 0.2688888888888889,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.17746613806094602,
+          "mean_margin": -1.8094443978203667,
+          "source_r1_ids": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 900,
+          "follows": 234,
+          "follow_rate": 0.26,
+          "mean_p_target": 0.0016868001253275678,
+          "mean_margin": -9.391312590175204,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 5,
+          "accuracy": 0.005555555555555556,
+          "follow_n": 900,
+          "follows": 13,
+          "follow_rate": 0.014444444444444444,
+          "mean_p_target": 0.0025978209513989755,
+          "mean_margin": -9.025347615347968,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 4,
+          "accuracy": 0.013333333333333334,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.01216022851360643,
+          "mean_margin": -6.431770719687144,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0007806314665470558,
+          "mean_margin": -9.473545863628388,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 10,
+          "accuracy": 0.011111111111111112,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.010693466815992569,
+          "mean_margin": -6.258385653495789,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 235,
+          "follow_rate": 0.2611111111111111,
+          "mean_p_target": 0.0005324253193110848,
+          "mean_margin": -9.521514610714382,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 10,
+          "follow_rate": 0.011111111111111112,
+          "mean_p_target": 0.0007125271193143491,
+          "mean_margin": -9.291145207352109,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ],
+      "random_source_follow_recomputed_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 898,
+          "follow_rate_recomputed": 0.9977777777777778,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 898,
+          "follow_rate_recomputed": 0.9977777777777778,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 4,
+          "original_target_accuracy": 0.0044444444444444444,
+          "follows_recomputed": 209,
+          "follow_rate_recomputed": 0.23222222222222222,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 719,
+          "original_target_correct": 3,
+          "original_target_accuracy": 0.004172461752433936,
+          "follows_recomputed": 204,
+          "follow_rate_recomputed": 0.28372739916550765,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 719,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 181,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0055248618784530384,
+          "follows_recomputed": 5,
+          "follow_rate_recomputed": 0.027624309392265192,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 181,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 191,
+          "follow_rate_recomputed": 0.21222222222222223,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 716,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0013966480446927375,
+          "follows_recomputed": 184,
+          "follow_rate_recomputed": 0.2569832402234637,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 716,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 184,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 7,
+          "follow_rate_recomputed": 0.03804347826086957,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 184,
+          "source_r1_H": 0
+        }
+      ]
+    },
+    "RC_k4": {
+      "training_seed": 1,
+      "predictions_sha256": "bbd28c67a203ab7364905d117373afd8db50e09381d20d805f8b656415471b3d",
+      "meta_sha256": "8c585ac266a80a7b475e42b1034c9f94bb86e7b6688822b4c5649df1291b755f",
+      "vocab_sha256": "aa04f3af94b3a46914bcf37c95e11dd371e2ab575879b46805064f435332b897",
+      "total_prediction_rows": 10800,
+      "all_relations_permutations": true,
+      "target_selection_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "n": 300,
+          "correct": 299,
+          "accuracy": 0.9966666666666667,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 12,
+          "r2_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_pairs": 29,
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              18
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              18
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              18
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              11,
+              18
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              13,
+              18
+            ],
+            [
+              16,
+              2
+            ],
+            [
+              16,
+              4
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              4
+            ],
+            [
+              18,
+              16
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 227,
+          "unique_bridges": 227
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "n": 300,
+          "correct": 299,
+          "accuracy": 0.9966666666666667,
+          "unique_r1": 1,
+          "r1_ids": [
+            1
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            6
+          ],
+          "unique_pairs": 1,
+          "pairs": [
+            [
+              1,
+              6
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 300,
+          "unique_bridges": 300
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "n": 300,
+          "correct": 170,
+          "accuracy": 0.5666666666666667,
+          "unique_r1": 3,
+          "r1_ids": [
+            1,
+            4,
+            11
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            6
+          ],
+          "unique_pairs": 3,
+          "pairs": [
+            [
+              1,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              11,
+              6
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 243,
+          "unique_bridges": 100
+        }
+      ],
+      "condition_counts_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 299,
+          "accuracy": 0.9966666666666667,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9662933041155338,
+          "mean_margin": 5.883525444666545,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0011284346194737687,
+          "mean_margin": -15.33493049621582,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 899,
+          "accuracy": 0.9988888888888889,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9818219805674421,
+          "mean_margin": 6.65592698627048,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 898,
+          "follow_rate": 0.9977777777777778,
+          "mean_p_target": 0.000028175863778623972,
+          "mean_margin": -15.25180709891849,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 299,
+          "accuracy": 0.9966666666666667,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9580348036686579,
+          "mean_margin": 5.694651306470235,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.001421307564488322,
+          "mean_margin": -14.040268369250827,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 898,
+          "accuracy": 0.9977777777777778,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9804885569049252,
+          "mean_margin": 6.5696273459328545,
+          "source_r1_ids": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 898,
+          "follow_rate": 0.9977777777777778,
+          "mean_p_target": 0.000095143815136658,
+          "mean_margin": -15.20259480105506,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 900,
+          "follows": 534,
+          "follow_rate": 0.5933333333333334,
+          "mean_p_target": 0.0013094541831553284,
+          "mean_margin": -10.045929444895851,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 170,
+          "accuracy": 0.5666666666666667,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.355594497200024,
+          "mean_margin": 0.2958739391962687,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0007949505591822437,
+          "mean_margin": -14.350946446524725,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 501,
+          "accuracy": 0.5566666666666666,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.34590153022669257,
+          "mean_margin": 0.2035663260353936,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 897,
+          "follow_rate": 0.9966666666666667,
+          "mean_p_target": 0.00002790350122486259,
+          "mean_margin": -15.447862445513408,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 511,
+          "follow_rate": 0.5677777777777778,
+          "mean_p_target": 0.0004906461964453112,
+          "mean_margin": -10.291168445481194,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ],
+      "random_source_follow_recomputed_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 900,
+          "follow_rate_recomputed": 1,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 900,
+          "follow_rate_recomputed": 1,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 822,
+          "follow_rate_recomputed": 0.9133333333333333,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 719,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0013908205841446453,
+          "follows_recomputed": 717,
+          "follow_rate_recomputed": 0.9972183588317107,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 719,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 181,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 105,
+          "follow_rate_recomputed": 0.580110497237569,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 181,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 834,
+          "follow_rate_recomputed": 0.9266666666666666,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 716,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 714,
+          "follow_rate_recomputed": 0.9972067039106145,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 716,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 184,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.005434782608695652,
+          "follows_recomputed": 120,
+          "follow_rate_recomputed": 0.6521739130434783,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 184,
+          "source_r1_H": 0
+        }
+      ]
+    },
+    "RC_first4": {
+      "training_seed": 1,
+      "predictions_sha256": "a4d9d2d3fd3c2cb20e85443e3d1dd73fbe40255529ecad054f754e8696bc32ba",
+      "meta_sha256": "25d76793782fecc7044c148675d217260c9991c341cb411fc3a4d9a971ab5b29",
+      "vocab_sha256": "aa04f3af94b3a46914bcf37c95e11dd371e2ab575879b46805064f435332b897",
+      "total_prediction_rows": 9000,
+      "all_relations_permutations": true,
+      "target_selection_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "n": 300,
+          "correct": 300,
+          "accuracy": 1,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 12,
+          "r2_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_pairs": 29,
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              18
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              18
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              18
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              11,
+              18
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              13,
+              18
+            ],
+            [
+              16,
+              2
+            ],
+            [
+              16,
+              4
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              4
+            ],
+            [
+              18,
+              16
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 227,
+          "unique_bridges": 227
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_seen",
+          "n": 300,
+          "correct": 297,
+          "accuracy": 0.99,
+          "unique_r1": 1,
+          "r1_ids": [
+            6
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            1
+          ],
+          "unique_pairs": 1,
+          "pairs": [
+            [
+              6,
+              1
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 300,
+          "unique_bridges": 300
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "n": 300,
+          "correct": 14,
+          "accuracy": 0.04666666666666667,
+          "unique_r1": 1,
+          "r1_ids": [
+            6
+          ],
+          "unique_r2": 3,
+          "r2_ids": [
+            1,
+            4,
+            11
+          ],
+          "unique_pairs": 3,
+          "pairs": [
+            [
+              6,
+              1
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              6,
+              11
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 100,
+          "unique_bridges": 100
+        }
+      ],
+      "condition_counts_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 300,
+          "accuracy": 1,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9846746812264124,
+          "mean_margin": 6.837557365099589,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0011690746513760807,
+          "mean_margin": -15.22823755953047,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 898,
+          "accuracy": 0.9977777777777778,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9861477354500029,
+          "mean_margin": 7.06495077557034,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 898,
+          "follow_rate": 0.9977777777777778,
+          "mean_p_target": 0.00011747508952576166,
+          "mean_margin": -15.091129910680984,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 297,
+          "accuracy": 0.99,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9217201405887803,
+          "mean_margin": 5.0472973426183065,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 3,
+          "accuracy": 0.0033333333333333335,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.00320622346910612,
+          "mean_margin": -15.41723795466953,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 897,
+          "accuracy": 0.9966666666666667,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9813684209622443,
+          "mean_margin": 6.8744626495573256,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 897,
+          "follow_rate": 0.9966666666666667,
+          "mean_p_target": 0.000009056339152102191,
+          "mean_margin": -15.686026423772176,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 14,
+          "accuracy": 0.04666666666666667,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.038121359981411855,
+          "mean_margin": -6.90035449663798,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 4,
+          "accuracy": 0.0044444444444444444,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.004456206430139035,
+          "mean_margin": -15.494054047266642,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 900,
+          "accuracy": 1,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9856685006287362,
+          "mean_margin": 7.033139362335205,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 898,
+          "follow_rate": 0.9977777777777778,
+          "mean_p_target": 0.00003235600223931414,
+          "mean_margin": -15.680166313913134,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ],
+      "random_source_follow_recomputed_pos1": [
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 899,
+          "follow_rate_recomputed": 0.9988888888888889,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0011111111111111111,
+          "follows_recomputed": 899,
+          "follow_rate_recomputed": 0.9988888888888889,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 3,
+          "original_target_accuracy": 0.0033333333333333335,
+          "follows_recomputed": 900,
+          "follow_rate_recomputed": 1,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 3,
+          "original_target_accuracy": 0.0033333333333333335,
+          "follows_recomputed": 900,
+          "follow_rate_recomputed": 1,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 4,
+          "original_target_accuracy": 0.0044444444444444444,
+          "follows_recomputed": 898,
+          "follow_rate_recomputed": 0.9977777777777778,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch525.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 4,
+          "original_target_accuracy": 0.0044444444444444444,
+          "follows_recomputed": 898,
+          "follow_rate_recomputed": 0.9977777777777778,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ]
+    },
+    "RC_both4": {
+      "training_seed": 1,
+      "predictions_sha256": "d0e84508bba5e24d0cb41935b94c832177187b48ebe4e6cecee285c7279c9200",
+      "meta_sha256": "39b4ae6dcf46440b7a863b897ee26acf36daef4bbde09b6eb93cbee7d6f561f1",
+      "vocab_sha256": "aa04f3af94b3a46914bcf37c95e11dd371e2ab575879b46805064f435332b897",
+      "total_prediction_rows": 21600,
+      "all_relations_permutations": true,
+      "target_selection_pos1": [
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "n": 300,
+          "correct": 289,
+          "accuracy": 0.9633333333333334,
+          "unique_r1": 12,
+          "r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_r2": 12,
+          "r2_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "unique_pairs": 29,
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              18
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              18
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              18
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              11,
+              18
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              13,
+              18
+            ],
+            [
+              16,
+              2
+            ],
+            [
+              16,
+              4
+            ],
+            [
+              16,
+              5
+            ],
+            [
+              16,
+              8
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              4
+            ],
+            [
+              18,
+              16
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 227,
+          "unique_bridges": 227
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "n": 300,
+          "correct": 191,
+          "accuracy": 0.6366666666666667,
+          "unique_r1": 1,
+          "r1_ids": [
+            6
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            6
+          ],
+          "unique_pairs": 1,
+          "pairs": [
+            [
+              6,
+              6
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 300,
+          "unique_bridges": 300
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "n": 300,
+          "correct": 1,
+          "accuracy": 0.0033333333333333335,
+          "unique_r1": 1,
+          "r1_ids": [
+            6
+          ],
+          "unique_r2": 2,
+          "r2_ids": [
+            6,
+            7
+          ],
+          "unique_pairs": 2,
+          "pairs": [
+            [
+              6,
+              6
+            ],
+            [
+              6,
+              7
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 226,
+          "unique_bridges": 226
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "n": 300,
+          "correct": 3,
+          "accuracy": 0.01,
+          "unique_r1": 1,
+          "r1_ids": [
+            6
+          ],
+          "unique_r2": 3,
+          "r2_ids": [
+            1,
+            4,
+            11
+          ],
+          "unique_pairs": 3,
+          "pairs": [
+            [
+              6,
+              1
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              6,
+              11
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 100,
+          "unique_bridges": 100
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "n": 300,
+          "correct": 278,
+          "accuracy": 0.9266666666666666,
+          "unique_r1": 1,
+          "r1_ids": [
+            1
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            6
+          ],
+          "unique_pairs": 1,
+          "pairs": [
+            [
+              1,
+              6
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 300,
+          "unique_bridges": 300
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "n": 300,
+          "correct": 7,
+          "accuracy": 0.023333333333333334,
+          "unique_r1": 3,
+          "r1_ids": [
+            1,
+            4,
+            11
+          ],
+          "unique_r2": 1,
+          "r2_ids": [
+            6
+          ],
+          "unique_pairs": 3,
+          "pairs": [
+            [
+              1,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              11,
+              6
+            ]
+          ],
+          "unique_targets": 300,
+          "unique_heads": 243,
+          "unique_bridges": 100
+        }
+      ],
+      "condition_counts_pos1": [
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 289,
+          "accuracy": 0.9633333333333334,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.8763091556231181,
+          "mean_margin": 4.416639122962952,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.001586044335986154,
+          "mean_margin": -14.122847043673197,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 864,
+          "accuracy": 0.96,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.8940786335495714,
+          "mean_margin": 4.7867787308163114,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 859,
+          "follow_rate": 0.9544444444444444,
+          "mean_p_target": 0.0002562535891878938,
+          "mean_margin": -14.03078266143799,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 191,
+          "accuracy": 0.6366666666666667,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.46955685223040444,
+          "mean_margin": 0.8195129044850668,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 3,
+          "accuracy": 0.0033333333333333335,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.004082464451171466,
+          "mean_margin": -12.401329066488477,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 843,
+          "accuracy": 0.9366666666666666,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.822180597728196,
+          "mean_margin": 3.8424264717102052,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 900,
+          "follows": 831,
+          "follow_rate": 0.9233333333333333,
+          "mean_p_target": 0.0005836078238145124,
+          "mean_margin": -13.178270508448282,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 26,
+          "follow_rate": 0.028888888888888888,
+          "mean_p_target": 0.0014998883997899767,
+          "mean_margin": -9.767908073531256,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 168,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.007730300472669892,
+          "mean_margin": -6.984672217142014,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 504,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0001091205306215145,
+          "mean_margin": -12.801710290568215,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 504,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 504,
+          "correct": 10,
+          "accuracy": 0.01984126984126984,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.016810901600415616,
+          "mean_margin": -5.811812676134563,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 504,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 504,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 504,
+          "follows": 478,
+          "follow_rate": 0.9484126984126984,
+          "mean_p_target": 0.00012702302354463134,
+          "mean_margin": -13.663881659507751,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 504,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 504,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 504,
+          "follows": 8,
+          "follow_rate": 0.015873015873015872,
+          "mean_p_target": 0.0005896028763816867,
+          "mean_margin": -10.016925559157418,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 504,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 132,
+          "correct": 1,
+          "accuracy": 0.007575757575757576,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.009647050775018796,
+          "mean_margin": -7.859236486030348,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 396,
+          "correct": 2,
+          "accuracy": 0.005050505050505051,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.003249642798704173,
+          "mean_margin": -12.10999317121024,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 396,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 396,
+          "correct": 373,
+          "accuracy": 0.9419191919191919,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.8372163005182613,
+          "mean_margin": 3.9154604914212467,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 396,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 396,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 396,
+          "follows": 367,
+          "follow_rate": 0.9267676767676768,
+          "mean_p_target": 0.0001055353728066043,
+          "mean_margin": -13.49479101402591,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 396,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 396,
+          "correct": 2,
+          "accuracy": 0.005050505050505051,
+          "follow_n": 396,
+          "follows": 13,
+          "follow_rate": 0.03282828282828283,
+          "mean_p_target": 0.0023953580960564846,
+          "mean_margin": -10.085060260512613,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 396,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 3,
+          "accuracy": 0.01,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.007139139682033718,
+          "mean_margin": -8.402071482340494,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0016452695128010275,
+          "mean_margin": -14.150052467452156,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 879,
+          "accuracy": 0.9766666666666667,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.9011767748991648,
+          "mean_margin": 4.760764967070686,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 900,
+          "follows": 869,
+          "follow_rate": 0.9655555555555555,
+          "mean_p_target": 0.0009636497962356992,
+          "mean_margin": -14.397900682555305,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 278,
+          "accuracy": 0.9266666666666666,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.7940713387324164,
+          "mean_margin": 3.4093596601486205,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 2,
+          "accuracy": 0.0022222222222222222,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.002511607165143729,
+          "mean_margin": -12.48336673312717,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 850,
+          "accuracy": 0.9444444444444444,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.8389815121851603,
+          "mean_margin": 4.022868565983242,
+          "source_r1_ids": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 836,
+          "follow_rate": 0.9288888888888889,
+          "mean_p_target": 0.00017674031726522168,
+          "mean_margin": -13.355279834535386,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 20,
+          "follow_rate": 0.022222222222222223,
+          "mean_p_target": 0.001222368132393187,
+          "mean_margin": -9.811669034957886,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "no_patch",
+          "n": 300,
+          "correct": 7,
+          "accuracy": 0.023333333333333334,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.01617558839573538,
+          "mean_margin": -5.762940373420715,
+          "source_r1_ids": [],
+          "source_r1_T": 0,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "random_src",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0002797480198089157,
+          "mean_margin": -13.025878085295359,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "same_bridge",
+          "n": 900,
+          "correct": 23,
+          "accuracy": 0.025555555555555557,
+          "follow_n": 0,
+          "follows": 0,
+          "follow_rate": null,
+          "mean_p_target": 0.0182251777845858,
+          "mean_margin": -5.768516902923584,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_seen",
+          "n": 900,
+          "correct": 0,
+          "accuracy": 0,
+          "follow_n": 900,
+          "follows": 842,
+          "follow_rate": 0.9355555555555556,
+          "mean_p_target": 0.0001759305894888414,
+          "mean_margin": -13.420433349079556,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "condition": "wrong_bridge_unseen",
+          "n": 900,
+          "correct": 1,
+          "accuracy": 0.0011111111111111111,
+          "follow_n": 900,
+          "follows": 14,
+          "follow_rate": 0.015555555555555555,
+          "mean_p_target": 0.0005765561140202813,
+          "mean_margin": -10.01487812757492,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        }
+      ],
+      "random_source_follow_recomputed_pos1": [
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 863,
+          "follow_rate_recomputed": 0.9588888888888889,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "d2_train_unseen_pair",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 863,
+          "follow_rate_recomputed": 0.9588888888888889,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 3,
+          "original_target_accuracy": 0.0033333333333333335,
+          "follows_recomputed": 683,
+          "follow_rate_recomputed": 0.7588888888888888,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 726,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0027548209366391185,
+          "follows_recomputed": 678,
+          "follow_rate_recomputed": 0.9338842975206612,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 726,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_both",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 174,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.005747126436781609,
+          "follows_recomputed": 5,
+          "follow_rate_recomputed": 0.028735632183908046,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 174,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 504,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 386,
+          "follow_rate_recomputed": 0.7658730158730159,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 504,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 400,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 386,
+          "follow_rate_recomputed": 0.965,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 400,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 104,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 0,
+          "follow_rate_recomputed": 0,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 104,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 396,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.005050505050505051,
+          "follows_recomputed": 281,
+          "follow_rate_recomputed": 0.7095959595959596,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 396,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 306,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.0032679738562091504,
+          "follows_recomputed": 278,
+          "follow_rate_recomputed": 0.9084967320261438,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 306,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "hh_cov_other",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 90,
+          "original_target_correct": 1,
+          "original_target_accuracy": 0.011111111111111112,
+          "follows_recomputed": 3,
+          "follow_rate_recomputed": 0.03333333333333333,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 90,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 870,
+          "follow_rate_recomputed": 0.9666666666666667,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc1_newpair_role_unseen",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 870,
+          "follow_rate_recomputed": 0.9666666666666667,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.0022222222222222222,
+          "follows_recomputed": 669,
+          "follow_rate_recomputed": 0.7433333333333333,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "seen",
+          "n": 722,
+          "original_target_correct": 2,
+          "original_target_accuracy": 0.002770083102493075,
+          "follows_recomputed": 663,
+          "follow_rate_recomputed": 0.9182825484764543,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 722,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_seen",
+          "target_role2_seen": true,
+          "source_role2_pool": "unseen",
+          "n": 178,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 6,
+          "follow_rate_recomputed": 0.033707865168539325,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 178,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "all",
+          "n": 900,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 702,
+          "follow_rate_recomputed": 0.78,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 900,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "seen",
+          "n": 741,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 696,
+          "follow_rate_recomputed": 0.9392712550607287,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 741,
+          "source_r1_H": 0
+        },
+        {
+          "ckpt": "epoch400.pt",
+          "layer": 0,
+          "type": "rc2_newpair_role_unseen",
+          "target_role2_seen": false,
+          "source_role2_pool": "unseen",
+          "n": 159,
+          "original_target_correct": 0,
+          "original_target_accuracy": 0,
+          "follows_recomputed": 6,
+          "follow_rate_recomputed": 0.03773584905660377,
+          "source_r1_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            11,
+            13,
+            16,
+            17,
+            18
+          ],
+          "source_r1_T": 159,
+          "source_r1_H": 0
+        }
+      ]
+    }
+  }
+}
+

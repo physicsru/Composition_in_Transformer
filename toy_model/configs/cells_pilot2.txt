@@ -1,0 +1,75 @@
+# Pilot follow-ups on the F configuration (variable-width atomics, 40k train compositions, d_model 256,
+# lr 3e-4; base config configs/skills_w2d2.yaml, batch 256, wd 0.1). Data seed 42 = the pilot's world.
+#   F_long : F itself, 3000 epochs (~840k steps) — how far unseen-instance / unseen-pair composition goes,
+#            and whether held-out relations ever compose.
+#   F_ctrl : same, but held-out facts never enter co-occurrence rows (heldout_grouped_frac 0) and are
+#            repeated 8x as single rows so every fact still appears 8 times (frequency-matched sub0 control).
+# name | generate_data.py args | train.py args
+F_long | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300                                            | --lr 0.0003 --d_model 256 --epochs 3000
+F_ctrl | --group_size 1 --group_size_max 4 --group_passes 8 --heldout_grouped_frac 0 --single_passes 8 --n_comp 40000 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 3000
+#   F_mixctx : F + 20,000 "mixed-context" rows (one held-out atomic task beside one train composition,
+#              random order; held-out relations still never composed) — the mixed-depth arm's toy version.
+#   F_leak*  : F + a small leak of compositions involving held-out relations into training
+#              (0.1% / 0.5% / 2% of the ~128k such instances ≈ 20 / 100 / 400 per held-out relation);
+#              d2_mixed_* / d2_heldout tests exclude leaked instances -> per-skill composition cost curve.
+F_mixctx  | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_mixed 20000 --n_test_per_type 300           | --lr 0.0003 --d_model 256 --epochs 3000
+F_leak001 | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_comp_frac 0.001 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 3000
+F_leak005 | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_comp_frac 0.005 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 3000
+F_leak02  | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_comp_frac 0.02 --n_test_per_type 300  | --lr 0.0003 --d_model 256 --epochs 3000
+#   F_pairleak* : concentrated leak — K (train, held-out) relation pairs get 90% of their instances in
+#                 training; the other 10% are d2_leakpair_unseen (pair-level entry), the other pairs of
+#                 the same held-out relations stay in d2_mixed_second / d2_heldout (relation-level transfer).
+F_pairleak8  | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_pairs 8 --n_test_per_type 300  | --lr 0.0003 --d_model 256 --epochs 3000
+F_pairleak32 | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_pairs 32 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 3000
+#   F_perrel{k} : controlled dose — exactly k (train, held-out) pairs per held-out relation get 90% of their
+#                 instances (k = 1/2/4/8; 8 of the 12 possible partners); F_perrel4_first = same with the held-out
+#                 relation in the FIRST hop. Readout: never-composed pairs in d2_mixed_second / d2_mixed_first.
+F_perrel1       | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 1 --n_test_per_type 300                           | --lr 0.0003 --d_model 256 --epochs 2000
+F_perrel2       | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 2 --n_test_per_type 300                           | --lr 0.0003 --d_model 256 --epochs 2000
+F_perrel4       | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 4 --n_test_per_type 300                           | --lr 0.0003 --d_model 256 --epochs 2000
+F_perrel8       | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 8 --n_test_per_type 300                           | --lr 0.0003 --d_model 256 --epochs 2000
+F_perrel4_first | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 4 --heldout_leak_slot first --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 2000
+#   F_d23 : F with the 40k training compositions split 20k depth-2 + 20k depth-3 (train relations only):
+#           does a depth-3 demonstration give depth-3 generalisation (d3_train) and change held-out entry?
+F_d23 | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --comp_depths 2,3 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 2000
+#   F_perrel{k}_any : k qualifying pairs per held-out relation in EITHER slot (mixed and held-out/held-out pairs allowed):
+#                     does entry in both slots make two-held-out compositions (d2_heldout) possible?
+F_perrel4_any | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 4 --heldout_leak_slot any --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 2000
+F_perrel8_any | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 8 --heldout_leak_slot any --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 2000
+#   F_perrel4_4L    : perrel4 with a 4-layer model — does depth change which slot a held-out relation enters, or the speed?
+#   F_perrel4_lr1e4 : perrel4 at lr 1e-4 (no loss spikes) — clean checkpoint series for the mechanism probes.
+F_perrel4_4L    | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 4 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --n_layer 4 --epochs 2000
+F_perrel4_lr1e4 | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 4 --n_test_per_type 300 | --lr 0.0001 --d_model 256 --epochs 2500
+#   F_d23_80k : 40k depth-2 + 40k depth-3 demos (same depth-2 count as F) — separates "fewer depth-2 rows" from "depth-3 rows present".
+F_d23_80k | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 80000 --comp_depths 2,3 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 2000
+#   F_d23_80k_4L / _d512 : the 40k+40k depth-2/3 data with more capacity — does depth-3 generalisation need depth or width?
+F_d23_80k_4L   | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 80000 --comp_depths 2,3 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --n_layer 4 --epochs 2000
+F_d23_80k_d512 | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 80000 --comp_depths 2,3 --n_test_per_type 300 | --lr 0.0003 --d_model 512 --epochs 2000
+#   F_perrel4_ckpt : perrel4 with a checkpoint every 25 epochs (mechanism-probe timeline of held-out entry).
+F_perrel4_ckpt | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --heldout_leak_per_rel 4 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 1000 --save_every 25
+# Matched-volume decomposition (user request 17:15): every arm has the same 10,000 single-task atomic rows
+# plus 40,000 extra rows — width-2 co-occurrence only, depth-2 composition only, or 20k+20k; `X_none` is the
+# atomic-only floor. Readouts: d2_train_unseen_instance (composition), w3/w4 SEQ_ACC (width), held-out, depth 3.
+X_none | --always_singles 1 --grouped_frac 0 --n_comp 0 --n_test_per_type 300                                   | --lr 0.0003 --d_model 256 --epochs 1500
+X_w2   | --always_singles 1 --group_size 2 --group_passes 8 --n_comp 0 --n_test_per_type 300                    | --lr 0.0003 --d_model 256 --epochs 1500
+X_d2   | --always_singles 1 --grouped_frac 0 --n_comp 40000 --n_test_per_type 300                               | --lr 0.0003 --d_model 256 --epochs 1500
+X_w2d2 | --always_singles 1 --group_size 2 --group_passes 4 --n_comp 20000 --n_test_per_type 300                | --lr 0.0003 --d_model 256 --epochs 1500
+# X 系列对照（2026-09-16）：宽 2 行是否帮助深 2 行。与 X_d2 / X_w2d2 配对：同样的深 2 行数，有 / 无宽 2 行。
+# X_d2_c20k: 单原子 + 20k 深 2（无宽 2），与 X_w2d2 同样的组合量；30k 行/epoch，2500 epoch ≈ X_d2 的 29 万步。
+# X_w2d2_c40k: 单原子 + 40k 宽 2 + 40k 深 2，与 X_d2 / F_long 同样的组合量；90k 行/epoch，epoch 833 ≈ 29 万步。
+# X_eco_d2: 单原子 + 可变宽 1–4 × 8 次 + 40k 深 2（= F_long 加 always_singles），固定宽 2 对可变宽度的直接对照。
+X_d2_c20k   | --always_singles 1 --grouped_frac 0 --n_comp 20000 --n_test_per_type 300                                        | --lr 0.0003 --d_model 256 --epochs 2500
+X_w2d2_c40k | --always_singles 1 --group_size 2 --group_passes 8 --n_comp 40000 --n_test_per_type 300                         | --lr 0.0003 --d_model 256 --epochs 1500
+X_eco_d2    | --always_singles 1 --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300      | --lr 0.0003 --d_model 256 --epochs 1500
+# X_d2 干预（2026-09-16）：错误类型调查后，对"单原子 + 40k 深 2"这一最慢的格子试三种便宜的加速手段。
+X_d2_wd1  | --always_singles 1 --grouped_frac 0 --n_comp 40000 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --weight_decay 1.0 --epochs 1500
+X_d2_4L   | --always_singles 1 --grouped_frac 0 --n_comp 40000 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --n_layer 4 --epochs 1500
+X_d2_long | --always_singles 1 --grouped_frac 0 --n_comp 40000 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 4000
+# X 系列 4 层版（2026-09-16，用户要求）：同样四臂换 4 层，看深 2 泛化与深 3 外推是否更好。X_d2_4L 已在上面定义。
+X_none_4L | --always_singles 1 --grouped_frac 0 --n_comp 0 --n_test_per_type 300                     | --lr 0.0003 --d_model 256 --n_layer 4 --epochs 1500
+X_w2_4L   | --always_singles 1 --group_size 2 --group_passes 8 --n_comp 0 --n_test_per_type 300      | --lr 0.0003 --d_model 256 --n_layer 4 --epochs 1500
+X_w2d2_4L | --always_singles 1 --group_size 2 --group_passes 4 --n_comp 20000 --n_test_per_type 300  | --lr 0.0003 --d_model 256 --n_layer 4 --epochs 1500
+# 2026-09-16: new world (data seed 43) base for replicating the P1 endpoints (k1/k8) in a second world; same recipe as F_long.
+F_long_w43 | --seed 43 --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 40000 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --epochs 3000
+# 2026-09-16: depth-3 with 4 layers needs seeds (only s1 so far: d3 0.24) and a longer run (continue s1 from epoch2000 for 2000 more epochs, fresh AdamW).
+F_d23_80k_4L_cont | --group_size 1 --group_size_max 4 --group_passes 8 --n_comp 80000 --comp_depths 2,3 --n_test_per_type 300 | --lr 0.0003 --d_model 256 --n_layer 4 --init_from ../runs/skills_F_d23_80k_4L_s1/epoch2000.pt --epochs 2000

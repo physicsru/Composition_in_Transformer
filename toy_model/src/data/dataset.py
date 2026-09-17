@@ -1,5 +1,10 @@
 """
 PyTorch Dataset classes for knowledge graph training.
+
+Supervision rule: the loss is taken on every *entity* token that directly follows a
+*relation* token. For the functor task (<e><r1><r2><t>, <e><f><t>) this is exactly
+the last token, as before; for the skills task it also covers width-k rows
+(<e><r><t><e><r><t>...), which have k supervised positions.
 """
 
 import json
@@ -20,6 +25,21 @@ def tokenize_strict(s: str) -> List[str]:
         bad = s.replace("".join(toks), "")
         raise ValueError(f"Non-token residue: '{bad}' in '{s}'")
     return toks
+
+
+def is_entity_token(tok: str) -> bool:
+    return tok.startswith("<e_")
+
+
+def answer_positions(tgt_tokens: List[str]) -> List[int]:
+    """
+    Indices j into the shifted target sequence (target_ids[j] = tgt_tokens[j + 1]) whose
+    target token is an entity that directly follows a relation token.
+    """
+    return [
+        j for j in range(len(tgt_tokens) - 1)
+        if is_entity_token(tgt_tokens[j + 1]) and not is_entity_token(tgt_tokens[j])
+    ]
 
 
 class CompDataset(Dataset):
@@ -62,17 +82,17 @@ class CompDataset(Dataset):
     
     def __getitem__(self, idx: int) -> Dict:
         item = self.items[idx]
-        inp = tokenize_strict(item["input_text"])
         tgt = tokenize_strict(item["target_text"])
         
         input_ids = self.encode(tgt[:-1])
         target_ids = self.encode(tgt[1:])
-        last_pos = len(target_ids) - 1
+        positions = answer_positions(tgt) or [len(target_ids) - 1]
         
         out = {
             "input_ids": torch.tensor(input_ids, dtype=torch.long),
             "target_ids": torch.tensor(target_ids, dtype=torch.long),
-            "last_pos": last_pos,
+            "loss_positions": positions,
+            "last_pos": positions[-1],
             "length": len(input_ids),
         }
         
@@ -91,7 +111,8 @@ def collate_pad(batch: List[Dict], pad_id: int = 0) -> Dict:
         pad_id: ID to use for padding
         
     Returns:
-        Batched and padded tensors
+        Batched and padded tensors; loss_mask is True at every supervised position
+        (see answer_positions), in row-major order.
     """
     B = len(batch)
     maxL = max(ex["length"] for ex in batch)
@@ -106,7 +127,8 @@ def collate_pad(batch: List[Dict], pad_id: int = 0) -> Dict:
         L = ex["length"]
         input_ids[i, :L] = ex["input_ids"]
         target_ids[i, :L] = ex["target_ids"]
-        loss_mask[i, ex["last_pos"]] = True
+        for p in ex["loss_positions"]:
+            loss_mask[i, p] = True
         pad_mask[i, :L] = False
         if "type" in ex:
             types.append(ex["type"])

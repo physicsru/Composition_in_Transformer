@@ -1,0 +1,7 @@
+# Round-1 cells (W2D2 and its single-knob ablations). Format: name | generate_data.py args | train.py args
+w2d2   |                                  |     # atomics in width-2 pairs + depth-2 train compositions
+v1     | --grouped_frac 0                 |     # single-task atomics only (no co-occurrence)
+c1     | --n_comp 0                       |     # co-occurrence but no compositions
+dose25 | --heldout_grouped_frac 0.25      |     # only 25% of held-out facts practised under load
+div4   | --comp_relations 4               |     # compositions use 4 of the 12 train relations
+d23    | --comp_depths 2,3                |     # depth-2 and depth-3 compositions (same total count)

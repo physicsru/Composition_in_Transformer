@@ -1,0 +1,2725 @@
+[
+  {
+    "cell": "RC_none",
+    "meta_params": {
+      "role_slots": "none",
+      "role_k": 4,
+      "role_exposure": 8,
+      "role_unseen": 100,
+      "role_reserved": 4,
+      "role_seed": 7,
+      "role_rows": {
+        "first": 0,
+        "second": 0
+      },
+      "train_counts": {
+        "single": 8048,
+        "width": 24013,
+        "comp": 40000,
+        "mixed": 0,
+        "comp_leaked_heldout": 0,
+        "role_first": 0,
+        "role_second": 0
+      }
+    },
+    "audit_saved": {
+      "hashes": {
+        "train": "e1bd695003d91e1e",
+        "test": "ccaa628140f6387e",
+        "meta": "07bd40073612b8ad",
+        "vocab": "aa04f3af94b3a469"
+      },
+      "train_rows": 72061,
+      "answers_per_epoch": 120000,
+      "unique_comps": 40000,
+      "hh_training_rows": 0,
+      "test_counts": {
+        "atomic_train": 300,
+        "atomic_heldout": 300,
+        "d2_train_seen": 300,
+        "d2_train_unseen_instance": 300,
+        "d2_train_unseen_pair": 300,
+        "d3_train": 300,
+        "w2_train": 300,
+        "w2_heldout": 300,
+        "w2_mixed": 300,
+        "w3_train": 300,
+        "w3_heldout": 300,
+        "w3_mixed": 300,
+        "w4_train": 300,
+        "w4_heldout": 300,
+        "w4_mixed": 300,
+        "rc1_newpair_role_seen": 12800,
+        "rc1_newpair_role_unseen": 3200,
+        "rc2_newpair_role_seen": 12800,
+        "rc2_newpair_role_unseen": 3200,
+        "hh_cov_both": 20476,
+        "hh_cov_other": 11524
+      },
+      "test_overlap": {
+        "atomic_train": 182,
+        "atomic_heldout": 179,
+        "d2_train_seen": 300,
+        "w2_train": 1
+      },
+      "rc2_newpair_role1_covered": [
+        16000,
+        16000
+      ],
+      "passed": true
+    },
+    "actual": {
+      "rows": 72061,
+      "answers": 120000,
+      "answer_hist": {
+        "1": 48048,
+        "2": 8013,
+        "3": 8074,
+        "4": 7926
+      },
+      "hh_rows": 0,
+      "bad_labels": 0,
+      "base_is_exact_F_long_prefix": true,
+      "base_prefix_n": 72061,
+      "role_coverage": {
+        "6": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "7": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "9": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "10": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "12": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "14": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "15": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "19": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        }
+      },
+      "test_type_hash": {
+        "atomic_train": {
+          "n": 300,
+          "sha256": "78b6845c3afe245114d1f3b3e15bffe045f95d00f94bcb0e9153c147ed62b74b"
+        },
+        "atomic_heldout": {
+          "n": 300,
+          "sha256": "ec9885d46145e912abf802b87637459851cd7407bfebc3bb72da8f333af5b27a"
+        },
+        "d2_train_seen": {
+          "n": 300,
+          "sha256": "2029eacdb512ce28d90980ef28510e176e7abf65c0cfb55ce8dc58fdb84fe320"
+        },
+        "d2_train_unseen_instance": {
+          "n": 300,
+          "sha256": "5451b0ea09d31400191bef2328b29266e641d475f1f3311ec3db6bb7254b126b"
+        },
+        "d2_train_unseen_pair": {
+          "n": 300,
+          "sha256": "224b047c4b268f4421d9e53361d3035da702609046b2e5e48a7c24d43b3ada26"
+        },
+        "d3_train": {
+          "n": 300,
+          "sha256": "e29a57f9617452d5c6cc7c4e6c416a5e5866c92b1d39e7dfba91a8353d3ac1d2"
+        },
+        "w2_train": {
+          "n": 300,
+          "sha256": "dca0495752c44ff0be0d13fad013f831f1d4055eae7ac9aa6136477a1ac34efd"
+        },
+        "w2_heldout": {
+          "n": 300,
+          "sha256": "275e5d50a4874fb70ab07d0342e998ba41b078d3ae78d4ab3feb37829516404f"
+        },
+        "w2_mixed": {
+          "n": 300,
+          "sha256": "32400864c4bb119e37bbe053615a2e072905ee422e1a8e1f9cb649cf95f2130a"
+        },
+        "w3_train": {
+          "n": 300,
+          "sha256": "8e6537ac07dbcc6a90037d2c10812640751db18fa20ea61be81038e442309eb9"
+        },
+        "w3_heldout": {
+          "n": 300,
+          "sha256": "932517a0808cac093dfe6241124d6a3fc5071feb2ca455179137a96d82413418"
+        },
+        "w3_mixed": {
+          "n": 300,
+          "sha256": "5b47a9c33749d909962778e3b527f69686799166bcd54746c7771da7d539af5a"
+        },
+        "w4_train": {
+          "n": 300,
+          "sha256": "60f49198b2192d8c41504017c4468bb903f2f0c66b606d72e799647f7682de9d"
+        },
+        "w4_heldout": {
+          "n": 300,
+          "sha256": "e6cd6ffc575d6c8dd2adf4651bb78312287dfec2123eb337e0f1720c105a7daa"
+        },
+        "w4_mixed": {
+          "n": 300,
+          "sha256": "105857f7b1d960fe3fe48536ce2887fccbce8a586e8daa0a5efadb6d66d165c5"
+        },
+        "rc1_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "136f33dfe25cccfc45b9edf6a7085fcfaf3c7ab3721689227460d403eae3c39c"
+        },
+        "rc1_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "849cf18a27cf5ece6707f9ca8f185a7676393a9e3fffc6377474281c6dee1f4e"
+        },
+        "rc2_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "e3a14be0d4204bb4e59ca3b8a1c64dd124ecb8eaa26411f846de38510c088aeb"
+        },
+        "rc2_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "59c81e51ae875ef562a0bd2320f8626f76fd17a66d85e8b1f2672f8f566e2bbe"
+        },
+        "hh_cov_both": {
+          "n": 20476,
+          "sha256": "d654378ceec0419490c7575c700b06abf0674d6b58c7a7bf891b32fa753d5819"
+        },
+        "hh_cov_other": {
+          "n": 11524,
+          "sha256": "f9bdc02b6e5afc9423bd48a24acd7d3dcd55f88a89ae68843e678ddb7fd37b0f"
+        }
+      }
+    },
+    "runs": [
+      {
+        "seed": 1,
+        "config": {
+          "init_from": "../runs/skills_F_long_s1/epoch3000.pt",
+          "data_dir": "../data/skills_RC_none",
+          "epochs": 710,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 710,
+        "steps_actual": 200220,
+        "expected_steps": 200220,
+        "last5ckpts": [
+          600,
+          625,
+          650,
+          675,
+          700
+        ],
+        "per_covered_fact_role_exposures": 0,
+        "base_answer_exposures": 85200000,
+        "all_answers": 85200000
+      },
+      {
+        "seed": 7,
+        "config": {
+          "init_from": "../runs/skills_F_long_s7/epoch3000.pt",
+          "data_dir": "../data/skills_RC_none",
+          "epochs": 710,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 710,
+        "steps_actual": 200220,
+        "expected_steps": 200220,
+        "last5ckpts": [
+          600,
+          625,
+          650,
+          675,
+          700
+        ],
+        "per_covered_fact_role_exposures": 0,
+        "base_answer_exposures": 85200000,
+        "all_answers": 85200000
+      },
+      {
+        "seed": 123,
+        "config": {
+          "init_from": "../runs/skills_F_long_s123/epoch3000.pt",
+          "data_dir": "../data/skills_RC_none",
+          "epochs": 710,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 710,
+        "steps_actual": 200220,
+        "expected_steps": 200220,
+        "last5ckpts": [
+          600,
+          625,
+          650,
+          675,
+          700
+        ],
+        "per_covered_fact_role_exposures": 0,
+        "base_answer_exposures": 85200000,
+        "all_answers": 85200000
+      }
+    ]
+  },
+  {
+    "cell": "RC_k1",
+    "meta_params": {
+      "role_slots": "second",
+      "role_k": 1,
+      "role_exposure": 8,
+      "role_unseen": 100,
+      "role_reserved": 4,
+      "role_seed": 7,
+      "role_rows": {
+        "first": 0,
+        "second": 25600
+      },
+      "train_counts": {
+        "single": 8048,
+        "width": 24013,
+        "comp": 40000,
+        "mixed": 0,
+        "comp_leaked_heldout": 0,
+        "role_first": 0,
+        "role_second": 25600
+      }
+    },
+    "audit_saved": {
+      "hashes": {
+        "train": "f53c0261b52f1b2b",
+        "test": "a4e4210513983721",
+        "meta": "dd052756ab16cd94",
+        "vocab": "aa04f3af94b3a469"
+      },
+      "train_rows": 97661,
+      "answers_per_epoch": 145600,
+      "unique_comps": 43200,
+      "hh_training_rows": 0,
+      "test_counts": {
+        "atomic_train": 300,
+        "atomic_heldout": 300,
+        "d2_train_seen": 300,
+        "d2_train_unseen_instance": 300,
+        "d2_train_unseen_pair": 300,
+        "d3_train": 300,
+        "w2_train": 300,
+        "w2_heldout": 300,
+        "w2_mixed": 300,
+        "w3_train": 300,
+        "w3_heldout": 300,
+        "w3_mixed": 300,
+        "w4_train": 300,
+        "w4_heldout": 300,
+        "w4_mixed": 300,
+        "rc1_newpair_role_seen": 12800,
+        "rc1_newpair_role_unseen": 3200,
+        "rc2_newpair_role_seen": 12800,
+        "rc2_newpair_role_unseen": 3200,
+        "rc2_trainpartner_unseen": 800,
+        "hh_cov_both": 20476,
+        "hh_cov_other": 11524
+      },
+      "test_overlap": {
+        "atomic_train": 182,
+        "atomic_heldout": 179,
+        "d2_train_seen": 300,
+        "w2_train": 1
+      },
+      "rc2_newpair_role1_covered": [
+        16000,
+        16000
+      ],
+      "passed": true
+    },
+    "actual": {
+      "rows": 97661,
+      "answers": 145600,
+      "answer_hist": {
+        "1": 73648,
+        "2": 8013,
+        "3": 8074,
+        "4": 7926
+      },
+      "hh_rows": 0,
+      "bad_labels": 0,
+      "base_is_exact_F_long_prefix": true,
+      "base_prefix_n": 72061,
+      "role_coverage": {
+        "6": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "7": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "9": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "10": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "12": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "14": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "15": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "19": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        }
+      },
+      "test_type_hash": {
+        "atomic_train": {
+          "n": 300,
+          "sha256": "78b6845c3afe245114d1f3b3e15bffe045f95d00f94bcb0e9153c147ed62b74b"
+        },
+        "atomic_heldout": {
+          "n": 300,
+          "sha256": "ec9885d46145e912abf802b87637459851cd7407bfebc3bb72da8f333af5b27a"
+        },
+        "d2_train_seen": {
+          "n": 300,
+          "sha256": "2029eacdb512ce28d90980ef28510e176e7abf65c0cfb55ce8dc58fdb84fe320"
+        },
+        "d2_train_unseen_instance": {
+          "n": 300,
+          "sha256": "5451b0ea09d31400191bef2328b29266e641d475f1f3311ec3db6bb7254b126b"
+        },
+        "d2_train_unseen_pair": {
+          "n": 300,
+          "sha256": "224b047c4b268f4421d9e53361d3035da702609046b2e5e48a7c24d43b3ada26"
+        },
+        "d3_train": {
+          "n": 300,
+          "sha256": "e29a57f9617452d5c6cc7c4e6c416a5e5866c92b1d39e7dfba91a8353d3ac1d2"
+        },
+        "w2_train": {
+          "n": 300,
+          "sha256": "dca0495752c44ff0be0d13fad013f831f1d4055eae7ac9aa6136477a1ac34efd"
+        },
+        "w2_heldout": {
+          "n": 300,
+          "sha256": "275e5d50a4874fb70ab07d0342e998ba41b078d3ae78d4ab3feb37829516404f"
+        },
+        "w2_mixed": {
+          "n": 300,
+          "sha256": "32400864c4bb119e37bbe053615a2e072905ee422e1a8e1f9cb649cf95f2130a"
+        },
+        "w3_train": {
+          "n": 300,
+          "sha256": "8e6537ac07dbcc6a90037d2c10812640751db18fa20ea61be81038e442309eb9"
+        },
+        "w3_heldout": {
+          "n": 300,
+          "sha256": "932517a0808cac093dfe6241124d6a3fc5071feb2ca455179137a96d82413418"
+        },
+        "w3_mixed": {
+          "n": 300,
+          "sha256": "5b47a9c33749d909962778e3b527f69686799166bcd54746c7771da7d539af5a"
+        },
+        "w4_train": {
+          "n": 300,
+          "sha256": "60f49198b2192d8c41504017c4468bb903f2f0c66b606d72e799647f7682de9d"
+        },
+        "w4_heldout": {
+          "n": 300,
+          "sha256": "e6cd6ffc575d6c8dd2adf4651bb78312287dfec2123eb337e0f1720c105a7daa"
+        },
+        "w4_mixed": {
+          "n": 300,
+          "sha256": "105857f7b1d960fe3fe48536ce2887fccbce8a586e8daa0a5efadb6d66d165c5"
+        },
+        "rc1_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "136f33dfe25cccfc45b9edf6a7085fcfaf3c7ab3721689227460d403eae3c39c"
+        },
+        "rc1_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "849cf18a27cf5ece6707f9ca8f185a7676393a9e3fffc6377474281c6dee1f4e"
+        },
+        "rc2_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "e3a14be0d4204bb4e59ca3b8a1c64dd124ecb8eaa26411f846de38510c088aeb"
+        },
+        "rc2_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "59c81e51ae875ef562a0bd2320f8626f76fd17a66d85e8b1f2672f8f566e2bbe"
+        },
+        "rc2_trainpartner_unseen": {
+          "n": 800,
+          "sha256": "b12c04747e4a6232f3bbf249841efdb35ab60c671be8a5e3431effd8268e2575"
+        },
+        "hh_cov_both": {
+          "n": 20476,
+          "sha256": "d654378ceec0419490c7575c700b06abf0674d6b58c7a7bf891b32fa753d5819"
+        },
+        "hh_cov_other": {
+          "n": 11524,
+          "sha256": "f9bdc02b6e5afc9423bd48a24acd7d3dcd55f88a89ae68843e678ddb7fd37b0f"
+        }
+      }
+    },
+    "runs": [
+      {
+        "seed": 1,
+        "config": {
+          "init_from": "../runs/skills_F_long_s1/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k1",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 7,
+        "config": {
+          "init_from": "../runs/skills_F_long_s7/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k1",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 123,
+        "config": {
+          "init_from": "../runs/skills_F_long_s123/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k1",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      }
+    ]
+  },
+  {
+    "cell": "RC_k2",
+    "meta_params": {
+      "role_slots": "second",
+      "role_k": 2,
+      "role_exposure": 8,
+      "role_unseen": 100,
+      "role_reserved": 4,
+      "role_seed": 7,
+      "role_rows": {
+        "first": 0,
+        "second": 25600
+      },
+      "train_counts": {
+        "single": 8048,
+        "width": 24013,
+        "comp": 40000,
+        "mixed": 0,
+        "comp_leaked_heldout": 0,
+        "role_first": 0,
+        "role_second": 25600
+      }
+    },
+    "audit_saved": {
+      "hashes": {
+        "train": "47b5d2553bcf3d5c",
+        "test": "01760d0f82fcd91e",
+        "meta": "f0fe7f9ed08a7f10",
+        "vocab": "aa04f3af94b3a469"
+      },
+      "train_rows": 97661,
+      "answers_per_epoch": 145600,
+      "unique_comps": 46400,
+      "hh_training_rows": 0,
+      "test_counts": {
+        "atomic_train": 300,
+        "atomic_heldout": 300,
+        "d2_train_seen": 300,
+        "d2_train_unseen_instance": 300,
+        "d2_train_unseen_pair": 300,
+        "d3_train": 300,
+        "w2_train": 300,
+        "w2_heldout": 300,
+        "w2_mixed": 300,
+        "w3_train": 300,
+        "w3_heldout": 300,
+        "w3_mixed": 300,
+        "w4_train": 300,
+        "w4_heldout": 300,
+        "w4_mixed": 300,
+        "rc1_newpair_role_seen": 12800,
+        "rc1_newpair_role_unseen": 3200,
+        "rc2_newpair_role_seen": 12800,
+        "rc2_newpair_role_unseen": 3200,
+        "rc2_trainpartner_unseen": 1600,
+        "hh_cov_both": 20476,
+        "hh_cov_other": 11524
+      },
+      "test_overlap": {
+        "atomic_train": 182,
+        "atomic_heldout": 179,
+        "d2_train_seen": 300,
+        "w2_train": 1
+      },
+      "rc2_newpair_role1_covered": [
+        16000,
+        16000
+      ],
+      "passed": true
+    },
+    "actual": {
+      "rows": 97661,
+      "answers": 145600,
+      "answer_hist": {
+        "1": 73648,
+        "2": 8013,
+        "3": 8074,
+        "4": 7926
+      },
+      "hh_rows": 0,
+      "bad_labels": 0,
+      "base_is_exact_F_long_prefix": true,
+      "base_prefix_n": 72061,
+      "role_coverage": {
+        "6": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "7": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "9": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "10": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "12": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "14": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "15": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "19": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        }
+      },
+      "test_type_hash": {
+        "atomic_train": {
+          "n": 300,
+          "sha256": "78b6845c3afe245114d1f3b3e15bffe045f95d00f94bcb0e9153c147ed62b74b"
+        },
+        "atomic_heldout": {
+          "n": 300,
+          "sha256": "ec9885d46145e912abf802b87637459851cd7407bfebc3bb72da8f333af5b27a"
+        },
+        "d2_train_seen": {
+          "n": 300,
+          "sha256": "2029eacdb512ce28d90980ef28510e176e7abf65c0cfb55ce8dc58fdb84fe320"
+        },
+        "d2_train_unseen_instance": {
+          "n": 300,
+          "sha256": "5451b0ea09d31400191bef2328b29266e641d475f1f3311ec3db6bb7254b126b"
+        },
+        "d2_train_unseen_pair": {
+          "n": 300,
+          "sha256": "224b047c4b268f4421d9e53361d3035da702609046b2e5e48a7c24d43b3ada26"
+        },
+        "d3_train": {
+          "n": 300,
+          "sha256": "e29a57f9617452d5c6cc7c4e6c416a5e5866c92b1d39e7dfba91a8353d3ac1d2"
+        },
+        "w2_train": {
+          "n": 300,
+          "sha256": "dca0495752c44ff0be0d13fad013f831f1d4055eae7ac9aa6136477a1ac34efd"
+        },
+        "w2_heldout": {
+          "n": 300,
+          "sha256": "275e5d50a4874fb70ab07d0342e998ba41b078d3ae78d4ab3feb37829516404f"
+        },
+        "w2_mixed": {
+          "n": 300,
+          "sha256": "32400864c4bb119e37bbe053615a2e072905ee422e1a8e1f9cb649cf95f2130a"
+        },
+        "w3_train": {
+          "n": 300,
+          "sha256": "8e6537ac07dbcc6a90037d2c10812640751db18fa20ea61be81038e442309eb9"
+        },
+        "w3_heldout": {
+          "n": 300,
+          "sha256": "932517a0808cac093dfe6241124d6a3fc5071feb2ca455179137a96d82413418"
+        },
+        "w3_mixed": {
+          "n": 300,
+          "sha256": "5b47a9c33749d909962778e3b527f69686799166bcd54746c7771da7d539af5a"
+        },
+        "w4_train": {
+          "n": 300,
+          "sha256": "60f49198b2192d8c41504017c4468bb903f2f0c66b606d72e799647f7682de9d"
+        },
+        "w4_heldout": {
+          "n": 300,
+          "sha256": "e6cd6ffc575d6c8dd2adf4651bb78312287dfec2123eb337e0f1720c105a7daa"
+        },
+        "w4_mixed": {
+          "n": 300,
+          "sha256": "105857f7b1d960fe3fe48536ce2887fccbce8a586e8daa0a5efadb6d66d165c5"
+        },
+        "rc1_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "136f33dfe25cccfc45b9edf6a7085fcfaf3c7ab3721689227460d403eae3c39c"
+        },
+        "rc1_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "849cf18a27cf5ece6707f9ca8f185a7676393a9e3fffc6377474281c6dee1f4e"
+        },
+        "rc2_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "e3a14be0d4204bb4e59ca3b8a1c64dd124ecb8eaa26411f846de38510c088aeb"
+        },
+        "rc2_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "59c81e51ae875ef562a0bd2320f8626f76fd17a66d85e8b1f2672f8f566e2bbe"
+        },
+        "rc2_trainpartner_unseen": {
+          "n": 1600,
+          "sha256": "de2e4a2009f2deaa58b0a93e8d44e039401f125c52cfc74dd575086ed5840528"
+        },
+        "hh_cov_both": {
+          "n": 20476,
+          "sha256": "d654378ceec0419490c7575c700b06abf0674d6b58c7a7bf891b32fa753d5819"
+        },
+        "hh_cov_other": {
+          "n": 11524,
+          "sha256": "f9bdc02b6e5afc9423bd48a24acd7d3dcd55f88a89ae68843e678ddb7fd37b0f"
+        }
+      }
+    },
+    "runs": [
+      {
+        "seed": 1,
+        "config": {
+          "init_from": "../runs/skills_F_long_s1/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k2",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 7,
+        "config": {
+          "init_from": "../runs/skills_F_long_s7/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k2",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 123,
+        "config": {
+          "init_from": "../runs/skills_F_long_s123/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k2",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      }
+    ]
+  },
+  {
+    "cell": "RC_k4",
+    "meta_params": {
+      "role_slots": "second",
+      "role_k": 4,
+      "role_exposure": 8,
+      "role_unseen": 100,
+      "role_reserved": 4,
+      "role_seed": 7,
+      "role_rows": {
+        "first": 0,
+        "second": 25600
+      },
+      "train_counts": {
+        "single": 8048,
+        "width": 24013,
+        "comp": 40000,
+        "mixed": 0,
+        "comp_leaked_heldout": 0,
+        "role_first": 0,
+        "role_second": 25600
+      }
+    },
+    "audit_saved": {
+      "hashes": {
+        "train": "f12c471e89536248",
+        "test": "bc69e0ca0106b129",
+        "meta": "8c585ac266a80a7b",
+        "vocab": "aa04f3af94b3a469"
+      },
+      "train_rows": 97661,
+      "answers_per_epoch": 145600,
+      "unique_comps": 52800,
+      "hh_training_rows": 0,
+      "test_counts": {
+        "atomic_train": 300,
+        "atomic_heldout": 300,
+        "d2_train_seen": 300,
+        "d2_train_unseen_instance": 300,
+        "d2_train_unseen_pair": 300,
+        "d3_train": 300,
+        "w2_train": 300,
+        "w2_heldout": 300,
+        "w2_mixed": 300,
+        "w3_train": 300,
+        "w3_heldout": 300,
+        "w3_mixed": 300,
+        "w4_train": 300,
+        "w4_heldout": 300,
+        "w4_mixed": 300,
+        "rc1_newpair_role_seen": 12800,
+        "rc1_newpair_role_unseen": 3200,
+        "rc2_newpair_role_seen": 12800,
+        "rc2_newpair_role_unseen": 3200,
+        "rc2_trainpartner_unseen": 3200,
+        "hh_cov_both": 20476,
+        "hh_cov_other": 11524
+      },
+      "test_overlap": {
+        "atomic_train": 182,
+        "atomic_heldout": 179,
+        "d2_train_seen": 300,
+        "w2_train": 1
+      },
+      "rc2_newpair_role1_covered": [
+        16000,
+        16000
+      ],
+      "passed": true
+    },
+    "actual": {
+      "rows": 97661,
+      "answers": 145600,
+      "answer_hist": {
+        "1": 73648,
+        "2": 8013,
+        "3": 8074,
+        "4": 7926
+      },
+      "hh_rows": 0,
+      "bad_labels": 0,
+      "base_is_exact_F_long_prefix": true,
+      "base_prefix_n": 72061,
+      "role_coverage": {
+        "6": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "7": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "9": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "10": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "12": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "14": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "15": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "19": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        }
+      },
+      "test_type_hash": {
+        "atomic_train": {
+          "n": 300,
+          "sha256": "78b6845c3afe245114d1f3b3e15bffe045f95d00f94bcb0e9153c147ed62b74b"
+        },
+        "atomic_heldout": {
+          "n": 300,
+          "sha256": "ec9885d46145e912abf802b87637459851cd7407bfebc3bb72da8f333af5b27a"
+        },
+        "d2_train_seen": {
+          "n": 300,
+          "sha256": "2029eacdb512ce28d90980ef28510e176e7abf65c0cfb55ce8dc58fdb84fe320"
+        },
+        "d2_train_unseen_instance": {
+          "n": 300,
+          "sha256": "5451b0ea09d31400191bef2328b29266e641d475f1f3311ec3db6bb7254b126b"
+        },
+        "d2_train_unseen_pair": {
+          "n": 300,
+          "sha256": "224b047c4b268f4421d9e53361d3035da702609046b2e5e48a7c24d43b3ada26"
+        },
+        "d3_train": {
+          "n": 300,
+          "sha256": "e29a57f9617452d5c6cc7c4e6c416a5e5866c92b1d39e7dfba91a8353d3ac1d2"
+        },
+        "w2_train": {
+          "n": 300,
+          "sha256": "dca0495752c44ff0be0d13fad013f831f1d4055eae7ac9aa6136477a1ac34efd"
+        },
+        "w2_heldout": {
+          "n": 300,
+          "sha256": "275e5d50a4874fb70ab07d0342e998ba41b078d3ae78d4ab3feb37829516404f"
+        },
+        "w2_mixed": {
+          "n": 300,
+          "sha256": "32400864c4bb119e37bbe053615a2e072905ee422e1a8e1f9cb649cf95f2130a"
+        },
+        "w3_train": {
+          "n": 300,
+          "sha256": "8e6537ac07dbcc6a90037d2c10812640751db18fa20ea61be81038e442309eb9"
+        },
+        "w3_heldout": {
+          "n": 300,
+          "sha256": "932517a0808cac093dfe6241124d6a3fc5071feb2ca455179137a96d82413418"
+        },
+        "w3_mixed": {
+          "n": 300,
+          "sha256": "5b47a9c33749d909962778e3b527f69686799166bcd54746c7771da7d539af5a"
+        },
+        "w4_train": {
+          "n": 300,
+          "sha256": "60f49198b2192d8c41504017c4468bb903f2f0c66b606d72e799647f7682de9d"
+        },
+        "w4_heldout": {
+          "n": 300,
+          "sha256": "e6cd6ffc575d6c8dd2adf4651bb78312287dfec2123eb337e0f1720c105a7daa"
+        },
+        "w4_mixed": {
+          "n": 300,
+          "sha256": "105857f7b1d960fe3fe48536ce2887fccbce8a586e8daa0a5efadb6d66d165c5"
+        },
+        "rc1_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "136f33dfe25cccfc45b9edf6a7085fcfaf3c7ab3721689227460d403eae3c39c"
+        },
+        "rc1_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "849cf18a27cf5ece6707f9ca8f185a7676393a9e3fffc6377474281c6dee1f4e"
+        },
+        "rc2_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "e3a14be0d4204bb4e59ca3b8a1c64dd124ecb8eaa26411f846de38510c088aeb"
+        },
+        "rc2_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "59c81e51ae875ef562a0bd2320f8626f76fd17a66d85e8b1f2672f8f566e2bbe"
+        },
+        "rc2_trainpartner_unseen": {
+          "n": 3200,
+          "sha256": "88bbeb11c487018a4e351885315079248b932496ea0e347f67938c6f5520c8ee"
+        },
+        "hh_cov_both": {
+          "n": 20476,
+          "sha256": "d654378ceec0419490c7575c700b06abf0674d6b58c7a7bf891b32fa753d5819"
+        },
+        "hh_cov_other": {
+          "n": 11524,
+          "sha256": "f9bdc02b6e5afc9423bd48a24acd7d3dcd55f88a89ae68843e678ddb7fd37b0f"
+        }
+      }
+    },
+    "runs": [
+      {
+        "seed": 1,
+        "config": {
+          "init_from": "../runs/skills_F_long_s1/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k4",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 7,
+        "config": {
+          "init_from": "../runs/skills_F_long_s7/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k4",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 123,
+        "config": {
+          "init_from": "../runs/skills_F_long_s123/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k4",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      }
+    ]
+  },
+  {
+    "cell": "RC_k8",
+    "meta_params": {
+      "role_slots": "second",
+      "role_k": 8,
+      "role_exposure": 8,
+      "role_unseen": 100,
+      "role_reserved": 4,
+      "role_seed": 7,
+      "role_rows": {
+        "first": 0,
+        "second": 25600
+      },
+      "train_counts": {
+        "single": 8048,
+        "width": 24013,
+        "comp": 40000,
+        "mixed": 0,
+        "comp_leaked_heldout": 0,
+        "role_first": 0,
+        "role_second": 25600
+      }
+    },
+    "audit_saved": {
+      "hashes": {
+        "train": "d51bbea3e8100351",
+        "test": "93910df58b212330",
+        "meta": "0255741f83148ab2",
+        "vocab": "aa04f3af94b3a469"
+      },
+      "train_rows": 97661,
+      "answers_per_epoch": 145600,
+      "unique_comps": 65600,
+      "hh_training_rows": 0,
+      "test_counts": {
+        "atomic_train": 300,
+        "atomic_heldout": 300,
+        "d2_train_seen": 300,
+        "d2_train_unseen_instance": 300,
+        "d2_train_unseen_pair": 300,
+        "d3_train": 300,
+        "w2_train": 300,
+        "w2_heldout": 300,
+        "w2_mixed": 300,
+        "w3_train": 300,
+        "w3_heldout": 300,
+        "w3_mixed": 300,
+        "w4_train": 300,
+        "w4_heldout": 300,
+        "w4_mixed": 300,
+        "rc1_newpair_role_seen": 12800,
+        "rc1_newpair_role_unseen": 3200,
+        "rc2_newpair_role_seen": 12800,
+        "rc2_newpair_role_unseen": 3200,
+        "rc2_trainpartner_unseen": 6400,
+        "hh_cov_both": 20476,
+        "hh_cov_other": 11524
+      },
+      "test_overlap": {
+        "atomic_train": 182,
+        "atomic_heldout": 179,
+        "d2_train_seen": 300,
+        "w2_train": 1
+      },
+      "rc2_newpair_role1_covered": [
+        16000,
+        16000
+      ],
+      "passed": true
+    },
+    "actual": {
+      "rows": 97661,
+      "answers": 145600,
+      "answer_hist": {
+        "1": 73648,
+        "2": 8013,
+        "3": 8074,
+        "4": 7926
+      },
+      "hh_rows": 0,
+      "bad_labels": 0,
+      "base_is_exact_F_long_prefix": true,
+      "base_prefix_n": 72061,
+      "role_coverage": {
+        "6": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "7": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "9": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "10": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "12": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "14": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "15": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "19": {
+          "slot1": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        }
+      },
+      "test_type_hash": {
+        "atomic_train": {
+          "n": 300,
+          "sha256": "78b6845c3afe245114d1f3b3e15bffe045f95d00f94bcb0e9153c147ed62b74b"
+        },
+        "atomic_heldout": {
+          "n": 300,
+          "sha256": "ec9885d46145e912abf802b87637459851cd7407bfebc3bb72da8f333af5b27a"
+        },
+        "d2_train_seen": {
+          "n": 300,
+          "sha256": "2029eacdb512ce28d90980ef28510e176e7abf65c0cfb55ce8dc58fdb84fe320"
+        },
+        "d2_train_unseen_instance": {
+          "n": 300,
+          "sha256": "5451b0ea09d31400191bef2328b29266e641d475f1f3311ec3db6bb7254b126b"
+        },
+        "d2_train_unseen_pair": {
+          "n": 300,
+          "sha256": "224b047c4b268f4421d9e53361d3035da702609046b2e5e48a7c24d43b3ada26"
+        },
+        "d3_train": {
+          "n": 300,
+          "sha256": "e29a57f9617452d5c6cc7c4e6c416a5e5866c92b1d39e7dfba91a8353d3ac1d2"
+        },
+        "w2_train": {
+          "n": 300,
+          "sha256": "dca0495752c44ff0be0d13fad013f831f1d4055eae7ac9aa6136477a1ac34efd"
+        },
+        "w2_heldout": {
+          "n": 300,
+          "sha256": "275e5d50a4874fb70ab07d0342e998ba41b078d3ae78d4ab3feb37829516404f"
+        },
+        "w2_mixed": {
+          "n": 300,
+          "sha256": "32400864c4bb119e37bbe053615a2e072905ee422e1a8e1f9cb649cf95f2130a"
+        },
+        "w3_train": {
+          "n": 300,
+          "sha256": "8e6537ac07dbcc6a90037d2c10812640751db18fa20ea61be81038e442309eb9"
+        },
+        "w3_heldout": {
+          "n": 300,
+          "sha256": "932517a0808cac093dfe6241124d6a3fc5071feb2ca455179137a96d82413418"
+        },
+        "w3_mixed": {
+          "n": 300,
+          "sha256": "5b47a9c33749d909962778e3b527f69686799166bcd54746c7771da7d539af5a"
+        },
+        "w4_train": {
+          "n": 300,
+          "sha256": "60f49198b2192d8c41504017c4468bb903f2f0c66b606d72e799647f7682de9d"
+        },
+        "w4_heldout": {
+          "n": 300,
+          "sha256": "e6cd6ffc575d6c8dd2adf4651bb78312287dfec2123eb337e0f1720c105a7daa"
+        },
+        "w4_mixed": {
+          "n": 300,
+          "sha256": "105857f7b1d960fe3fe48536ce2887fccbce8a586e8daa0a5efadb6d66d165c5"
+        },
+        "rc1_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "136f33dfe25cccfc45b9edf6a7085fcfaf3c7ab3721689227460d403eae3c39c"
+        },
+        "rc1_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "849cf18a27cf5ece6707f9ca8f185a7676393a9e3fffc6377474281c6dee1f4e"
+        },
+        "rc2_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "e3a14be0d4204bb4e59ca3b8a1c64dd124ecb8eaa26411f846de38510c088aeb"
+        },
+        "rc2_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "59c81e51ae875ef562a0bd2320f8626f76fd17a66d85e8b1f2672f8f566e2bbe"
+        },
+        "rc2_trainpartner_unseen": {
+          "n": 6400,
+          "sha256": "6d28b64997ebdf90ee4367c51d9122102e9680a6ac52eb943e856c0991af275f"
+        },
+        "hh_cov_both": {
+          "n": 20476,
+          "sha256": "d654378ceec0419490c7575c700b06abf0674d6b58c7a7bf891b32fa753d5819"
+        },
+        "hh_cov_other": {
+          "n": 11524,
+          "sha256": "f9bdc02b6e5afc9423bd48a24acd7d3dcd55f88a89ae68843e678ddb7fd37b0f"
+        }
+      }
+    },
+    "runs": [
+      {
+        "seed": 1,
+        "config": {
+          "init_from": "../runs/skills_F_long_s1/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k8",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 7,
+        "config": {
+          "init_from": "../runs/skills_F_long_s7/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k8",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 123,
+        "config": {
+          "init_from": "../runs/skills_F_long_s123/epoch3000.pt",
+          "data_dir": "../data/skills_RC_k8",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      }
+    ]
+  },
+  {
+    "cell": "RC_first4",
+    "meta_params": {
+      "role_slots": "first",
+      "role_k": 4,
+      "role_exposure": 8,
+      "role_unseen": 100,
+      "role_reserved": 4,
+      "role_seed": 7,
+      "role_rows": {
+        "first": 25600,
+        "second": 0
+      },
+      "train_counts": {
+        "single": 8048,
+        "width": 24013,
+        "comp": 40000,
+        "mixed": 0,
+        "comp_leaked_heldout": 0,
+        "role_first": 25600,
+        "role_second": 0
+      }
+    },
+    "audit_saved": {
+      "hashes": {
+        "train": "2d4a40f9e59aa241",
+        "test": "5c131afad151106b",
+        "meta": "25d76793782fecc7",
+        "vocab": "aa04f3af94b3a469"
+      },
+      "train_rows": 97661,
+      "answers_per_epoch": 145600,
+      "unique_comps": 52800,
+      "hh_training_rows": 0,
+      "test_counts": {
+        "atomic_train": 300,
+        "atomic_heldout": 300,
+        "d2_train_seen": 300,
+        "d2_train_unseen_instance": 300,
+        "d2_train_unseen_pair": 300,
+        "d3_train": 300,
+        "w2_train": 300,
+        "w2_heldout": 300,
+        "w2_mixed": 300,
+        "w3_train": 300,
+        "w3_heldout": 300,
+        "w3_mixed": 300,
+        "w4_train": 300,
+        "w4_heldout": 300,
+        "w4_mixed": 300,
+        "rc1_newpair_role_seen": 12800,
+        "rc1_newpair_role_unseen": 3200,
+        "rc1_trainpartner_unseen": 3200,
+        "rc2_newpair_role_seen": 12800,
+        "rc2_newpair_role_unseen": 3200,
+        "hh_cov_both": 20476,
+        "hh_cov_other": 11524
+      },
+      "test_overlap": {
+        "atomic_train": 182,
+        "atomic_heldout": 179,
+        "d2_train_seen": 300,
+        "w2_train": 1
+      },
+      "rc2_newpair_role1_covered": [
+        16000,
+        16000
+      ],
+      "passed": true
+    },
+    "actual": {
+      "rows": 97661,
+      "answers": 145600,
+      "answer_hist": {
+        "1": 73648,
+        "2": 8013,
+        "3": 8074,
+        "4": 7926
+      },
+      "hh_rows": 0,
+      "bad_labels": 0,
+      "base_is_exact_F_long_prefix": true,
+      "base_prefix_n": 72061,
+      "role_coverage": {
+        "6": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "7": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "9": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "10": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "12": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "14": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "15": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "19": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 0,
+            "freq_min": 0,
+            "freq_max": 0,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        }
+      },
+      "test_type_hash": {
+        "atomic_train": {
+          "n": 300,
+          "sha256": "78b6845c3afe245114d1f3b3e15bffe045f95d00f94bcb0e9153c147ed62b74b"
+        },
+        "atomic_heldout": {
+          "n": 300,
+          "sha256": "ec9885d46145e912abf802b87637459851cd7407bfebc3bb72da8f333af5b27a"
+        },
+        "d2_train_seen": {
+          "n": 300,
+          "sha256": "2029eacdb512ce28d90980ef28510e176e7abf65c0cfb55ce8dc58fdb84fe320"
+        },
+        "d2_train_unseen_instance": {
+          "n": 300,
+          "sha256": "5451b0ea09d31400191bef2328b29266e641d475f1f3311ec3db6bb7254b126b"
+        },
+        "d2_train_unseen_pair": {
+          "n": 300,
+          "sha256": "224b047c4b268f4421d9e53361d3035da702609046b2e5e48a7c24d43b3ada26"
+        },
+        "d3_train": {
+          "n": 300,
+          "sha256": "e29a57f9617452d5c6cc7c4e6c416a5e5866c92b1d39e7dfba91a8353d3ac1d2"
+        },
+        "w2_train": {
+          "n": 300,
+          "sha256": "dca0495752c44ff0be0d13fad013f831f1d4055eae7ac9aa6136477a1ac34efd"
+        },
+        "w2_heldout": {
+          "n": 300,
+          "sha256": "275e5d50a4874fb70ab07d0342e998ba41b078d3ae78d4ab3feb37829516404f"
+        },
+        "w2_mixed": {
+          "n": 300,
+          "sha256": "32400864c4bb119e37bbe053615a2e072905ee422e1a8e1f9cb649cf95f2130a"
+        },
+        "w3_train": {
+          "n": 300,
+          "sha256": "8e6537ac07dbcc6a90037d2c10812640751db18fa20ea61be81038e442309eb9"
+        },
+        "w3_heldout": {
+          "n": 300,
+          "sha256": "932517a0808cac093dfe6241124d6a3fc5071feb2ca455179137a96d82413418"
+        },
+        "w3_mixed": {
+          "n": 300,
+          "sha256": "5b47a9c33749d909962778e3b527f69686799166bcd54746c7771da7d539af5a"
+        },
+        "w4_train": {
+          "n": 300,
+          "sha256": "60f49198b2192d8c41504017c4468bb903f2f0c66b606d72e799647f7682de9d"
+        },
+        "w4_heldout": {
+          "n": 300,
+          "sha256": "e6cd6ffc575d6c8dd2adf4651bb78312287dfec2123eb337e0f1720c105a7daa"
+        },
+        "w4_mixed": {
+          "n": 300,
+          "sha256": "105857f7b1d960fe3fe48536ce2887fccbce8a586e8daa0a5efadb6d66d165c5"
+        },
+        "rc1_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "136f33dfe25cccfc45b9edf6a7085fcfaf3c7ab3721689227460d403eae3c39c"
+        },
+        "rc1_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "849cf18a27cf5ece6707f9ca8f185a7676393a9e3fffc6377474281c6dee1f4e"
+        },
+        "rc1_trainpartner_unseen": {
+          "n": 3200,
+          "sha256": "96a2bddb01dff8391f1f179677a899a7c91587cb9cbaaa5575cec8e9c0a55304"
+        },
+        "rc2_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "e3a14be0d4204bb4e59ca3b8a1c64dd124ecb8eaa26411f846de38510c088aeb"
+        },
+        "rc2_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "59c81e51ae875ef562a0bd2320f8626f76fd17a66d85e8b1f2672f8f566e2bbe"
+        },
+        "hh_cov_both": {
+          "n": 20476,
+          "sha256": "d654378ceec0419490c7575c700b06abf0674d6b58c7a7bf891b32fa753d5819"
+        },
+        "hh_cov_other": {
+          "n": 11524,
+          "sha256": "f9bdc02b6e5afc9423bd48a24acd7d3dcd55f88a89ae68843e678ddb7fd37b0f"
+        }
+      }
+    },
+    "runs": [
+      {
+        "seed": 1,
+        "config": {
+          "init_from": "../runs/skills_F_long_s1/epoch3000.pt",
+          "data_dir": "../data/skills_RC_first4",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 7,
+        "config": {
+          "init_from": "../runs/skills_F_long_s7/epoch3000.pt",
+          "data_dir": "../data/skills_RC_first4",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      },
+      {
+        "seed": 123,
+        "config": {
+          "init_from": "../runs/skills_F_long_s123/epoch3000.pt",
+          "data_dir": "../data/skills_RC_first4",
+          "epochs": 525,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 525,
+        "steps_actual": 200550,
+        "expected_steps": 200550,
+        "last5ckpts": [
+          425,
+          450,
+          475,
+          500,
+          525
+        ],
+        "per_covered_fact_role_exposures": 4200,
+        "base_answer_exposures": 63000000,
+        "all_answers": 76440000
+      }
+    ]
+  },
+  {
+    "cell": "RC_both4",
+    "meta_params": {
+      "role_slots": "both",
+      "role_k": 4,
+      "role_exposure": 8,
+      "role_unseen": 100,
+      "role_reserved": 4,
+      "role_seed": 7,
+      "role_rows": {
+        "first": 25600,
+        "second": 25600
+      },
+      "train_counts": {
+        "single": 8048,
+        "width": 24013,
+        "comp": 40000,
+        "mixed": 0,
+        "comp_leaked_heldout": 0,
+        "role_first": 25600,
+        "role_second": 25600
+      }
+    },
+    "audit_saved": {
+      "hashes": {
+        "train": "cd43f143dcb59089",
+        "test": "3ec42f23d38e2333",
+        "meta": "39b4ae6dcf46440b",
+        "vocab": "aa04f3af94b3a469"
+      },
+      "train_rows": 123261,
+      "answers_per_epoch": 171200,
+      "unique_comps": 65600,
+      "hh_training_rows": 0,
+      "test_counts": {
+        "atomic_train": 300,
+        "atomic_heldout": 300,
+        "d2_train_seen": 300,
+        "d2_train_unseen_instance": 300,
+        "d2_train_unseen_pair": 300,
+        "d3_train": 300,
+        "w2_train": 300,
+        "w2_heldout": 300,
+        "w2_mixed": 300,
+        "w3_train": 300,
+        "w3_heldout": 300,
+        "w3_mixed": 300,
+        "w4_train": 300,
+        "w4_heldout": 300,
+        "w4_mixed": 300,
+        "rc1_newpair_role_seen": 12800,
+        "rc1_newpair_role_unseen": 3200,
+        "rc1_trainpartner_unseen": 3200,
+        "rc2_newpair_role_seen": 12800,
+        "rc2_newpair_role_unseen": 3200,
+        "rc2_trainpartner_unseen": 3200,
+        "hh_cov_both": 20476,
+        "hh_cov_other": 11524
+      },
+      "test_overlap": {
+        "atomic_train": 182,
+        "atomic_heldout": 179,
+        "d2_train_seen": 300,
+        "w2_train": 1
+      },
+      "rc2_newpair_role1_covered": [
+        16000,
+        16000
+      ],
+      "passed": true
+    },
+    "actual": {
+      "rows": 123261,
+      "answers": 171200,
+      "answer_hist": {
+        "1": 99248,
+        "2": 8013,
+        "3": 8074,
+        "4": 7926
+      },
+      "hh_rows": 0,
+      "bad_labels": 0,
+      "base_is_exact_F_long_prefix": true,
+      "base_prefix_n": 72061,
+      "role_coverage": {
+        "6": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "7": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "9": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "10": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "12": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "14": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "15": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        },
+        "19": {
+          "slot1": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "slot2": {
+            "covered": 400,
+            "freq_min": 8,
+            "freq_max": 8,
+            "unseen_viol": 0
+          },
+          "reserved_viol": 0
+        }
+      },
+      "test_type_hash": {
+        "atomic_train": {
+          "n": 300,
+          "sha256": "78b6845c3afe245114d1f3b3e15bffe045f95d00f94bcb0e9153c147ed62b74b"
+        },
+        "atomic_heldout": {
+          "n": 300,
+          "sha256": "ec9885d46145e912abf802b87637459851cd7407bfebc3bb72da8f333af5b27a"
+        },
+        "d2_train_seen": {
+          "n": 300,
+          "sha256": "2029eacdb512ce28d90980ef28510e176e7abf65c0cfb55ce8dc58fdb84fe320"
+        },
+        "d2_train_unseen_instance": {
+          "n": 300,
+          "sha256": "5451b0ea09d31400191bef2328b29266e641d475f1f3311ec3db6bb7254b126b"
+        },
+        "d2_train_unseen_pair": {
+          "n": 300,
+          "sha256": "224b047c4b268f4421d9e53361d3035da702609046b2e5e48a7c24d43b3ada26"
+        },
+        "d3_train": {
+          "n": 300,
+          "sha256": "e29a57f9617452d5c6cc7c4e6c416a5e5866c92b1d39e7dfba91a8353d3ac1d2"
+        },
+        "w2_train": {
+          "n": 300,
+          "sha256": "dca0495752c44ff0be0d13fad013f831f1d4055eae7ac9aa6136477a1ac34efd"
+        },
+        "w2_heldout": {
+          "n": 300,
+          "sha256": "275e5d50a4874fb70ab07d0342e998ba41b078d3ae78d4ab3feb37829516404f"
+        },
+        "w2_mixed": {
+          "n": 300,
+          "sha256": "32400864c4bb119e37bbe053615a2e072905ee422e1a8e1f9cb649cf95f2130a"
+        },
+        "w3_train": {
+          "n": 300,
+          "sha256": "8e6537ac07dbcc6a90037d2c10812640751db18fa20ea61be81038e442309eb9"
+        },
+        "w3_heldout": {
+          "n": 300,
+          "sha256": "932517a0808cac093dfe6241124d6a3fc5071feb2ca455179137a96d82413418"
+        },
+        "w3_mixed": {
+          "n": 300,
+          "sha256": "5b47a9c33749d909962778e3b527f69686799166bcd54746c7771da7d539af5a"
+        },
+        "w4_train": {
+          "n": 300,
+          "sha256": "60f49198b2192d8c41504017c4468bb903f2f0c66b606d72e799647f7682de9d"
+        },
+        "w4_heldout": {
+          "n": 300,
+          "sha256": "e6cd6ffc575d6c8dd2adf4651bb78312287dfec2123eb337e0f1720c105a7daa"
+        },
+        "w4_mixed": {
+          "n": 300,
+          "sha256": "105857f7b1d960fe3fe48536ce2887fccbce8a586e8daa0a5efadb6d66d165c5"
+        },
+        "rc1_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "136f33dfe25cccfc45b9edf6a7085fcfaf3c7ab3721689227460d403eae3c39c"
+        },
+        "rc1_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "849cf18a27cf5ece6707f9ca8f185a7676393a9e3fffc6377474281c6dee1f4e"
+        },
+        "rc1_trainpartner_unseen": {
+          "n": 3200,
+          "sha256": "96a2bddb01dff8391f1f179677a899a7c91587cb9cbaaa5575cec8e9c0a55304"
+        },
+        "rc2_newpair_role_seen": {
+          "n": 12800,
+          "sha256": "e3a14be0d4204bb4e59ca3b8a1c64dd124ecb8eaa26411f846de38510c088aeb"
+        },
+        "rc2_newpair_role_unseen": {
+          "n": 3200,
+          "sha256": "59c81e51ae875ef562a0bd2320f8626f76fd17a66d85e8b1f2672f8f566e2bbe"
+        },
+        "rc2_trainpartner_unseen": {
+          "n": 3200,
+          "sha256": "88bbeb11c487018a4e351885315079248b932496ea0e347f67938c6f5520c8ee"
+        },
+        "hh_cov_both": {
+          "n": 20476,
+          "sha256": "d654378ceec0419490c7575c700b06abf0674d6b58c7a7bf891b32fa753d5819"
+        },
+        "hh_cov_other": {
+          "n": 11524,
+          "sha256": "f9bdc02b6e5afc9423bd48a24acd7d3dcd55f88a89ae68843e678ddb7fd37b0f"
+        }
+      }
+    },
+    "runs": [
+      {
+        "seed": 1,
+        "config": {
+          "init_from": "../runs/skills_F_long_s1/epoch3000.pt",
+          "data_dir": "../data/skills_RC_both4",
+          "epochs": 415,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 415,
+        "steps_actual": 200030,
+        "expected_steps": 200030,
+        "last5ckpts": [
+          300,
+          325,
+          350,
+          375,
+          400
+        ],
+        "per_covered_fact_role_exposures": 3320,
+        "base_answer_exposures": 49800000,
+        "all_answers": 71048000
+      },
+      {
+        "seed": 7,
+        "config": {
+          "init_from": "../runs/skills_F_long_s7/epoch3000.pt",
+          "data_dir": "../data/skills_RC_both4",
+          "epochs": 415,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 415,
+        "steps_actual": 200030,
+        "expected_steps": 200030,
+        "last5ckpts": [
+          300,
+          325,
+          350,
+          375,
+          400
+        ],
+        "per_covered_fact_role_exposures": 3320,
+        "base_answer_exposures": 49800000,
+        "all_answers": 71048000
+      },
+      {
+        "seed": 123,
+        "config": {
+          "init_from": "../runs/skills_F_long_s123/epoch3000.pt",
+          "data_dir": "../data/skills_RC_both4",
+          "epochs": 415,
+          "batch_size": 256,
+          "lr": 0.0003,
+          "optimizer": "adamw",
+          "weight_decay": 0.1,
+          "warmup_steps": 100,
+          "data_loader": null,
+          "n_layer": 2,
+          "d_model": 256,
+          "use_amp": false
+        },
+        "epoch_actual": 415,
+        "steps_actual": 200030,
+        "expected_steps": 200030,
+        "last5ckpts": [
+          300,
+          325,
+          350,
+          375,
+          400
+        ],
+        "per_covered_fact_role_exposures": 3320,
+        "base_answer_exposures": 49800000,
+        "all_answers": 71048000
+      }
+    ]
+  }
+]
