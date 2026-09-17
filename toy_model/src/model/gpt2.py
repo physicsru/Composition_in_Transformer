@@ -95,11 +95,13 @@ class CausalSelfAttentionRoPE(nn.Module):
         causal = torch.triu(torch.ones(max_len, max_len), diagonal=1).bool()
         self.register_buffer("causal_mask", causal[None, None, :, :], persistent=False)
 
-    def forward(self, x: torch.Tensor, pad_mask: torch.Tensor | None = None):
+    def forward(self, x: torch.Tensor, pad_mask: torch.Tensor | None = None, pos_ids: torch.Tensor | None = None):
         """
         Args:
             x: Input tensor of shape (B, L, C)
             pad_mask: Padding mask of shape (B, L), True for PAD positions
+            pos_ids: optional explicit RoPE positions of shape (B, L) (e.g. reset to 0 at every call of the local
+                     executor with history); the causal mask still follows the token order. Default: 0..L-1.
         """
         B, L, C = x.shape
 
@@ -111,7 +113,14 @@ class CausalSelfAttentionRoPE(nn.Module):
         v = v.view(B, L, self.n_head, self.head_dim).transpose(1, 2)
 
         if self.use_rope:
-            cos, sin = self.rope(seq_len=L, device=x.device, dtype=x.dtype)
+            if pos_ids is None:
+                cos, sin = self.rope(seq_len=L, device=x.device, dtype=x.dtype)
+            else:
+                need = int(pos_ids.max()) + 1
+                if need > self.rope.max_len:
+                    self.rope._build_cache(need)
+                cos = self.rope.cos_cached[0, 0].to(x.device, x.dtype)[pos_ids][:, None]   # (B, 1, L, hd)
+                sin = self.rope.sin_cached[0, 0].to(x.device, x.dtype)[pos_ids][:, None]
             q = apply_rope(q, cos, sin)
             k = apply_rope(k, cos, sin)
 
@@ -154,8 +163,8 @@ class GPT2BlockRoPE(nn.Module):
             nn.Dropout(dropout),
         )
 
-    def forward(self, x: torch.Tensor, pad_mask: torch.Tensor | None = None):
-        x = x + self.attn(self.ln_1(x), pad_mask=pad_mask)
+    def forward(self, x: torch.Tensor, pad_mask: torch.Tensor | None = None, pos_ids: torch.Tensor | None = None):
+        x = x + self.attn(self.ln_1(x), pad_mask=pad_mask, pos_ids=pos_ids)
         x = x + self.mlp(self.ln_2(x))
         return x
 
@@ -176,6 +185,7 @@ class GPT2LikeEncoder(nn.Module):
         max_len: int = 1024,
         rope_base: float = 100.0,
         use_rope: bool = True,
+        zero_init_out: bool = False,
     ):
         """
         Args:
@@ -186,6 +196,9 @@ class GPT2LikeEncoder(nn.Module):
             dropout: Dropout rate
             max_len: Maximum sequence length
             rope_base: Base for rotary position embedding
+            zero_init_out: zero-initialise the attention / MLP output projections of every block, so that the block
+                           starts as the identity map (stabilises the recurrent-depth model that re-applies the
+                           same blocks n_loops times; docs/experiments_loop_next.md §6)
         """
         super().__init__()
         self.tok_emb = nn.Embedding(vocab_size, d_model)
@@ -201,7 +214,12 @@ class GPT2LikeEncoder(nn.Module):
         # self.head.weight = self.tok_emb.weight  # Weight tying
 
         self.max_len = max_len
+        self.zero_init_out = zero_init_out
         self.apply(self._init)
+        if zero_init_out:
+            for blk in self.blocks:
+                nn.init.zeros_(blk.attn.out.weight)
+                nn.init.zeros_(blk.mlp[2].weight)
 
     def _init(self, m):
         """Initialize weights."""
@@ -213,12 +231,16 @@ class GPT2LikeEncoder(nn.Module):
             nn.init.ones_(m.weight)
             nn.init.zeros_(m.bias)
 
-    def forward(self, input_ids: torch.Tensor, pad_mask: torch.Tensor = None):
+    def forward(self, input_ids: torch.Tensor, pad_mask: torch.Tensor = None, pos_ids: torch.Tensor = None,
+                n_loops: int = 1):
         """
         Args:
             input_ids: Input token IDs of shape (B, L)
             pad_mask: Padding mask of shape (B, L), True for PAD positions
-            
+            pos_ids: optional explicit RoPE positions (B, L); default 0..L-1
+            n_loops: apply the whole block stack this many times with shared weights (recurrent-depth model,
+                     h^(t+1) = B_theta(h^(t)); positions are unchanged across loops, no loop embedding)
+
         Returns:
             Logits of shape (B, L, V)
         """
@@ -228,8 +250,9 @@ class GPT2LikeEncoder(nn.Module):
 
         x = self.drop(self.tok_emb(input_ids))
 
-        for blk in self.blocks:
-            x = blk(x, pad_mask=pad_mask)
+        for _ in range(n_loops):
+            for blk in self.blocks:
+                x = blk(x, pad_mask=pad_mask, pos_ids=pos_ids)
 
         x = self.ln_f(x)
         return self.head(x)

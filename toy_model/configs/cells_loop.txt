@@ -1,0 +1,14 @@
+# Loop / local-executor batch (docs/experiments_loop_next.md; log docs/experiments_loop_batch1.md).
+# All cells share ONE frozen dataset data/chain_loop = the C_k1 data (k = 1, world 42, graph/w2/val/test seeds 1/2/3/4) with the
+# test matrix extended to d = 64 and 128 (train / validation files byte-identical to data/chain_chainC_k1, hashes in meta.json).
+# name | script | train args        (runs -> runs/loop_<cell>_s<seed>; {seed} is substituted)
+# L series (plan §4-5, §7): local executor, 50k updates w2-only then 200k updates 128 w2 + 128 d2 presentations (L-w2: 256 w2).
+L      | train_local.py | --max_len 64
+Lw2    | train_local.py | --max_len 64 --w2_only
+Lhist  | train_local.py | --max_len 4096 --history
+# R (plan §6): full-sequence answer-only model whose 2 shared blocks are applied T ~ U{2,4,8} times per update; zero-init output
+# projections; extended vocabulary; selection by w2-only validation; T(d) rule at test, fixed T=8 control, depth x T matrix at 50k/150k/250k.
+R      | train_chain.py | --protocol A --vocab_ext --loop_T 2,4,8 --zero_init_out --select_by w2 --small_test_depths 2,3,4,8,16,32,64,128 --final_extra_ckpts auto
+# EXTRA (not in the plan; added because the plain answer-only model A already fails d2 new pairs, which would make R uninformative
+# about depth): the same looped model with protocol C (relation + entity CoT) outputs. Final eval limited to d <= 32 for cost.
+RC     | train_chain.py | --protocol C --vocab_ext --loop_T 2,4,8 --zero_init_out --select_by w2 --small_test_depths 2,3,4,8,16,32 --final_depths 2,3,4,8,16,32 --final_extra_ckpts auto

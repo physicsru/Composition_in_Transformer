@@ -191,7 +191,11 @@ def build_chain_dataset(num_entities: int = 500, num_relations: int = 20, world_
             seen_keys = set()
             n_target = n_test_per_cell
             tries = 0; n_cell = 0
-            while n_cell < n_target and tries < 50 * n_target:
+            # random chains are rejection-sampled against the validation adjacencies (1 of 20 successors is a validation
+            # pair, so the acceptance rate is 0.95^(d-1): about 0.0015 at d = 128); the cap only limits pathological cases.
+            # Depths <= 32 draw exactly as before (the same RNG stream, in order), so adding 64 / 128 leaves them frozen.
+            max_tries = 50 * n_target if cat != "random" else max(50 * n_target, int(20 * n_target / max(1e-9, 0.95 ** (d - 1))))
+            while n_cell < n_target and tries < max_tries:
                 tries += 1
                 if cat == "all_seen":
                     rels = walk_forward(int(rng_t.integers(R)), d - 1); new_pos = []

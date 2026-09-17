@@ -312,6 +312,10 @@ k=1 的从未组合过的对在 1800 epoch checkpoint 上 0.711。曲线在 56 �
 
 `shallow_training_deep_composition_plan_2026-09-16.md` 的第一批：严格 w2/d2 数据集 L（同一个世界 42；w2 40k 行、每事实第一 / 第二槽各 4 次、8 个不同伙伴；d2 = 4-正则强连通关系图 80 条边 × 500 起点 = 40k 行；验证 20 对 1-正则 × 50 起点；测试池 300 对；测试 d=2/3/4/8/16/32 × {全部邻接已见, 恰一个新邻接, 随机} × 5,000），三种输出协议 A（只答案）/ B（实体 CoT）/ C（关系 + 实体 CoT），50k updates w2-only + 200k updates 128 w2 + 128 d2，自主 greedy rollout 评估（最终答案、完整轨迹、首错位置与类型、相对自身状态的更新正确率、穷举原子、w2 第二问用自身输出作历史）。新代码：`src/data/builder_chain.py`、`src/data/chain_format.py`、`src/generate_chain.py`、`src/train_chain.py`、`scripts/pbs_chain.sh`、`configs/cells_chain.txt`。同时提交的疑问后续：RC_k8 续训 525 epoch（未覆盖 bridge 的应用能否超过 0.83）、新世界 43 的 F_long 基础（之后接 RC_w43_k1 / k8）。head 级 K/V 干预与注意力读位置诊断已完成（`scripts/attn_probe.py`，`experiments_chain_batch1.md` §5）：grok 后的两层模型第二层 head 1 几乎只读 r1 位置（0.94–1.00）、head 0 读自身；同 bridge 源的全部作用在 head 1 的 V 路（RC_k4 H→H 0.01 → 0.99），K 路无作用；both 臂在 T→H 题上的注意力模式与 second 臂完全相同，干扰不在路由；H 只共现时 block-0 没有 bridge（RC_none 0.05–0.07），有第一跳监督时才有（first4 0.45–0.51）——共现提供读取端的标准电路，关系的 block-0 映射来自第一跳监督，两者都要才快（X_w2d2_c40k），只有映射没有读取端就慢（X_d2 的 head 分工颠倒，78 万步）。
 
+### 2.10 第四批：局部执行接口与内部循环（2026-09-17；审查与落地见 [experiments_loop_batch1.md](experiments_loop_batch1.md)）
+
+方案 [experiments_loop_next.md](experiments_loop_next.md) 把"从 w2/d2 学可重复执行的组合规则"拆成两个命题：有固定局部接口时浅层数据够不够（L / L-w2 / L-history：每次调用只看 `(当前实体, 当前关系或 EOS)`，模型输出 STEP/HALT 动作与实体，程序保存关系序列并反馈模型自己的实体），以及没有局部接口时共享计算能否自己学出可迭代的状态（R：2 层共享模块循环 T∈{2,4,8} 次，答案级 NTP）。数据仍是冻结的 C_k1（40k w2 + 10k d2），测试矩阵扩到 d=128。审查结论：可行；L 的成功由"表全对 + 归纳"保证，信息量在收敛与三臂差异；R 要先过 d2 新对这一关（不循环的 A 是 chance），所以另加了循环 + 协议 C 的补充臂 RC。作业 3385016–3385021。
+
 ## 3. 目前可以确认的、以及待定的
 
 已确认（3 seed 或多格一致）：
@@ -453,6 +457,7 @@ python scripts/summarize_skills.py runs/skills_<cell>_s1 --curve d2_train_unseen
 | 3375400 chain-4L / 3375414 chain-Ck / 3375820 chain-D | 完成 09-17 02:39 / 01:58 / 03:42：4 层、k=1/2/8、D、NoPE 全部 d ≥ 3 = 0；A_4L 新对 0.005–0.014；C_nope 新对 0.39–0.68；D 新对 d2 0.74 / 0.99 / 0.93（best_by_val），d ≥ 3 = 0 | 完成 |
 | 3375402 d23-4Lc | 完成 09-17 00:05（F_d23_80k_4L_cont：seed 1 再 2000 epoch，深 3 未见 0.237 → 0.385，CE 4.9 → 4.0，仍在慢升；深 2 1.000） | 完成 |
 | 3375401 d23-4L | 完成 09-17 00:37（F_d23_80k_4L seed 7/123：深 3 未见 0.329 / 0.625，深 2 ≥ 0.99；三 seed 深 3 = 0.24 / 0.33 / 0.63，seed 123 在 1000 epoch 已 0.69） | 完成 |
+| 3385016–3385021 loop-L / Lw2 / Lhist / R / RC / O | 第四批（`experiments_loop_next.md`）：局部执行器 L / L-w2 / L-history、共享模块循环 R、方案外补充 RC（循环 + 协议 C），各 3 seed 25 万步；O = C_k1 在 d 到 128 的扩展测试集上重评估（外部逐步调用） | 排队（09-17） |
 | 3363979 F_long | 完成 13:47 | 完成 |
 | 3363968 r3b | 完成 13:20 | 完成 |
 | 3363973 r3a / 3363969 r3c | 完成 12:33 / 12:32 | 完成 |
