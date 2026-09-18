@@ -43,7 +43,7 @@ if [ ! -f "$data_dir/meta.json" ]; then
     echo "generation failed:"; cat "../runs/gen_$(basename "$DATA").log"; exit 1
   fi
 fi
-pids=(); names=()
+pids=(); names=(); fail=0
 if [ "$MODE" = "O" ]; then
   # arm O (plan table row O, §12 P0.4): the trained C_k1 models, no new training, free rollouts + external step-wise calling
   # on the extended test matrix (d up to 128) for the final and the best_by_val checkpoints of every seed.
@@ -57,6 +57,23 @@ if [ "$MODE" = "O" ]; then
       python -u train_chain.py --data_dir "$data_dir" --save_dir "$run" --protocol C --seed "$seed" --eval_only "$ck" --eval_tag "O_${tag}" \
           --rollout_batch "${ROLLOUT_BATCH:-250}" > "$run/eval_O_${tag}.log" 2>&1 &
       pids+=($!); names+=("$run:$tag")
+    done
+  done
+elif [ "$MODE" = "eval" ]; then
+  # make-up full-matrix evaluations of finished runs (e.g. when the training job's walltime cut off the last final_eval_* files):
+  #   qsub -v MODE=eval,EVAL_RUNS=loop_Lhist_s1+loop_Lhist_s7,EVAL_TAGS=ckpt_245000+ckpt_240000+best scripts/pbs_loop.sh
+  # script / args come from the run's cell (run name = loop_<cell>_s<seed>); tags whose final_eval_<tag>.json exists are skipped.
+  for run_name in ${EVAL_RUNS//+/ }; do
+    run=../runs/$run_name; cell=${run_name#loop_}; seed=${cell##*_s}; cell=${cell%_s*}
+    if [ -z "${SCRIPT[$cell]+x}" ]; then echo "unknown cell for $run_name: $cell"; exit 1; fi
+    for tag in ${EVAL_TAGS//+/ }; do
+      [ -f "$run/final_eval_${tag}.json" ] && { echo "skip $run_name $tag (exists)"; continue; }
+      ck=$run/${tag}.pt; [ "$tag" = best ] && ck=$run/best_by_valw2.pt
+      [ -f "$ck" ] || { echo "missing checkpoint $ck"; fail=1; continue; }
+      echo "--- eval $run_name $tag ($ck)"
+      python -u "${SCRIPT[$cell]}" --data_dir "$data_dir" --save_dir "$run" --seed "$seed" ${TRAIN_ARGS[$cell]//\{seed\}/$seed} \
+          --eval_only "$ck" --eval_tag "$tag" $EXTRA_ARGS > "$run/eval_${tag}.log" 2>&1 &
+      pids+=($!); names+=("$run_name:$tag")
     done
   done
 else
