@@ -1,6 +1,8 @@
 # Skills toy：组合泛化的两层 Transformer 版本 —— 计划与 walkthrough
 
-> **2026-09-18 下一批方案（尚未实现、未提交作业）：** [第五批自主 latent 执行：20-run 方案](experiments_latent_batch2_20runs.md)。只用现有 40k w2 + 10k d2，完整程序输入，由模型内部学习读取与状态更新；A/B/C/D 为实体监督 × 读取监督的 2×2 对照，加同参数单轮 E 和非共享 F，共 20 次独立训练。O/L 仅为诊断，不计自主执行成功。运行清单见 [manifest](latent_batch2_20runs_manifest.json)。
+> **2026-09-18 21:06 第五批已实现并提交：** 作业 3391572–3391575（20 个 run，每卡 5 个）+ 3391569（吞吐测试）；实现、十项检查与偏差见 [experiments_latent_batch2_log.md](experiments_latent_batch2_log.md)。
+>
+> **2026-09-18 下一批方案：** [第五批自主 latent 执行：20-run 方案](experiments_latent_batch2_20runs.md)。只用现有 40k w2 + 10k d2，完整程序输入，由模型内部学习读取与状态更新；A/B/C/D 为实体监督 × 读取监督的 2×2 对照，加同参数单轮 E 和非共享 F，共 20 次独立训练。O/L 仅为诊断，不计自主执行成功。运行清单见 [manifest](latent_batch2_20runs_manifest.json)。
 
 
 > **2026-09-16 审阅更新：** 已核实结论、解释更正与下一批 N0/N1/N2 的具体方案见 [findings_and_next_experiments.md](findings_and_next_experiments.md)。P1 的覆盖外迁移成立；P2 已观察到零 HH 的双覆盖事实重组，普遍充分性与角色干扰尚未证明。P3 的 random-source 应按源语义答案计分，新 RC 的前 300 题只覆盖单 H（both 为 r6→r6）；旧文相应解释以新文为准。旧"末五保存点"也不等于原提案的 180k–200k 五步点。
@@ -463,6 +465,7 @@ python scripts/summarize_skills.py runs/skills_<cell>_s1 --curve d2_train_unseen
 | 3385016–3385020 loop-L / Lw2 / Lhist / R / RC，3385035 loop-O（3385021 因六个评估共用一卡 OOM 重提） | 第四批（`experiments_loop_next.md`）：局部执行器 L / L-w2 / L-history、共享模块循环 R、方案外补充 RC（循环 + 协议 C），各 3 seed 25 万步；O = C_k1 在 d 到 128 的扩展测试集上重评估（外部逐步调用） | R 完成 04:57：答案级 + 循环，d2 新对 0.001–0.004（所有 T、所有检查点），d ≥ 3 chance；RC 完成 07:37：循环 + CoT，d2 新对 1.0、d ≥ 3 = 0（首错仍是按位置选关系）；L-history final：d2 0.65–1.0、d3 0.1–0.4、d ≥ 8 = 0，own-update 随记录长度 1.0 → 0.02 单调下降，缺的检查点补评中。L / L-w2 完成 09-18 02:00：三 seed × 四检查点全部 10,500 项局部表全对、120,000 条链（d 到 128）全对、真实调用 = 表重放；L-w2 与 L 完全一致；每事实恰 12,800 次 STEP 监督；lr 3e-4 尖峰在 2–7 个评估点打坏表后即恢复。early（3385478）：表在 1,000–1,200 updates 全对，t_2 … t_128 落在同一个 200-update 窗口。L-history 中期：停止正确但更新随历史长度漂移（own-update d2 0.89 → d8 0.34）。O 完成 09-17 23:00：外部逐步 1.0000 在全部 144 格（3 seed × 2 检查点 × 24 格 × 5,000 题），自由 rollout d ≥ 3 全 0（含 d64/128） |
 | 3388398 loop-evalLh | L-history 走完 12 h walltime 后缺的 8 个全矩阵评估（245k / 240k / best），驱动新加的 `MODE=eval` | 完成 15:29，6/8 成功；s1 best 与 s123 245k 因 8 个评估共用一卡 OOM，重提为 3389973（2.5 h；5 h 申请被 Token Limit exceeded 拒绝，go39 token 余额告急） |
 | 3385478 loop-early | L_early / Lhist_early × 3 seed：与主臂完全相同的前 5k updates（同 seed → 同数据流 / HALT 抽签 / 初始化），每 200 updates 评估一次，补 §10 的 t_d 与"训练步数 × 深度"热图（主臂在首个评估点 5k 已经全表正确、全深度 1.0） | 排队（09-18 00:30） |
+| 3391572–3391575 lat2-s1 / s7 / s123 / x，3391569 lat2-tput | 第五批：自主 latent 执行 20 runs（A×4、B×3、C×3、D×4、E×3、F×3），每卡 5 个进程，250k updates + 同作业内 final 评估；tput = debug-g 吞吐测试 | 排队（09-18 21:06） |
 | 3363979 F_long | 完成 13:47 | 完成 |
 | 3363968 r3b | 完成 13:20 | 完成 |
 | 3363973 r3a / 3363969 r3c | 完成 12:33 / 12:32 | 完成 |
