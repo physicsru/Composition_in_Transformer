@@ -1,6 +1,6 @@
 # 第四批：局部执行器与内部循环（`experiments_loop_next.md` 的可行性审查与落地记录）
 
-日期：2026-09-17。方案：[experiments_loop_next.md](experiments_loop_next.md)。作业：3385016–3385020、3385035（见 §5）。
+日期：2026-09-17。方案：[experiments_loop_next.md](experiments_loop_next.md)。作业：3385016–3385020、3385035（见 §5）。**设置与结果的独立汇总：[results_loop_batch_2026-09-18.md](results_loop_batch_2026-09-18.md)。**
 
 ## 0. 结论先行：方案可行，已按原样实现并提交；两处需要提前说明
 
