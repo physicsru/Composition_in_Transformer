@@ -64,7 +64,7 @@ L 最可能稳定成功；L-w2 ≈ L；L-history 不确定；R 最不确定（�
 | 3385018 loop-Lhist | L-history × 3（d=128 评估无 KV cache，最慢） | 12 h | 训练完成 09-18 08:40 左右；全矩阵每次 1.5–1.8 h，walltime 12:12 只够 final（三个 seed）+ s7 的 245k，其余用 MODE=eval 补（§6.7） |
 | 3385019 loop-R | R × 3 | 8 h | 完成 09-18 04:57（§6.5） |
 | 3385020 loop-RC | RC × 3（方案外补充；最终矩阵限 d ≤ 32） | 12 h | 完成 09-18 07:37（§6.6） |
-| 3388398 loop-evalLh | L-history 缺的 8 个全矩阵（s1：245k / 240k / best；s7：240k / best；s123：245k / 240k / best），`MODE=eval` | 6 h | 完成 09-18 15:29，6 / 8 成功；s1 best 与 s123 245k 因 8 个评估共用一卡 CUDA OOM，单独重提为 3389973 loop-evalLh2（walltime 2.5 h；5 h 的申请被 `qsub: Token Limit exceeded` 拒绝——go39 的 token 余额已接近用完） |
+| 3388398 loop-evalLh | L-history 缺的 8 个全矩阵（s1：245k / 240k / best；s7：240k / best；s123：245k / 240k / best），`MODE=eval` | 6 h | 完成 09-18 15:29，6 / 8 成功；s1 best 与 s123 245k 因 8 个评估共用一卡 CUDA OOM，单独重提为 3389973 loop-evalLh2（walltime 2.5 h；5 h 的申请被 `qsub: Token Limit exceeded` 拒绝——go39 的 token 余额已接近用完）；3389973 完成 09-18 18:42：s1 best（200k）one_new d2 / d3 / d4 = 0.999 / 0.101 / 0.007，s123 245k = 0.752 / 0.184 / 0.021，d ≥ 8 为 0；L-history 的 12 个全矩阵齐全 |
 | 3385478 loop-early | L_early / Lhist_early × 3：主臂前 5k updates 的 200-update 分辨率重跑（§10 的 t_d；不是新臂） | 2 h | 完成 09-18 01:49（§6.3） |
 | 3385035 loop-O | C_k1 三个 seed 的 final / best 在扩展测试集上的重评估（首次提交 3385021 六个评估共用一卡、rollout batch 1000，在 d=128 的自由 rollout 处 CUDA OOM；已改为 `--rollout_batch 250` 重提） | 3 h | 完成 09-17 23:00（§6） |
 

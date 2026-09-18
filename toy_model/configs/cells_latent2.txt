@@ -1,0 +1,22 @@
+# Fifth batch: autonomous latent execution, exactly 20 training runs (docs/experiments_latent_batch2_20runs.md §2.2).
+# One line per run; NO cartesian product with a seed list.   run_id | condition | seed | target directory
+01 | A | 1    | runs/latent2_A_s1
+02 | A | 7    | runs/latent2_A_s7
+03 | A | 123  | runs/latent2_A_s123
+04 | A | 2026 | runs/latent2_A_s2026
+05 | B | 1    | runs/latent2_B_s1
+06 | B | 7    | runs/latent2_B_s7
+07 | B | 123  | runs/latent2_B_s123
+08 | C | 1    | runs/latent2_C_s1
+09 | C | 7    | runs/latent2_C_s7
+10 | C | 123  | runs/latent2_C_s123
+11 | D | 1    | runs/latent2_D_s1
+12 | D | 7    | runs/latent2_D_s7
+13 | D | 123  | runs/latent2_D_s123
+14 | D | 2026 | runs/latent2_D_s2026
+15 | E | 1    | runs/latent2_E_s1
+16 | E | 7    | runs/latent2_E_s7
+17 | E | 123  | runs/latent2_E_s123
+18 | F | 1    | runs/latent2_F_s1
+19 | F | 7    | runs/latent2_F_s7
+20 | F | 123  | runs/latent2_F_s123

@@ -1,0 +1,600 @@
+{
+  "schema": "research_plan_not_trainer_config/v1",
+  "plan": "experiments_latent_batch2_20runs.md",
+  "date": "2026-09-18",
+  "status": "PLAN_ONLY",
+  "job_ids": [],
+  "n_training_runs": 20,
+  "objective": "Autonomous latent composition from w2/d2; no external HEAD, execution pointer, or gold state injection.",
+  "dataset": {
+    "semantic_source_dir": "toy_model/data/chain_loop",
+    "entities": 500,
+    "relations": 20,
+    "world_seed": 42,
+    "k": 1,
+    "unique_w2_rows": 40000,
+    "unique_d2_rows": 10000,
+    "unique_d3plus_rows": 0,
+    "w2_rendering": "joint_packet_two_tasks_two_answers",
+    "d2_rendering": "one_complete_program_one_final_answer",
+    "task_regions": 2,
+    "program_slots_per_region": 128,
+    "logical_input_positions": 262,
+    "layout": "ordered_random_relation_slots_static_empty_mask",
+    "auxiliary_targets": "derived_from_training_d2_only"
+  },
+  "model": {
+    "hidden_size": 256,
+    "attention_heads": 2,
+    "latent_slots": 4,
+    "encoder_layers": 2,
+    "core_blocks": 2,
+    "decoder_layers": 1,
+    "core_block_order": [
+      "latent_self_attention",
+      "full_memory_cross_attention",
+      "ffn"
+    ],
+    "read_supervision_location": {
+      "core_block": 2,
+      "slot_zero_based": 0,
+      "head_zero_based": 0
+    },
+    "memory_immutable_within_solve": true,
+    "decoder_reads_memory": false,
+    "loop_index_embedding": false,
+    "external_pointer": false,
+    "rope_base": 100,
+    "dropout": 0,
+    "precision": "fp32",
+    "vocabulary_size": 529,
+    "extra_tokens_in_order": [
+      "TASK",
+      "EOP",
+      "EMPTY",
+      "ANSWER",
+      "END_ANSWER"
+    ],
+    "memory_position_ids": [
+      0,
+      261
+    ],
+    "latent_position_ids": [
+      262,
+      263,
+      264,
+      265
+    ],
+    "decoder_start_position": 266,
+    "max_generated_answer_tokens": 4,
+    "recompute_latent_for_each_answer_token": false,
+    "parameter_count": "measure_before_implementation_freeze"
+  },
+  "training": {
+    "updates": 250000,
+    "phase1_updates": 50000,
+    "phase2_updates": 200000,
+    "phase1_source_rows_per_update": {
+      "w2": 256,
+      "d2": 0
+    },
+    "phase2_source_rows_per_update": {
+      "w2": 128,
+      "d2": 128
+    },
+    "optimizer": "AdamW",
+    "lr": 0.0003,
+    "weight_decay": 0.1,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "warmup_updates": 100,
+    "clip_global_grad_norm": 1.0,
+    "truncated_backprop": false,
+    "answer_loss": "mean(entity_token_CE_per_packet)+END_ANSWER_CE",
+    "initialization": "from_scratch",
+    "no_cross_attention_kv_cache": true
+  },
+  "evaluation": {
+    "depths": [
+      2,
+      3,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "categories": [
+      "all_seen",
+      "one_new",
+      "random"
+    ],
+    "primary_checkpoint": 250000,
+    "tail_checkpoints": [
+      240000,
+      245000
+    ],
+    "full_cell_size": 5000,
+    "matrix_cell_size": 500,
+    "tail_cell_size": 500,
+    "shared_T_grid": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "untied_T_grid": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "single_T_grid": [
+      1
+    ],
+    "claim_threshold": 0.95,
+    "minimum_seeds_for_success": 3,
+    "secondary_best": "after_phase1_only; mean(strict_val_w2_packet_acc,strict_val_d2_acc); shallow_loss_tiebreak; earliest_final_tie",
+    "deep_results_used_for_selection": false,
+    "latent_full_trajectory_accuracy_claimed": false
+  },
+  "runs": [
+    {
+      "run_id": "01",
+      "condition": "A",
+      "condition_name": "latent_ntp",
+      "model_seed": 1,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_A_s1",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "02",
+      "condition": "A",
+      "condition_name": "latent_ntp",
+      "model_seed": 7,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_A_s7",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "03",
+      "condition": "A",
+      "condition_name": "latent_ntp",
+      "model_seed": 123,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_A_s123",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "04",
+      "condition": "A",
+      "condition_name": "latent_ntp",
+      "model_seed": 2026,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_A_s2026",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "05",
+      "condition": "B",
+      "condition_name": "latent_state",
+      "model_seed": 1,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0.5,
+      "read_aux_weight": 0,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_B_s1",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "06",
+      "condition": "B",
+      "condition_name": "latent_state",
+      "model_seed": 7,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0.5,
+      "read_aux_weight": 0,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_B_s7",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "07",
+      "condition": "B",
+      "condition_name": "latent_state",
+      "model_seed": 123,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0.5,
+      "read_aux_weight": 0,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_B_s123",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "08",
+      "condition": "C",
+      "condition_name": "latent_read",
+      "model_seed": 1,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0.5,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_C_s1",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "09",
+      "condition": "C",
+      "condition_name": "latent_read",
+      "model_seed": 7,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0.5,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_C_s7",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "10",
+      "condition": "C",
+      "condition_name": "latent_read",
+      "model_seed": 123,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0.5,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_C_s123",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "11",
+      "condition": "D",
+      "condition_name": "latent_both",
+      "model_seed": 1,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0.5,
+      "read_aux_weight": 0.5,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_D_s1",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "12",
+      "condition": "D",
+      "condition_name": "latent_both",
+      "model_seed": 7,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0.5,
+      "read_aux_weight": 0.5,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_D_s7",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "13",
+      "condition": "D",
+      "condition_name": "latent_both",
+      "model_seed": 123,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0.5,
+      "read_aux_weight": 0.5,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_D_s123",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "14",
+      "condition": "D",
+      "condition_name": "latent_both",
+      "model_seed": 2026,
+      "world_seed": 42,
+      "mode": "shared",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0.5,
+      "read_aux_weight": 0.5,
+      "aux_source": "d2_only",
+      "core_copies": 1,
+      "full_eval_T": [
+        8,
+        256
+      ],
+      "run_dir": "toy_model/runs/latent2_D_s2026",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "15",
+      "condition": "E",
+      "condition_name": "single_pass",
+      "model_seed": 1,
+      "world_seed": 42,
+      "mode": "single",
+      "train_T_uniform": [
+        1
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 1,
+      "full_eval_T": [
+        1
+      ],
+      "run_dir": "toy_model/runs/latent2_E_s1",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "16",
+      "condition": "E",
+      "condition_name": "single_pass",
+      "model_seed": 7,
+      "world_seed": 42,
+      "mode": "single",
+      "train_T_uniform": [
+        1
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 1,
+      "full_eval_T": [
+        1
+      ],
+      "run_dir": "toy_model/runs/latent2_E_s7",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "17",
+      "condition": "E",
+      "condition_name": "single_pass",
+      "model_seed": 123,
+      "world_seed": 42,
+      "mode": "single",
+      "train_T_uniform": [
+        1
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 1,
+      "full_eval_T": [
+        1
+      ],
+      "run_dir": "toy_model/runs/latent2_E_s123",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "18",
+      "condition": "F",
+      "condition_name": "untied_depth",
+      "model_seed": 1,
+      "world_seed": 42,
+      "mode": "untied_prefix",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 8,
+      "full_eval_T": [
+        8
+      ],
+      "run_dir": "toy_model/runs/latent2_F_s1",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "19",
+      "condition": "F",
+      "condition_name": "untied_depth",
+      "model_seed": 7,
+      "world_seed": 42,
+      "mode": "untied_prefix",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 8,
+      "full_eval_T": [
+        8
+      ],
+      "run_dir": "toy_model/runs/latent2_F_s7",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    },
+    {
+      "run_id": "20",
+      "condition": "F",
+      "condition_name": "untied_depth",
+      "model_seed": 123,
+      "world_seed": 42,
+      "mode": "untied_prefix",
+      "train_T_uniform": [
+        2,
+        4,
+        8
+      ],
+      "state_aux_weight": 0,
+      "read_aux_weight": 0,
+      "aux_source": null,
+      "core_copies": 8,
+      "full_eval_T": [
+        8
+      ],
+      "run_dir": "toy_model/runs/latent2_F_s123",
+      "status": "PLANNED_NOT_IMPLEMENTED_NOT_SUBMITTED"
+    }
+  ]
+}
