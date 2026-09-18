@@ -89,7 +89,6 @@ else
     done
   done
 fi
-fail=0
 for i in "${!pids[@]}"; do
   if wait "${pids[$i]}"; then echo "done   ${names[$i]}"; else echo "FAILED ${names[$i]} (see log)"; fail=1; fi
 done
