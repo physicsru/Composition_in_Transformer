@@ -44,3 +44,15 @@ P83 | P | 123 | runs/halt_Pk8_s123  | --data_dir ../data/chain_loop_k8
 R81 | D | 1   | runs/halt_Dk8rope_s1   | --data_dir ../data/chain_loop_k8 --pos rope
 R82 | D | 7   | runs/halt_Dk8rope_s7   | --data_dir ../data/chain_loop_k8 --pos rope
 R83 | D | 123 | runs/halt_Dk8rope_s123 | --data_dir ../data/chain_loop_k8 --pos rope
+# --- JOINT (w2-style) RENDERING (2026-09-19 night). RoPE alone did not help: d2 unseen pairs 0.96 by 5k updates, d3 0.00, and the final position
+# still answers r3(r1(x)) (0.90-0.98) although r1(x) / r2(r1(x)) are decodable at the r1 / r2 positions (1.00 / 1.00 after loops 1 / 2). In a
+# single program of depth <= 2 "the previous position" and "the only earlier computed entity state" are the same place. Joint rendering puts two
+# independent shallow queries in one causal sequence (w2 = [x r][z s]; also [x r][z s1 s2], [x r1 r2][z s], [x r1 r2][z s1 s2]), each read at its own
+# last token after its own depth in loops. Semantic depth stays <= 2, but now an earlier, unrelated entity state is in context and the program
+# does not start at position 0, so only "read the immediately preceding state" fits the data. Evaluation is unchanged (single chains).
+J81 | D | 1   | runs/halt_Dk8joint_rope_s1   | --data_dir ../data/chain_loop_k8 --pos rope --joint 1
+J82 | D | 7   | runs/halt_Dk8joint_rope_s7   | --data_dir ../data/chain_loop_k8 --pos rope --joint 1
+J83 | D | 123 | runs/halt_Dk8joint_rope_s123 | --data_dir ../data/chain_loop_k8 --pos rope --joint 1
+N81 | D | 1   | runs/halt_Dk8joint_nope_s1   | --data_dir ../data/chain_loop_k8 --pos nope --joint 1
+N82 | D | 7   | runs/halt_Dk8joint_nope_s7   | --data_dir ../data/chain_loop_k8 --pos nope --joint 1
+N83 | D | 123 | runs/halt_Dk8joint_nope_s123 | --data_dir ../data/chain_loop_k8 --pos nope --joint 1

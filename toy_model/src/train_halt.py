@@ -72,6 +72,21 @@ def loss_fn(model, arm, tok, last, tgt, R=None, b_train=8, lam=0.0):
     return loss, st
 
 
+def loss_fn_joint(model, tok, pos_a, pos_b, dep_a, dep_b, tgt_a, tgt_b):
+    """Arm D with JOINT rendering. tok (S, 6): [query a][query b] right-padded; every query is atomic (depth 1) or d2 (depth 2) and is read
+    at ITS OWN last token after ITS OWN depth in loops (R = d per query). Semantic depth stays <= 2; what changes is that a program no
+    longer starts at position 0 and that earlier, unrelated entity states are present in the context."""
+    h1 = model.step(model.embed(tok)); h2 = model.step(h1); ces = []
+    for pos, dep, tgt in ((pos_a, dep_a, tgt_a), (pos_b, dep_b, tgt_b)):
+        c1 = F.cross_entropy(model.logits(model.read(h1, pos)).float(), tgt, reduction="none")
+        c2 = F.cross_entropy(model.logits(model.read(h2, pos)).float(), tgt, reduction="none")
+        ces.append(torch.where(dep == 1, c1, c2))
+    ce = torch.cat(ces); dep = torch.cat([dep_a, dep_b]); d1 = (dep == 1).float(); d2 = 1.0 - d1
+    st = dict(ce_atomic=(ce * d1).sum() / d1.sum().clamp(min=1), ce_w2=(ce * d1).sum() / d1.sum().clamp(min=1), ce_d2=(ce * d2).sum() / d2.sum().clamp(min=1),
+              ce_second_slot=ces[1].mean())
+    return ce.mean(), st
+
+
 # ----------------------------------------------------------------------------------------------------------- evaluation
 class EvalSet:
     def __init__(self, items, e0, r0, device):
@@ -159,6 +174,8 @@ def main():
     ap.add_argument("--data_dir", required=True); ap.add_argument("--atomic", required=True); ap.add_argument("--save_dir", required=True)
     ap.add_argument("--arm", choices=["D", "H", "P"], required=True); ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--d_model", type=int, default=768); ap.add_argument("--n_head", type=int, default=12); ap.add_argument("--n_layer", type=int, default=4)
+    ap.add_argument("--joint", type=int, default=0, help="arm D only: render the 128 queries of an update as 64 sequences of TWO independent queries "
+                    "(the 16 w2 sources stay together; the other 96 queries are paired at random), each answered at its own last token")
     ap.add_argument("--pos", choices=["nope", "rope"], default="nope", help="nope = paper-aligned main setting; rope = relative positions (RoPE base 100), a labelled variant")
     ap.add_argument("--lr", type=float, default=1e-4); ap.add_argument("--weight_decay", type=float, default=0.01); ap.add_argument("--warmup", type=int, default=2000)
     ap.add_argument("--clip", type=float, default=1.0); ap.add_argument("--updates", type=int, default=1000000)
@@ -260,7 +277,7 @@ def main():
         src = hashlib.sha256(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), f), "rb").read() for f in ("train_halt.py", "model/loop_gpt.py"))).hexdigest()[:16]
         json.dump(dict(arm=arm, seed=args.seed, n_params=n_params, stop_head_params=model.stop.weight.numel() + 1, backbone_init_hash=hsh(set(model.backbone_names())),
                        model=dict(d_model=args.d_model, n_head=args.n_head, n_layer=args.n_layer, position=args.pos, tied_lm_head=True, residual_out_proj_init=0.0, dropout=0.0, ln_eps=1e-5, act="gelu_tanh", readout="last valid input position"),
-                       batch=dict(queries=N_ROWS, atomic=N_AT, w2_sources=N_W2SRC, w2_rendering="two independent atomic queries per source", d2=N_D2, loss="mean of 128 final-answer CEs"),
+                       batch=dict(queries=N_ROWS, atomic=N_AT, w2_sources=N_W2SRC, w2_rendering=("JOINT: 64 sequences of two independent queries per update, each read at its own last token" if args.joint else "two independent atomic queries per source"), d2=N_D2, loss="mean of 128 final-answer CEs"),
                        optimizer=dict(name="AdamW", lr=args.lr, weight_decay=args.weight_decay, warmup=args.warmup, schedule="linear warm-up then constant", clip=args.clip, label_smoothing=0.0, precision="fp32"),
                        updates=args.updates, halting=dict(b_train=args.b_train, b_eval=args.b_eval, lam=args.lam, stop_thr=args.stop_thr, stop_bias=args.stop_bias, tail="all remaining mass at the last unrolled loop (truncation mass)") if arm == "H" else None,
                        P_budget="R ~ clip(Poisson(4), 2, 8) per batch; main test budget R = 8" if arm == "P" else None,
@@ -274,9 +291,28 @@ def main():
     params = [p for p in model.parameters()]
     tok = torch.zeros((N_ROWS, 3), dtype=torch.long, device=device); last = torch.zeros(N_ROWS, dtype=torch.long, device=device); tgt = torch.zeros(N_ROWS, dtype=torch.long, device=device)
 
+    assert not args.joint or arm == "D", "--joint is implemented for arm D"
+    S = N_ROWS // 2; jtok = torch.zeros((S, 6), dtype=torch.long, device=device)
+    jbuf = {k: torch.zeros(S, dtype=torch.long, device=device) for k in ("pos_a", "pos_b", "dep_a", "dep_b", "tgt_a", "tgt_b")}
+    pair_rng = named_rng(args.seed, "halt_pair"); ar3 = torch.arange(3, device=device)[None]
+    if resume_state is not None and resume_state.get("pair_rng"):
+        pair_rng.bit_generator.state = resume_state["pair_rng"]
+
+    def fill_joint(rows):
+        """rows (128, 5) = [t0, t1, t2 | PAD, last, gold] in the order [32 atomic | 32 w2-derived (source-wise consecutive) | 64 d2]."""
+        n_w = 2 * N_W2SRC; w = rows[N_AT:N_AT + n_w]; rest = torch.cat([rows[:N_AT], rows[N_AT + n_w:]])
+        rest = rest[torch.from_numpy(pair_rng.permutation(len(rest))).to(device)]
+        a = torch.cat([w[0::2], rest[0::2]]); b = torch.cat([w[1::2], rest[1::2]]); la = a[:, 3] + 1
+        jtok.fill_(PAD); jtok[:, :3] = a[:, :3]; jtok.scatter_(1, la[:, None] + ar3, b[:, :3])
+        for k, val in (("pos_a", a[:, 3]), ("pos_b", la + b[:, 3]), ("dep_a", a[:, 3]), ("dep_b", b[:, 3]), ("tgt_a", a[:, 4]), ("tgt_b", b[:, 4])):
+            jbuf[k].copy_(val)
+
     def fwd_bwd(R):
         with torch.autocast("cuda", dtype=torch.bfloat16, enabled=(args.train_precision == "bf16" and device.type == "cuda")):
-            loss, st = loss_fn(model, arm, tok, last, tgt, R=R, b_train=args.b_train, lam=args.lam)
+            if args.joint:
+                loss, st = loss_fn_joint(model, jtok, **jbuf)
+            else:
+                loss, st = loss_fn(model, arm, tok, last, tgt, R=R, b_train=args.b_train, lam=args.lam)
         loss.backward(); gn = torch.nn.utils.clip_grad_norm_(params, args.clip, foreach=True); opt.step()
         return loss, st, gn
 
@@ -322,6 +358,8 @@ def main():
         model.train()
         ia = torch.from_numpy(s_at.take(N_AT)).to(device); iw = torch.from_numpy(s_w2.take(N_W2SRC)).to(device); idd = torch.from_numpy(s_d2.take(N_D2)).to(device)
         rows = torch.cat([T_at[ia], T_w2[iw].reshape(-1, 5), T_d2[idd]]); tok.copy_(rows[:, :3]); last.copy_(rows[:, 3]); tgt.copy_(rows[:, 4])
+        if args.joint:
+            fill_joint(rows)
         R = int(np.clip(r_rng.poisson(4), 2, 8))                     # the stream advances in every arm; only P uses it
         Ru = R if arm == "P" else None
         lr_now = args.lr * min(1.0, u / max(1, args.warmup))
@@ -362,7 +400,7 @@ def main():
             if u % 100000 == 0 or u == args.updates:
                 torch.save(dict(model=model.state_dict(), update=u), P(f"ckpt_{u:07d}.pt"))
             osd = opt.state_dict(); osd = dict(state={i: {k: v.clone() for k, v in s.items()} for i, s in osd["state"].items()})
-            torch.save(dict(model=model.state_dict(), opt=osd, update=u, s_at=s_at.state(), s_w2=s_w2.state(), s_d2=s_d2.state(), r_rng=r_rng.bit_generator.state, ctr=ctr, best=best), last_path + ".tmp")
+            torch.save(dict(model=model.state_dict(), opt=osd, update=u, s_at=s_at.state(), s_w2=s_w2.state(), s_d2=s_d2.state(), r_rng=r_rng.bit_generator.state, pair_rng=pair_rng.bit_generator.state, ctr=ctr, best=best), last_path + ".tmp")
             os.replace(last_path + ".tmp", last_path)
         if u == args.stop_after:
             print(f"stopped at update {u} ({(time.time() - t0) / max(1, u - start + 1) * 1000:.1f} ms / update incl. evals)", flush=True); return
