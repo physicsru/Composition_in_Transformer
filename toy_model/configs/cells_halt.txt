@@ -1,0 +1,17 @@
+# Sixth batch (docs/experiments_learned_halting_2026-09-19.md; log docs/experiments_halting_log.md). One line per run, no seed product.
+# id | arm | seed | run dir | extra train_halt.py args
+# --- MAIN comparison (2 conditions x 3 paired seeds): D = program sets R = d;  H = learned CONTINUE / STOP, final-answer labels only, lam = 0
+D1 | D | 1   | runs/halt_D_s1   |
+D2 | D | 7   | runs/halt_D_s7   |
+D3 | D | 123 | runs/halt_D_s123 |
+H1 | H | 1   | runs/halt_H_s1   |
+H2 | H | 7   | runs/halt_H_s7   |
+H3 | H | 123 | runs/halt_H_s123 |
+# --- EXTRA arms run in parallel, NOT part of the main comparison (listed in the plan as deferred candidates):
+# P  = paper-style random budget R ~ clip(Poisson(4), 2, 8), tested on the common fixed-R grid;  Hc = H with a weak compute cost lam = 0.01
+P1 | P | 1   | runs/halt_P_s1   |
+P2 | P | 7   | runs/halt_P_s7   |
+P3 | P | 123 | runs/halt_P_s123 |
+C1 | H | 1   | runs/halt_Hc_s1   | --lam 0.01
+C2 | H | 7   | runs/halt_Hc_s7   | --lam 0.01
+C3 | H | 123 | runs/halt_Hc_s123 | --lam 0.01
