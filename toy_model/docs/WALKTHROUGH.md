@@ -1,5 +1,7 @@
 # Skills toy：组合泛化的两层 Transformer 版本 —— 计划与 walkthrough
 
+> **2026-09-19 第五批结果：** 20 个 run 全部完成，无一通过 d2 门槛——训练关系对拟合 0.99–1.00，未见关系对与 d3–d128 在所有条件（A / B / C / D / E / F）和所有预算（T = 1 / 8 / 256）下都是 chance；实体 / 读取监督、多轮循环、不共享 core 的效应全为 0。读取监督能把读取顺序迁移到未见对（0.6–1.0）但答案不变；单任务原子题 0.3%–12%。设置与数字见 [results_latent_batch2_2026-09-19.md](results_latent_batch2_2026-09-19.md)。
+>
 > **2026-09-18 21:06 第五批已实现并提交：** 作业 3391720–3391739（20 个 run，**一节点一任务，记在 gj26**；此前的 4 × 5 与 2 × 10 + MPS 打包均在开跑前撤回）+ 3391569 / 3391702 / 3391703（吞吐测试）；实现、十项检查与偏差见 [experiments_latent_batch2_log.md](experiments_latent_batch2_log.md)。
 >
 > **2026-09-18 下一批方案：** [第五批自主 latent 执行：20-run 方案](experiments_latent_batch2_20runs.md)。只用现有 40k w2 + 10k d2，完整程序输入，由模型内部学习读取与状态更新；A/B/C/D 为实体监督 × 读取监督的 2×2 对照，加同参数单轮 E 和非共享 F，共 20 次独立训练。O/L 仅为诊断，不计自主执行成功。运行清单见 [manifest](latent_batch2_20runs_manifest.json)。
@@ -465,7 +467,7 @@ python scripts/summarize_skills.py runs/skills_<cell>_s1 --curve d2_train_unseen
 | 3385016–3385020 loop-L / Lw2 / Lhist / R / RC，3385035 loop-O（3385021 因六个评估共用一卡 OOM 重提） | 第四批（`experiments_loop_next.md`）：局部执行器 L / L-w2 / L-history、共享模块循环 R、方案外补充 RC（循环 + 协议 C），各 3 seed 25 万步；O = C_k1 在 d 到 128 的扩展测试集上重评估（外部逐步调用） | R 完成 04:57：答案级 + 循环，d2 新对 0.001–0.004（所有 T、所有检查点），d ≥ 3 chance；RC 完成 07:37：循环 + CoT，d2 新对 1.0、d ≥ 3 = 0（首错仍是按位置选关系）；L-history final：d2 0.65–1.0、d3 0.1–0.4、d ≥ 8 = 0，own-update 随记录长度 1.0 → 0.02 单调下降，缺的检查点补评中。L / L-w2 完成 09-18 02:00：三 seed × 四检查点全部 10,500 项局部表全对、120,000 条链（d 到 128）全对、真实调用 = 表重放；L-w2 与 L 完全一致；每事实恰 12,800 次 STEP 监督；lr 3e-4 尖峰在 2–7 个评估点打坏表后即恢复。early（3385478）：表在 1,000–1,200 updates 全对，t_2 … t_128 落在同一个 200-update 窗口。L-history 中期：停止正确但更新随历史长度漂移（own-update d2 0.89 → d8 0.34）。O 完成 09-17 23:00：外部逐步 1.0000 在全部 144 格（3 seed × 2 检查点 × 24 格 × 5,000 题），自由 rollout d ≥ 3 全 0（含 d64/128） |
 | 3388398 loop-evalLh | L-history 走完 12 h walltime 后缺的 8 个全矩阵评估（245k / 240k / best），驱动新加的 `MODE=eval` | 完成 15:29，6/8 成功；s1 best 与 s123 245k 因 8 个评估共用一卡 OOM，重提为 3389973（2.5 h；5 h 申请被 Token Limit exceeded 拒绝，go39 token 余额告急） |
 | 3385478 loop-early | L_early / Lhist_early × 3 seed：与主臂完全相同的前 5k updates（同 seed → 同数据流 / HALT 抽签 / 初始化），每 200 updates 评估一次，补 §10 的 t_d 与"训练步数 × 深度"热图（主臂在首个评估点 5k 已经全表正确、全深度 1.0） | 排队（09-18 00:30） |
-| 3391720–3391739 lat2-01 … lat2-20 | 第五批 20 runs，一节点一任务（单进程 48.5 ms / update，约 3.6 h / run），项目 gj26，walltime 5 h；取代开跑前撤回的 3391711 / 3391712 | 排队（09-18 21:46） |
+| 3391720–3391739 lat2-01 … lat2-20 | 第五批 20 runs，一节点一任务（单进程 48.5 ms / update，约 3.6 h / run），项目 gj26，walltime 5 h；取代开跑前撤回的 3391711 / 3391712 | 完成 09-19（全部 fail=0）：未见关系对 d2 与全部深度在 20 个 run 上都是 chance，判据 0 通过，因子效应 0 |
 | 3391711 lat2-a / 3391712 lat2-b | 第五批：自主 latent 执行 20 runs（A×4、B×3、C×3、D×4、E×3、F×3），每卡 10 个进程 + MPS（实测 72 ms / update，无 MPS 141 ms，单进程 48.5 ms），250k updates + 同作业内 final 评估；取代开跑前撤回的 3391572–3391575；吞吐测试 3391569 / 3391702 / 3391703 已完成 | 开跑前撤回 |
 | 3363979 F_long | 完成 13:47 | 完成 |
 | 3363968 r3b | 完成 13:20 | 完成 |
