@@ -21,7 +21,7 @@ if [ "${MODE:-train}" = bench ]; then
   # speed / numerics of the training step: precision x CUDA graph, 200 updates each, sequential on one GPU; plus a multi-node launch probe
   echo "--- pbsdsh probe over the job's nodes:"; n=$(sort -u "$PBS_NODEFILE" | wc -l)
   for i in $(seq 0 $((n - 1))); do pbsdsh -n $i -- bash -c 'echo "node $(hostname): $(nvidia-smi -L | head -1)"' || echo "pbsdsh -n $i failed"; done
-  for arm in ${BENCH_ARMS:-D H}; do for prec in fp32 tf32 bf16; do for g in 0 1; do
+  BA=${BENCH_ARMS:-D+H}; for arm in ${BA//+/ }; do for prec in ${BENCH_PREC:-fp32 tf32 bf16}; do for g in 0 1; do
     out=../runs/halt_bench_${arm}_${prec}_g${g}; rm -rf "$out"
     python -u train_halt.py --data_dir ../$DATA --atomic ../$ATOMIC --save_dir "$out" --arm $arm --seed 1 --cuda_graph $g --train_precision $prec --updates 200 --stop_after 200 --eval_every 1000000 --monitor_per_cell 2 > "$out.log" 2>&1
     echo "$arm $prec graph=$g: $(grep -E 'stopped at|Error' "$out.log" | tail -1) | losses $(python -c "import json; print([round(json.loads(l)['loss'], 4) for l in open('$out/train_log.jsonl')])" 2>/dev/null)"
