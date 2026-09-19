@@ -109,16 +109,23 @@ class EvalSet:
 @torch.no_grad()
 def eval_fixed(model, ES, budgets):
     """budgets: list of ints (the same R for every depth) and / or the string 'd' (R = depth). -> {budget: correct (N,) bool}"""
+    def loops(b, d):
+        """budget spec: int = the same R for every depth; 'd' = depth; 'd+K' = depth + K; 'Kd' = K x depth"""
+        if isinstance(b, int):
+            return b
+        if b == "d":
+            return d
+        return d + int(b[2:]) if b.startswith("d+") else int(b[:-1]) * d
     out = {b: np.zeros(ES.n, dtype=bool) for b in budgets}
     for d, idx, tok, gold in ES.batches():
-        want = sorted({(d if b == "d" else b) for b in budgets}); last = torch.full((len(idx),), d, device=tok.device)
+        want = sorted({loops(b, d) for b in budgets}); last = torch.full((len(idx),), d, device=tok.device)
         h = model.embed(tok); snap = {}
         for t in range(1, want[-1] + 1):
             h = model.step(h)
             if t in want:
                 snap[t] = (model.logits(model.read(h, last)).argmax(-1) == gold).cpu().numpy()
         for b in budgets:
-            out[b][idx] = snap[d if b == "d" else b]
+            out[b][idx] = snap[loops(b, d)]
     return out
 
 
@@ -176,6 +183,8 @@ def main():
     ap.add_argument("--d_model", type=int, default=768); ap.add_argument("--n_head", type=int, default=12); ap.add_argument("--n_layer", type=int, default=4)
     ap.add_argument("--joint", type=int, default=0, help="arm D only: render the 128 queries of an update as 64 sequences of TWO independent queries "
                     "(the 16 w2 sources stay together; the other 96 queries are paired at random), each answered at its own last token")
+    ap.add_argument("--attn_window", type=int, default=0, help="0 = full causal attention (paper-aligned); W > 0 = local causal attention: every token sees itself "
+                    "and the previous W tokens only (an architectural locality prior; no supervision, pointer or loop index is added)")
     ap.add_argument("--pos", choices=["nope", "rope"], default="nope", help="nope = paper-aligned main setting; rope = relative positions (RoPE base 100), a labelled variant")
     ap.add_argument("--lr", type=float, default=1e-4); ap.add_argument("--weight_decay", type=float, default=0.01); ap.add_argument("--warmup", type=int, default=2000)
     ap.add_argument("--clip", type=float, default=1.0); ap.add_argument("--updates", type=int, default=1000000)
@@ -202,7 +211,7 @@ def main():
     T_w2 = torch.tensor([[[e0 + x, r0 + r, PAD, 1, e0 + rel[r][x]] for (x, r) in (q["q1"], q["q2"])] for q in train_w2], device=device)
     T_d2 = torch.tensor([[e0 + q["x"], r0 + q["r"], r0 + q["s"], 2, e0 + rel[q["s"]][rel[q["r"]][q["x"]]]] for q in train_d2], device=device)
 
-    model = LoopGPT(len(vocab), args.d_model, args.n_head, args.n_layer, pos=args.pos); model.seeded_init(args.seed)
+    model = LoopGPT(len(vocab), args.d_model, args.n_head, args.n_layer, pos=args.pos, attn_window=args.attn_window); model.seeded_init(args.seed)
     with torch.no_grad():
         model.stop.bias.fill_(args.stop_bias)
     model.to(device); assert model.wte.weight.data_ptr() == model.wte.weight.data_ptr()
@@ -276,7 +285,7 @@ def main():
             open(P(f), "w").close()
         src = hashlib.sha256(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), f), "rb").read() for f in ("train_halt.py", "model/loop_gpt.py"))).hexdigest()[:16]
         json.dump(dict(arm=arm, seed=args.seed, n_params=n_params, stop_head_params=model.stop.weight.numel() + 1, backbone_init_hash=hsh(set(model.backbone_names())),
-                       model=dict(d_model=args.d_model, n_head=args.n_head, n_layer=args.n_layer, position=args.pos, tied_lm_head=True, residual_out_proj_init=0.0, dropout=0.0, ln_eps=1e-5, act="gelu_tanh", readout="last valid input position"),
+                       model=dict(d_model=args.d_model, n_head=args.n_head, n_layer=args.n_layer, position=args.pos, attn_window=args.attn_window, tied_lm_head=True, residual_out_proj_init=0.0, dropout=0.0, ln_eps=1e-5, act="gelu_tanh", readout="last valid input position"),
                        batch=dict(queries=N_ROWS, atomic=N_AT, w2_sources=N_W2SRC, w2_rendering=("JOINT: 64 sequences of two independent queries per update, each read at its own last token" if args.joint else "two independent atomic queries per source"), d2=N_D2, loss="mean of 128 final-answer CEs"),
                        optimizer=dict(name="AdamW", lr=args.lr, weight_decay=args.weight_decay, warmup=args.warmup, schedule="linear warm-up then constant", clip=args.clip, label_smoothing=0.0, precision="fp32"),
                        updates=args.updates, halting=dict(b_train=args.b_train, b_eval=args.b_eval, lam=args.lam, stop_thr=args.stop_thr, stop_bias=args.stop_bias, tail="all remaining mass at the last unrolled loop (truncation mass)") if arm == "H" else None,
@@ -384,8 +393,10 @@ def main():
         if ev:
             model.eval(); te = time.time(); rec = dict(update=u, elapsed=time.time() - t0, shallow=shallow())
             r = main_protocol(MON); rec["monitor"] = by_cell(mon_items, **r)
+            rb = eval_fixed(model, MON, ["d", "d+1", "2d"])                  # diagnostics on the same weights (never the main metric of H / P)
+            rec["monitor_budgets"] = {b: {k: v["correct"] for k, v in by_cell(mon_items, correct=rb[b]).items()} for b in rb}
             if arm == "H":
-                rec["monitor_forced_R_eq_d"] = {k: v["correct"] for k, v in by_cell(mon_items, correct=eval_fixed(model, MON, ["d"])["d"]).items()}
+                rec["monitor_forced_R_eq_d"] = rec["monitor_budgets"]["d"]
             rec["counters"] = dict(ctr); rec["eval_seconds"] = time.time() - te; rec["peak_mem_gb"] = torch.cuda.max_memory_allocated() / 2 ** 30 if device.type == "cuda" else None
             with open(P("metrics.jsonl"), "a") as f:
                 f.write(json.dumps(rec) + "\n")

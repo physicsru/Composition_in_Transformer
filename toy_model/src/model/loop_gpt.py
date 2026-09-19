@@ -31,6 +31,7 @@ class Block(nn.Module):
     def __init__(self, d, n_head):
         super().__init__()
         self.n_head = n_head; self.rope = None                     # (cos, sin) set by LoopGPT when pos == "rope"
+        self.window = 0                                            # > 0: local causal attention, a token sees itself and the previous `window` tokens
         self.ln_1 = nn.LayerNorm(d, eps=1e-5); self.c_attn = nn.Linear(d, 3 * d); self.attn_proj = nn.Linear(d, d)
         self.ln_2 = nn.LayerNorm(d, eps=1e-5); self.c_fc = nn.Linear(d, 4 * d); self.mlp_proj = nn.Linear(4 * d, d)
 
@@ -42,18 +43,24 @@ class Block(nn.Module):
         if self.rope is not None:                                  # relative positions: rotate Q / K after their projections, V untouched
             cos, sin = self.rope[0][:L].to(q.dtype), self.rope[1][:L].to(q.dtype)
             q = q * cos + _rot(q) * sin; k = k * cos + _rot(k) * sin
-        a = F.scaled_dot_product_attention(q, k, v, is_causal=True)
+        if self.window > 0:
+            i = torch.arange(L, device=x.device); m = (i[None, :] <= i[:, None]) & (i[None, :] >= i[:, None] - self.window)
+            a = F.scaled_dot_product_attention(q, k, v, attn_mask=m)
+        else:
+            a = F.scaled_dot_product_attention(q, k, v, is_causal=True)
         x = x + self.attn_proj(a.transpose(1, 2).reshape(B, L, C))
         return x + self.mlp_proj(F.gelu(self.c_fc(self.ln_2(x)), approximate="tanh"))
 
 
 class LoopGPT(nn.Module):
-    def __init__(self, vocab_size: int, d: int = 768, n_head: int = 12, n_layer: int = 4, pos: str = "nope", rope_base: float = 100.0, max_pos: int = 512):
+    def __init__(self, vocab_size: int, d: int = 768, n_head: int = 12, n_layer: int = 4, pos: str = "nope", rope_base: float = 100.0, max_pos: int = 512, attn_window: int = 0):
         super().__init__()
         assert pos in ("nope", "rope")
-        self.d = d; self.pos = pos
+        self.d = d; self.pos = pos; self.attn_window = attn_window
         self.wte = nn.Embedding(vocab_size, d)
         self.blocks = nn.ModuleList([Block(d, n_head) for _ in range(n_layer)])
+        for blk in self.blocks:
+            blk.window = attn_window
         self.ln_f = nn.LayerNorm(d, eps=1e-5)
         self.stop = nn.Linear(d, 1)                       # 769 parameters; unused (grad None) outside arm H
         if pos == "rope":                                  # parameter-free: the backbone init is identical to the NoPE model's

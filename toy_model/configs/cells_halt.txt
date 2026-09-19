@@ -56,3 +56,20 @@ J83 | D | 123 | runs/halt_Dk8joint_rope_s123 | --data_dir ../data/chain_loop_k8 
 N81 | D | 1   | runs/halt_Dk8joint_nope_s1   | --data_dir ../data/chain_loop_k8 --pos nope --joint 1
 N82 | D | 7   | runs/halt_Dk8joint_nope_s7   | --data_dir ../data/chain_loop_k8 --pos nope --joint 1
 N83 | D | 123 | runs/halt_Dk8joint_nope_s123 | --data_dir ../data/chain_loop_k8 --pos nope --joint 1
+# --- LOCAL ATTENTION (2026-09-19 night). Joint rendering alone did not help either: second-slot d2 is 0.98-0.995 in distribution, but on depth-3 chains
+# the final position still answers r3(r1(x)) (0.98 at R = 2): it reads the FIRST computed state of its own program, and inside a depth <= 2 program the
+# previous relation IS the first relation, so no rendering of depth <= 2 data can separate the two rules. A locality prior can: with a causal window of 1
+# (a token sees itself and the previous token only) "first state of my program" is not expressible beyond distance 1; the only available rule is
+# "apply my relation to the state of the previous position, once that state is an entity". No supervision, pointer, or loop index is added.
+W11 | D | 1   | runs/halt_Dk8w1_nope_s1      | --data_dir ../data/chain_loop_k8 --attn_window 1
+W12 | D | 7   | runs/halt_Dk8w1_nope_s7      | --data_dir ../data/chain_loop_k8 --attn_window 1
+W13 | D | 123 | runs/halt_Dk8w1_nope_s123    | --data_dir ../data/chain_loop_k8 --attn_window 1
+W1R | D | 1   | runs/halt_Dk8w1_rope_s1      | --data_dir ../data/chain_loop_k8 --attn_window 1 --pos rope
+W1J | D | 1   | runs/halt_Dk8w1_nope_joint_s1 | --data_dir ../data/chain_loop_k8 --attn_window 1 --joint 1
+W21 | D | 1   | runs/halt_Dk8w2_nope_s1      | --data_dir ../data/chain_loop_k8 --attn_window 2
+# window 1 gives the first non-zero depth 3 (0.11-0.19 at 5k updates, fading to 0.03-0.08; window 2: 0.00). Suspect: a 4-block stack can do two hops inside
+# ONE loop (information moves one position per block), so hops are tied to blocks rather than loops. Fewer blocks per loop force one hop per loop.
+L11 | D | 1 | runs/halt_Dk8w1_L1_s1 | --data_dir ../data/chain_loop_k8 --attn_window 1 --n_layer 1
+L21 | D | 1 | runs/halt_Dk8w1_L2_s1 | --data_dir ../data/chain_loop_k8 --attn_window 1 --n_layer 2
+PL1 | P | 1 | runs/halt_Pk8w1_L1_s1 | --data_dir ../data/chain_loop_k8 --attn_window 1 --n_layer 1
+PL4 | P | 1 | runs/halt_Pk8w1_L4_s1 | --data_dir ../data/chain_loop_k8 --attn_window 1
