@@ -25,3 +25,22 @@ K43 | D | 123 | runs/halt_Dk4_s123 | --data_dir ../data/chain_chainC
 K81 | D | 1   | runs/halt_Dk8_s1   | --data_dir ../data/chain_chainC_k8
 K82 | D | 7   | runs/halt_Dk8_s7   | --data_dir ../data/chain_chainC_k8
 K83 | D | 123 | runs/halt_Dk8_s123 | --data_dir ../data/chain_chainC_k8
+# --- k = 8 versions of the learned-halting / random-budget arms (2026-09-19 evening, agreed with the user after the partner-count control:
+# at k = 1 arm D cannot even do unseen-pair d2, so H / Hc / P on k = 1 were cancelled before they started). Data: data/chain_loop_k8 =
+# the k = 8 graph (160 of 400 pairs; train / validation files identical to data/chain_chainC_k8) with tests up to d = 128. D at k = 8 = K81-K83.
+H81 | H | 1   | runs/halt_Hk8_s1    | --data_dir ../data/chain_loop_k8
+H82 | H | 7   | runs/halt_Hk8_s7    | --data_dir ../data/chain_loop_k8
+H83 | H | 123 | runs/halt_Hk8_s123  | --data_dir ../data/chain_loop_k8
+C81 | H | 1   | runs/halt_Hck8_s1   | --data_dir ../data/chain_loop_k8 --lam 0.01
+C82 | H | 7   | runs/halt_Hck8_s7   | --data_dir ../data/chain_loop_k8 --lam 0.01
+C83 | H | 123 | runs/halt_Hck8_s123 | --data_dir ../data/chain_loop_k8 --lam 0.01
+P81 | P | 1   | runs/halt_Pk8_s1    | --data_dir ../data/chain_loop_k8
+P82 | P | 7   | runs/halt_Pk8_s7    | --data_dir ../data/chain_loop_k8
+P83 | P | 123 | runs/halt_Pk8_s123  | --data_dir ../data/chain_loop_k8
+# --- RELATIVE-POSITION VARIANT (my addition): arm D on k = 8 with RoPE instead of NoPE. Diagnosis on the NoPE k = 8 models: on depth-3 chains
+# whose adjacent pairs were all trained they answer r3(r1(x)) (0.61-0.95), i.e. the last position reads the bridge from the r1 position instead
+# of from the PREVIOUS position, although r2(r1(x)) is decodable at the r2 position (0.53-0.95). With depth <= 2 "previous position" and
+# "position 1" coincide; relative positions make "attend to the previous token" the simplest rule that fits both hops. Same init, data and streams.
+R81 | D | 1   | runs/halt_Dk8rope_s1   | --data_dir ../data/chain_loop_k8 --pos rope
+R82 | D | 7   | runs/halt_Dk8rope_s7   | --data_dir ../data/chain_loop_k8 --pos rope
+R83 | D | 123 | runs/halt_Dk8rope_s123 | --data_dir ../data/chain_loop_k8 --pos rope

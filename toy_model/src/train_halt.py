@@ -159,6 +159,7 @@ def main():
     ap.add_argument("--data_dir", required=True); ap.add_argument("--atomic", required=True); ap.add_argument("--save_dir", required=True)
     ap.add_argument("--arm", choices=["D", "H", "P"], required=True); ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--d_model", type=int, default=768); ap.add_argument("--n_head", type=int, default=12); ap.add_argument("--n_layer", type=int, default=4)
+    ap.add_argument("--pos", choices=["nope", "rope"], default="nope", help="nope = paper-aligned main setting; rope = relative positions (RoPE base 100), a labelled variant")
     ap.add_argument("--lr", type=float, default=1e-4); ap.add_argument("--weight_decay", type=float, default=0.01); ap.add_argument("--warmup", type=int, default=2000)
     ap.add_argument("--clip", type=float, default=1.0); ap.add_argument("--updates", type=int, default=1000000)
     ap.add_argument("--b_train", type=int, default=8, help="H: loops unrolled in training (not tied to the depth of the query)")
@@ -184,7 +185,7 @@ def main():
     T_w2 = torch.tensor([[[e0 + x, r0 + r, PAD, 1, e0 + rel[r][x]] for (x, r) in (q["q1"], q["q2"])] for q in train_w2], device=device)
     T_d2 = torch.tensor([[e0 + q["x"], r0 + q["r"], r0 + q["s"], 2, e0 + rel[q["s"]][rel[q["r"]][q["x"]]]] for q in train_d2], device=device)
 
-    model = LoopGPT(len(vocab), args.d_model, args.n_head, args.n_layer); model.seeded_init(args.seed)
+    model = LoopGPT(len(vocab), args.d_model, args.n_head, args.n_layer, pos=args.pos); model.seeded_init(args.seed)
     with torch.no_grad():
         model.stop.bias.fill_(args.stop_bias)
     model.to(device); assert model.wte.weight.data_ptr() == model.wte.weight.data_ptr()
@@ -258,7 +259,7 @@ def main():
             open(P(f), "w").close()
         src = hashlib.sha256(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), f), "rb").read() for f in ("train_halt.py", "model/loop_gpt.py"))).hexdigest()[:16]
         json.dump(dict(arm=arm, seed=args.seed, n_params=n_params, stop_head_params=model.stop.weight.numel() + 1, backbone_init_hash=hsh(set(model.backbone_names())),
-                       model=dict(d_model=args.d_model, n_head=args.n_head, n_layer=args.n_layer, position="NoPE", tied_lm_head=True, residual_out_proj_init=0.0, dropout=0.0, ln_eps=1e-5, act="gelu_tanh", readout="last valid input position"),
+                       model=dict(d_model=args.d_model, n_head=args.n_head, n_layer=args.n_layer, position=args.pos, tied_lm_head=True, residual_out_proj_init=0.0, dropout=0.0, ln_eps=1e-5, act="gelu_tanh", readout="last valid input position"),
                        batch=dict(queries=N_ROWS, atomic=N_AT, w2_sources=N_W2SRC, w2_rendering="two independent atomic queries per source", d2=N_D2, loss="mean of 128 final-answer CEs"),
                        optimizer=dict(name="AdamW", lr=args.lr, weight_decay=args.weight_decay, warmup=args.warmup, schedule="linear warm-up then constant", clip=args.clip, label_smoothing=0.0, precision="fp32"),
                        updates=args.updates, halting=dict(b_train=args.b_train, b_eval=args.b_eval, lam=args.lam, stop_thr=args.stop_thr, stop_bias=args.stop_bias, tail="all remaining mass at the last unrolled loop (truncation mass)") if arm == "H" else None,
