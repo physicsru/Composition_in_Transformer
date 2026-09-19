@@ -15,3 +15,13 @@ P3 | P | 123 | runs/halt_P_s123 |
 C1 | H | 1   | runs/halt_Hc_s1   | --lam 0.01
 C2 | H | 7   | runs/halt_Hc_s7   | --lam 0.01
 C3 | H | 123 | runs/halt_Hc_s123 | --lam 0.01
+# --- PARTNER-COUNT CONTROL (my addition, 2026-09-19 evening): the same arm D on the k = 2 / 4 / 8 relation graphs (40 / 80 / 160 of the 400
+# ordered pairs instead of 20; same world, atomic file and w2 rows; tests up to d = 32). At k = 1 every relation has ONE trained successor, so a
+# d2 training row is identified by (x, r1) alone; on unseen pairs the k = 1 models answer r2(x) (47-90 %), i.e. they skip the first hop.
+K21 | D | 1   | runs/halt_Dk2_s1   | --data_dir ../data/chain_chainC_k2
+K41 | D | 1   | runs/halt_Dk4_s1   | --data_dir ../data/chain_chainC
+K42 | D | 7   | runs/halt_Dk4_s7   | --data_dir ../data/chain_chainC
+K43 | D | 123 | runs/halt_Dk4_s123 | --data_dir ../data/chain_chainC
+K81 | D | 1   | runs/halt_Dk8_s1   | --data_dir ../data/chain_chainC_k8
+K82 | D | 7   | runs/halt_Dk8_s7   | --data_dir ../data/chain_chainC_k8
+K83 | D | 123 | runs/halt_Dk8_s123 | --data_dir ../data/chain_chainC_k8
