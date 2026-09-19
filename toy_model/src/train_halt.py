@@ -48,19 +48,21 @@ def loss_fn(model, arm, tok, last, tgt, R=None, b_train=8, lam=0.0):
     if arm == "D":
         h = model.step(h); z1 = model.read(h, last)
         h2 = model.step(h[n1:]); z2 = model.read(h2, last[n1:])
-        ce = F.cross_entropy(torch.cat([model.logits(z1[:n1]), model.logits(z2)]), tgt, reduction="none")
+        ce = F.cross_entropy(torch.cat([model.logits(z1[:n1]), model.logits(z2)]).float(), tgt, reduction="none")
         loss = ce.mean()
     elif arm == "P":
         for _ in range(R):
             h = model.step(h)
-        ce = F.cross_entropy(model.logits(model.read(h, last)), tgt, reduction="none"); loss = ce.mean()
+        ce = F.cross_entropy(model.logits(model.read(h, last)).float(), tgt, reduction="none"); loss = ce.mean()
     else:
         ces, ps = [], []
         for _ in range(b_train):
             h = model.step(h); z = model.read(h, last)
-            ces.append(F.cross_entropy(model.logits(z), tgt, reduction="none")); ps.append(torch.sigmoid(model.stop_logit(z)))
-        ce_t = torch.stack(ces); p = torch.stack(ps)                                   # (B_train, N)
-        surv = torch.cumprod(1.0 - p, 0); prev = torch.cat([torch.ones_like(surv[:1]), surv[:-1]])
+            ces.append(F.cross_entropy(model.logits(z).float(), tgt, reduction="none")); ps.append(model.stop_logit(z).float())
+        ce_t = torch.stack(ces); sl = torch.stack(ps); p = torch.sigmoid(sl)           # (B_train, N)
+        # survival prod_{j<=t}(1 - p_j) in log space: log(1 - sigmoid(s)) = logsigmoid(-s)  (cumprod's backward syncs with the host,
+        # which a captured CUDA graph does not allow; the log form is also the numerically safer one)
+        surv = torch.exp(torch.cumsum(F.logsigmoid(-sl), 0)); prev = torch.cat([torch.ones_like(surv[:1]), surv[:-1]])
         q = torch.cat([(p * prev)[:-1], prev[-1:]])                                    # last loop collects ALL remaining mass
         steps = torch.arange(1, b_train + 1, device=tok.device, dtype=q.dtype)[:, None]
         ET = (q * steps).sum(0); ce = (q * ce_t).sum(0); loss = (ce + lam * ET).mean()
@@ -165,6 +167,8 @@ def main():
     ap.add_argument("--stop_bias", type=float, default=0.0, help="initial bias of the stop head")
     ap.add_argument("--eval_every", type=int, default=10000); ap.add_argument("--monitor_per_cell", type=int, default=100)
     ap.add_argument("--cuda_graph", type=int, default=0); ap.add_argument("--resume", action="store_true"); ap.add_argument("--eval_only", action="store_true")
+    ap.add_argument("--train_precision", choices=["fp32", "tf32", "bf16"], default="fp32",
+                    help="matmul precision of the TRAINING step only (tf32 = TensorFloat-32 matmuls, bf16 = autocast); every evaluation runs in strict fp32")
     ap.add_argument("--stop_after", type=int, default=0); ap.add_argument("--smoke", type=int, default=0)
     args = ap.parse_args()
     arm = args.arm; device = torch.device("cuda" if torch.cuda.is_available() else "cpu"); os.makedirs(args.save_dir, exist_ok=True)
@@ -269,14 +273,22 @@ def main():
     params = [p for p in model.parameters()]
     tok = torch.zeros((N_ROWS, 3), dtype=torch.long, device=device); last = torch.zeros(N_ROWS, dtype=torch.long, device=device); tgt = torch.zeros(N_ROWS, dtype=torch.long, device=device)
 
-    def train_step(R):
-        opt.zero_grad(set_to_none=True)
-        loss, st = loss_fn(model, arm, tok, last, tgt, R=R, b_train=args.b_train, lam=args.lam)
+    def fwd_bwd(R):
+        with torch.autocast("cuda", dtype=torch.bfloat16, enabled=(args.train_precision == "bf16" and device.type == "cuda")):
+            loss, st = loss_fn(model, arm, tok, last, tgt, R=R, b_train=args.b_train, lam=args.lam)
         loss.backward(); gn = torch.nn.utils.clip_grad_norm_(params, args.clip, foreach=True); opt.step()
         return loss, st, gn
 
+    def set_tf32(on):
+        torch.backends.cuda.matmul.allow_tf32 = bool(on); torch.backends.cudnn.allow_tf32 = bool(on)
+
+    def train_step(R):
+        opt.zero_grad(set_to_none=True)
+        return fwd_bwd(R)
+
     graphs = {}
     R_values = list(range(2, 9)) if arm == "P" else [None]
+    set_tf32(args.train_precision == "tf32")
     if args.cuda_graph and device.type == "cuda":
         snap = {k: v.clone() for k, v in model.state_dict().items()}
         side = torch.cuda.Stream(); side.wait_stream(torch.cuda.current_stream())
@@ -288,8 +300,7 @@ def main():
         for R in R_values:
             g = torch.cuda.CUDAGraph(); opt.zero_grad(set_to_none=True)
             with torch.cuda.graph(g):
-                loss, st = loss_fn(model, arm, tok, last, tgt, R=R, b_train=args.b_train, lam=args.lam)
-                loss.backward(); gn = torch.nn.utils.clip_grad_norm_(params, args.clip, foreach=True); opt.step()
+                loss, st, gn = fwd_bwd(R)
             graphs[R] = (g, loss, st, gn)
         model.load_state_dict(snap)                                  # in place: undo the warm-up / capture updates exactly
         for p_, s_ in opt.state.items():
@@ -317,10 +328,12 @@ def main():
             opt.param_groups[0]["lr"].fill_(lr_now)
         else:
             opt.param_groups[0]["lr"] = lr_now
+        set_tf32(args.train_precision == "tf32")
         if graphs:
             g, loss, st, gn = graphs[Ru]; g.replay()
         else:
             loss, st, gn = train_step(Ru)
+        set_tf32(False)                                            # everything outside the training step (all evaluations) is strict fp32
         ctr["atomic"] += N_AT; ctr["w2_sources"] += N_W2SRC; ctr["w2_queries"] += 2 * N_W2SRC; ctr["d2"] += N_D2
         ctr["row_loops"] += {"D": N_ROWS + N_D2, "H": N_ROWS * args.b_train, "P": N_ROWS * R}[arm]
         if arm == "P":

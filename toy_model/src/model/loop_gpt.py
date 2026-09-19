@@ -73,7 +73,8 @@ class LoopGPT(nn.Module):
 
     def read(self, h, last):
         """z_t at the last valid input position. last: (B,) index of the last real token."""
-        return self.ln_f(h[torch.arange(h.shape[0], device=h.device), last])
+        # gather (backward = scatter_add) instead of advanced indexing, whose backward is a slow sort-based index_put
+        return self.ln_f(torch.gather(h, 1, last[:, None, None].expand(-1, 1, h.shape[-1])).squeeze(1))
 
     def logits(self, z):
         return z @ self.wte.weight.t()                     # tied head: the SAME parameter storage as the input embedding

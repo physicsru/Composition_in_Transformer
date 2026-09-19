@@ -11,7 +11,7 @@
 | 总 updates | **1,000,000**（≈ 每条 d2 来源行 6,400 次呈现，与论文 §5 的 2k–7k epoch 同量级）；所有臂相同 | 方案留空；匹配 updates 与数据曝光 |
 | 学习率日程 | 线性 warmup 2,000 → **常数** 1e-4（不衰减，因此可以不改配方地续跑）；AdamW wd 0.01，label smoothing 0 | 对齐方案 §2；衰减长度留空，取常数 |
 | 梯度裁剪 | 全局范数 1.0，所有臂一致 | 方案未写；沿用第五批的统一稳定措施，披露为偏差 |
-| 精度 | fp32，不开 TF32 | |
+| 精度 | 权重、优化器状态、**所有评估**为严格 fp32；**训练步**的矩阵乘用 TF32（`--train_precision tf32`）并整步捕获为 CUDA graph（`--cuda_graph 1`）。benchmark（§5）里 fp32 / TF32 的 loss 到小数点后 4 位相同，图模式与普通模式 300 updates 后权重差为 0 | 任何正式 run 开跑前根据 benchmark 改定；开跑后不再改 |
 | 骨干 | 4 个 GPT-2 式 block 的共享 stack、宽 768、12 头、NoPE、因果 attention、GELU(tanh)、LN eps 1e-5、所有 dropout 0、LM head 与输入 embedding 同一参数、attention / MLP 的残差输出投影零初始化、每轮不重新注入输入；读出 = 最后一个有效输入位置经 final LN；28.76M 参数（含 769 个 stop head 参数，所有臂都实例化） | 对齐方案 §1 |
 | 词表 | `chain_loop/vocab.json` 原 524 项（3 个未用 token） | |
 | D 的循环数 | 训练：原子 1 轮、d2 2 轮；测试：d 轮（由输入里的关系个数得到） | 学习停止方案 §3 |
@@ -53,17 +53,32 @@
 8. 三个臂同 seed 的骨干初始化 hash 相同；D / P 的 stop head 不进入 AdamW state；三个臂 8 updates 直跑 = 4 + resume 4（权重、AdamW 动量、来源流、R 流、计数器）。
 9. 完整 run 写出 `final_eval.json`（主协议、强制 R = d、固定网格、KL / 熵规则、H 的采样停止）。
 
-## 5. 作业（全部一节点一任务，项目 gj26）
+## 5. 作业与速度
 
-| 作业 | run | walltime | 状态 |
-|---|---|---|---|
-| 3396346–3396348 | halt-D1 / D2 / D3 | 12 h | 排队 09-19 |
-| 3396349–3396351 | halt-H1 / H2 / H3 | 36 h | 排队 |
-| 3396352–3396354 | halt-P1 / P2 / P3 | 20 h | 排队 |
-| 3396355–3396357 | halt-C1 / C2 / C3 | 36 h | 排队 |
-| 3396345 | halt-gtest（debug-g）：D / H / P 各 300 updates，普通模式 vs 整步 CUDA graph 的 loss 与权重对比、每 update 耗时 | 25 min | 排队 |
+**正式作业（一节点一任务；`-v RUN=<id>,PREC=tf32,GRAPH=1`）：**
 
-训练步很小、受 kernel 启动开销限制（估计 D ≈ 17 ms、P ≈ 30 ms、H ≈ 55 ms / update，1M updates ≈ 5 / 9 / 15 h）。`train_halt.py --cuda_graph 1` 把"前向 + 反传 + 裁剪 + AdamW"整步捕获成 CUDA graph（静态 batch 形状；P 每个 R 一张图；捕获前的预热更新会被原位撤销），数学不变。驱动在作业启动时检查 `configs/halt_use_cuda_graph` 是否存在来决定是否启用：验证作业通过后创建该文件，之后启动的 run 自动加速；`last.pt` 的续跑与模式无关。
+| 作业 | run | 项目 | walltime | 状态 |
+|---|---|---|---|---|
+| 3396750–3396752 | halt-D1 / D2 / D3 | go39 | 4 h | 排队 09-19 17:00 |
+| 3396753–3396755 | halt-P1 / P2 / P3 | go39 | 9 h | 排队 |
+| 3396756–3396758 | halt-H1 / H2 / H3 | go39 | 16 h | 排队 |
+| 3396759–3396761 | halt-C1 / C2 / C3（Hc） | go39 | 16 h | 排队 |
+| 3396346–3396357 | 同样 12 个 run 的第一次提交（gj26，fp32 普通模式，walltime 12–36 h） | gj26 | — | 开跑前撤回：gj26 项目的同时运行作业数是 23 / 24（其他用户），调度器预计次日才开始；长 walltime 也不利于回填 |
+
+为什么回到 go39：gj26 的瓶颈不是 token 而是**项目同时运行作业数上限 24**（提交时 23 个在跑）；go39 当时 0 个在跑、余额约 169 node-hours，12 个紧 walltime 作业合计预扣 135。walltime 不够就用同一条命令续跑（`--resume` 精确）；go39 拒绝时驱动脚本支持 `-W group_list=gj26`，也支持一个多节点作业里每节点一个 run（`RUNS=H1+H2+…`，pbsdsh 已验证可用），用来绕开作业数上限。
+
+**速度实测（GH200，每 update）：**
+
+| 配置 | D | H（展开 8 轮） |
+|---|---|---|
+| fp32 普通 | 18.9 ms | 135.8 ms |
+| fp32 + CUDA graph | 11.2 ms | 118.3 ms |
+| TF32 + CUDA graph | 8.3 ms | 102.7 ms |
+| bf16 autocast + CUDA graph | 8.1 ms | 102.0 ms |
+
+- 验证作业 3396345：D 的普通模式与图模式 300 updates 后**权重差为 0**，logged loss 完全相同；H 的图捕获第一次失败（`cumprod` 的反传会与主机同步），已把存活概率改为 log 空间的 `exp(cumsum(logsigmoid(-s)))`，数学等价、数值更稳。
+- benchmark 3396457：上表；TF32 与 fp32 的 loss 逐点相同到 4 位小数。H 每个 block 的耗时是 D 的约 4.7 倍，定位到读出用的高级索引 `h[arange, last]`（反传是基于排序的 `index_put`，H 每轮都要做一次）；已改为 `gather`（反传 = `scatter_add`），前向数值不变。改后的 H 与 P 的速度由 3396762 复测。
+- 按上表保守估计 1M updates：D ≈ 2.3 h，P ≈ 6–8 h，H ≈ 10–28 h（取决于读出修复的效果）。
 
 ## 6. 结果
 
